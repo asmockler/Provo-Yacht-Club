@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+ 
+    <!-- Title -->
+    <div class="row"><div class="col-lg-12">
+        <h1>Test Area</h1>
+    </div></div>
+
+    <!-- This is the opening tag for the div row that contains the content -->
+    <div class="row">
+
+        <!-- This is the code for the form on the left -->
+        <div class="col-lg-5 affix-top"><div class="panel panel-primary">
+            <form method="post" action="/">
+             <fieldset>
+                <div class="panel-heading">
+                    <h3 class="panel-title">New Entry
+                        <button class="btn btn-mini btn-primary pull-right visible-sm pushme" type="button" data-toggle="collapse" data-target="#demo, #demo1" style="margin-top:-3px">collapse</button>
+                    </h3>
+                </div>
+
+                <!-- This is for the left column 
+                    The first div is coded to be expandable -->
+                <div class="row collapse in" id="demo"><div class="col-6"><div class="form-group">
+                    <label for="hospital">Hospital Name</label>
+                    <input type="text" class="form-control" placeholder="e.x. Parkview Medical Center" name="hospital"><br />
+
+                    <label>Address</label>
+                    <input class="form-control" type="text" placeholder="Street Address" name="address"><br />
+                    <input class="form-control" type="text" placeholder="City" name="city"><br />
+                    <div class="row">
+                        <div class="col-5"><input class="form-control" type="text" placeholder="State" name="state" maxlength="2"></div>
+                        <div class="col-7"><input class="form-control" type="text" placeholder="ZIP" name="zip" maxlength="5"></div>
+                    </div>
+
+                </div></div>
+
+                <div class="col-6"><div class="form-group">
+                    <label>Technician Name</label>
+                    <input type="text" placeholder="e.x. John Doe" name="name" class="form-control"><br />
+                    <label>Reported Number of Units</label>
+                    <input type="text" name="repunits" maxlength="3" class="form-control input-small"></br >
+                    <label>Actual Number of Units</label>
+                    <input type="text" name="actunits" maxlength="3" class="form-control input-small"></br >
+                    <label>Failed Units</label>
+                    <input type="text" name="funits" maxlength="3" class="form-control input-small"></br >
+                </div></div></div>
+
+                <div class="panel-footer"><div class="collapse in" id="demo1"><button type="submit" class="btn btn-primary btn-block">Create Entry</button></div></div>
+
+             </fieldset>
+            </form>
+        </div></div>
+
+
+        <!-- This is where the code for the right column goes -->
+        <div class="col-lg-7">
+        <% @results.reverse_each do |record| %>
+        <div class="col-lg-12"><div class="panel panel-primary">
+
+            <!-- The Title Bar of the Panel -->
+            <div class="panel-heading">
+                <h3 class="panel-title"><%= record['hospital'] %></h3>
+                <p class="muted" style="margin-bottom:-8px"><small>Entered at <%= record['entrytime'] %></small></p>
+            </div>
+
+            <!-- Panel Body -->
+            <div class="row">
+            <!-- Left Column -->
+            <div class="col-lg-6 hidden-sm">
+                <strong>Address</strong><br />
+                <%= record['address'] %><br />
+                <%= record['city'] %>, <%= record['state'] %> <%= record['zip'] %>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-lg-6 col-sm-12">
+                <strong><%= record['repunits'] %></strong> Units Reported<br />
+                <strong><%= record['actunits'] %></strong> Actual Units<br />
+                <strong><%= record['funits'] %></strong> Failed Units<br />
+            </div>
+
+            <!-- For Mobile Sizes (Switches Left and Right column order when stacked) -->
+            <div class="col-12 visible-sm">
+                <br /><strong>Address</strong><br />
+                <%= record['address'] %><br />
+                <%= record['city'] %>, <%= record['state'] %> <%= record['zip'] %>
+            </div>
+
+            <!-- Footer -->
+            <div><p class="text-muted pull-right" style="margin-bottom:-13px; margin-right:10px"><small>Inspection and work performed by <%= record['name'] %></small></p></div>
+
+            </div>
+
+        </div></div>
+        <% end %>
+        </div>
+    <!-- This is the div tag that closes the row that contains the content -->
+    </div>
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script>$(function(){
+    $(".pushme").click(function () {
+        $(this).text(function(i, v){
+            return v === "collapse" ? "expand" : "collapse";
+        })
+    });
+    })</script>
+  </body>
+</html>

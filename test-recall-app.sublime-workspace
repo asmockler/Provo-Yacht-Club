@@ -1,0 +1,499 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"webkit-gra",
+				"webkit-linear-gradient"
+			],
+			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"nam",
+				"name"
+			],
+			[
+				"border-rai",
+				"border-top-right-radius"
+			],
+			[
+				"backg",
+				"background-size"
+			],
+			[
+				"tooltip",
+				"tooltip"
+			],
+			[
+				"anima",
+				"animated-spin"
+			],
+			[
+				"anim",
+				"animated-spin"
+			],
+			[
+				"logo",
+				"logoshrink"
+			],
+			[
+				"transform",
+				"transform"
+			],
+			[
+				"max",
+				"max-height"
+			],
+			[
+				"font-",
+				"font-family"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"right",
+				"pull-right"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"list",
+				"list-style-type"
+			],
+			[
+				"ma",
+				"margin-right"
+			],
+			[
+				"spa",
+				"white-space"
+			],
+			[
+				"border-",
+				"border-spacing"
+			],
+			[
+				"border",
+				"border-radius"
+			],
+			[
+				"backgrou",
+				"background-color"
+			],
+			[
+				"re",
+				"repeat-y"
+			],
+			[
+				"background",
+				"background-repeat"
+			],
+			[
+				"rb",
+				"rgba()"
+			],
+			[
+				"hero",
+				"hero-unit-small"
+			],
+			[
+				"padding",
+				"padding-left"
+			],
+			[
+				"shadow",
+				"webkit-box-shadow"
+			],
+			[
+				"shad",
+				"text-shadow"
+			],
+			[
+				"style",
+				"font-style"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "hello.rb",
+			"settings":
+			{
+				"buffer_size": 1246,
+				"line_ending": "Unix",
+				"name": "puts \"Now You've done it!\""
+			}
+		},
+		{
+			"file": "views/backup.erb",
+			"settings":
+			{
+				"buffer_size": 3726,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "public/css/bootstrap.css",
+			"settings":
+			{
+				"buffer_size": 82843,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/index.erb",
+			"settings":
+			{
+				"buffer_size": 5223,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+		],
+		"width": 467.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/Andy/sinatra-test/views/index.erb",
+		"/Users/Andy/sinatra-test/public/css/bootstrap.css",
+		"/Users/Andy/groovy.rb",
+		"/Users/Andy/Desktop/whiteboard/bootstrap.min.js",
+		"/Users/Andy/Desktop/whiteboard/bootstrap.css",
+		"/Users/Andy/Desktop/whiteboard/salesIdeas.html",
+		"/Users/Andy/Desktop/whiteboard/sales2.html",
+		"/Users/Andy/Desktop/salesIdeas.html",
+		"/Users/Andy/Desktop/airport/bootstrap.css",
+		"/Users/Andy/Desktop/airport/index.html",
+		"/Users/Andy/Desktop/Code and Geektool/Andy Site/bootstrap/css/bootstrap.min.css",
+		"/Users/Andy/Desktop/Code and Geektool/Andy Site/home.html",
+		"/Users/Andy/Desktop/Code and Geektool/bootstrap/js/bootstrap.js",
+		"/Users/Andy/Desktop/Lightuptheworld/contact.html",
+		"/Users/Andy/Desktop/Lightuptheworld/index.html",
+		"/Users/Andy/Desktop/Lightuptheworld/about.html",
+		"/Users/Andy/Desktop/orgchart.html",
+		"/Users/Andy/Desktop/Lightuptheworld/stylesheet.css",
+		"/Users/Andy/Downloads/bootstrap/bootstrap/css/bootstrap.css",
+		"/Users/Andy/Desktop/3/3.html",
+		"/Users/Andy/Desktop/Work/Light Up the World Foundation/LUTW/bootstrap/css/bootstrap.css",
+		"/Users/Andy/Downloads/shadowbox-3.0.3/shadowbox.css",
+		"/Users/Andy/Downloads/shadowbox-3.0.3/shadowbox.js",
+		"/Users/Andy/Desktop/node.css",
+		"/Users/Andy/Desktop/orgchart1.html",
+		"/Users/Andy/Desktop/LUTW/bootstrap/css/bootstrap.min.css",
+		"/Users/Andy/Downloads/animate-custom.css",
+		"/Users/Andy/Desktop/LUTW/home.html",
+		"/Users/Andy/Desktop/LUTW/template.html",
+		"/Users/Andy/Desktop/LUTW/LutWPlayground.html",
+		"/Users/Andy/Desktop/LUTW/contact.html",
+		"/Users/Andy/Desktop/LUTW/about.html",
+		"/Users/Andy/Desktop/LUTW/test1.html",
+		"/Users/Andy/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/Andy/Desktop/LUTW/index.html",
+		"/Users/Andy/Desktop/LUTW/bootstrap/js/bootstrap.min.js",
+		"/Users/Andy/Desktop/LUTW/LUTW.sublime-project",
+		"/Users/Andy/Desktop/LUTW/bootstrap/css/bootstrap2.min.css",
+		"/Users/Andy/Desktop/stylesheet.css",
+		"/Users/Andy/Desktop/sublime.html"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"float: right",
+			"float",
+			"body",
+			"repunits",
+			"modal",
+			"element",
+			"appendTo",
+			"container",
+			"thead",
+			"table",
+			"table {",
+			"table",
+			"navbar-inverse",
+			"inverse",
+			"row",
+			"li",
+			"ul",
+			"weight",
+			"inner",
+			"vertical",
+			"navbar",
+			"navbar-inner",
+			"nav",
+			"navbar{",
+			"navbar",
+			"bottom",
+			"ul",
+			"fixed",
+			"navbar",
+			"hover",
+			"span",
+			"thumbnails",
+			"main",
+			"icon",
+			"icons",
+			"btn-large",
+			"body",
+			"navbar",
+			"jumbo",
+			"header",
+			"\"nav\"",
+			"nav",
+			"navbar",
+			"transition",
+			"slide",
+			"carousel",
+			"head{",
+			"head",
+			"tron",
+			"jumbo",
+			"body",
+			"hero"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": true,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "hello.rb",
+					"settings":
+					{
+						"buffer_size": 1246,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								468,
+								468
+							]
+						],
+						"settings":
+						{
+							"auto_name": "puts \"Now You've done it!\"",
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "views/backup.erb",
+					"settings":
+					{
+						"buffer_size": 3726,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "public/css/bootstrap.css",
+					"settings":
+					{
+						"buffer_size": 82843,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								49359,
+								49371
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 44005.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 3,
+					"file": "views/index.erb",
+					"settings":
+					{
+						"buffer_size": 5223,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5194,
+								5194
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 302.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}

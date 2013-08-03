@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+
+
+
+<div class="row">
+<div class="col-lg-12">
+	<h1>Test Area</h1>
+</div>
+</div>
+
+<div class="row">
+
+<!-- Form -->
+<div class="col-lg-5">
+
+   <form method="post" action="/">
+     <fieldset>
+        <legend>New Entry</legend>
+
+            <!-- Left Column -->
+        <div class="row"><div class="col-6"><div class="form-group">
+            <label for="hospital">Hospital Name</label>
+            <input type="text" class="form-control" placeholder="e.x. Parkview Medical Center" name="hospital"><br />
+
+            <label>Address</label>
+            <input class="form-control" type="text" placeholder="1234 Hospital Dr." name="address"><br /> 
+            <input class="form-control" type="text" placeholder="City" name="city"><br />
+
+            <div class="row">
+             <div class="col-6"><input class="form-control" type="text" placeholder="State" name="state" maxlength="2"></div>
+             <div class="col-6"><input class="form-control" type="text" placeholder="ZIP" name="zip" maxlength="5"></div><br />
+            </div>
+
+        </div></div>
+
+            <!-- Right Column -->
+        <div class="col-6"><div class="form-group">
+            <label>Technician Name</label>
+            <input type="text" placeholder="e.x. John Doe" name="name" class="form-control"><br />
+            <label>Reported Number of Units</label>
+            <input type="text" name="repunits" maxlength="3" class="form-control input-small">
+            <label>Actual Number of Units</label>
+            <input type="text" name="actunits" maxlength="3" class="form-control input-small">
+            <label>Failed Units</label>
+            <input type="text" name="funits" maxlength="3" class="form-control input-small"><br />
+        </div></div></div>
+
+        <div class="row"><div class="col-12">
+        <button type="submit" class="btn btn-primary">Create Entry</button>
+        </div></div>
+        </div>
+
+        </fieldset>
+    </form>
+
+
+
+<div class="col-lg-7">
+<!-- Blocks that display entered information from the database -->
+<% @results.each do |record| %>
+   <div class="entry col-lg-12">
+        <div class="row">
+        <div class="col-12"><h1 class="lead"><%= record['hospital'] %></h1>
+        <p class="muted" style="margin-top:-23px;"><small>Entered at <%= record['entrytime'] %></small></p>
+        </div>
+        </div>
+
+        <div class="row"> 
+
+        <!-- Left Column -->
+        <div class="col-lg-6 col-pull-12 hidden-sm">
+        <strong>Address</strong><br />
+        <%= record['address'] %> <br />
+        <%= record['city'] %>, <%= record['state'] %> <%= record['zip'] %> <br />
+        </div>
+
+        <!-- right column -->
+        <div class="col-lg-6 col-sm-12">
+        <strong>Reported Number of Units: </strong><%= record['repunits'] %><br />
+        <strong>Actual Number of Units: </strong><%= record['actunits'] %><br />
+        <strong>Failed Units: </strong><%= record['funits'] %><br>
+        <strong>Technician Performing Recall</strong><br />
+        <%= record['name'] %>
+        </div>
+
+        <!-- For Mobile Sizes -->
+        <div class="col-lg-6 col-pull-12 visible-sm">
+        <strong>Address</strong><br />
+        <%= record['address'] %> <br />
+        <%= record['city'] %>, <%= record['state'] %> <%= record['zip'] %> <br />
+        </div>
+
+        </div>
+    </div>
+<% end %>
+
+</div>
+</div>
+
+
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+  </body>
+</html>
