@@ -1,5 +1,4 @@
-source "https://rubygems.org"
-gem 'sinatra', '1.1.0'
-gem 'erb'
+source "https://www.rubygems.org"
+
+gem 'sinatra'
 gem 'mongo'
-gem 'rubygems'

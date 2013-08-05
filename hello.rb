@@ -6,9 +6,11 @@ require 'mongo'
 include Mongo
 
 configure do
- conn = MongoClient.new("localhost", 27017)
- set :mongo_connection, conn
- set :mongo_db, conn.db('mydb')
+ db = URI.parse(ENV['MONGOHQ_URL'])
+ db_name = db.path.gsub(/^\//,'')
+ conn = Mongo::Connection.new(db.host, db.port).db(db_name)
+ conn.authenticate(db.user, db.password) unless (db.user.nil? || db.password.nil?)
+ set :mongo_db, conn
 end
 
 get '/' do
