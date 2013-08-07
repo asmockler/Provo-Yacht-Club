@@ -14,7 +14,6 @@ configure do
 end
 
 get '/' do
-	@results = settings.mongo_db["testcollection"].find
 
 	erb :index
  
@@ -22,19 +21,24 @@ end
 
 post '/' do
 	params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
-	id = coll.insert params 
-
-	@results = settings.mongo_db["testcollection"].find
+	id = settings.mongo_db["test.collection"].insert params 
 
 	erb :index
 end
 
+get '/:id' do
+	settings.mongo_db["testcollection"].remove(params, 1)
+
+	erb :index
+end
+
+
 # Project todos:
 #  *Add Delete Button (db.testcollection.remove( { hospital: "IUPUI" } , 1 )) 
 #  *Add Update Button
+#  *Fix Times 
 #  *Sort Abilities
 #.  *Make Collapsable?
 #  *Restyle to Taste (make "in-progress" checkbox which determines color of panel)
-#  !!!!Expand to handle recall!!!!
 
 
