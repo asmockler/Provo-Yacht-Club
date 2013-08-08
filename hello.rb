@@ -38,11 +38,21 @@ get '/edit/:id' do
 	erb :edit
 end
 
+post '/edit/:id' do
+  @id = BSON::ObjectId.from_string(params[:id])
+  params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
+  settings.mongo_db["testcollection"].update({:_id => @id}, params )
+
+  redirect '/'
+end
+
+
 # Project todos:
 #  *Add Edit Button
-#  *Fix Times 
+#  *Fix Times (updated v. created time as well)
 #  *Sort Abilities
 #  *Restyle to Taste (make "in-progress" checkbox which determines color of panel)
 #  *users
+#  *fix text/numbers in inputs
 
 

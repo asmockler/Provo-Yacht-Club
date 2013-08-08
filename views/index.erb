@@ -27,7 +27,7 @@
                 </div>
 
                 <!-- This is for the left column 
-                    The first div is coded to be expandable -->
+                    The first div is expandable -->
                 <div class="row collapse in" id="demo"><div class="col-6"><div class="form-group">
                     <label for="hospital">Hospital Name</label>
                     <input type="text" class="form-control" placeholder="e.x. Parkview Medical Center" name="hospital"><br />
@@ -115,6 +115,9 @@
                 <!-- Delete Button -->
                 <a data-toggle="modal" href="#myModal" class="btn btn-danger btn-block">Delete</a>
 
+            </div></div></div></div>
+
+            <!-- Modal for delete confirmation -->
                 <div class="modal fade" id="myModal">
                     <div class="modal-dialog">
                       <div class="modal-content">
@@ -135,14 +138,13 @@
                     </div><!-- /.modal-dialog -->
                   </div><!-- /.modal -->
 
-            </div></div></div></div>
-
-
         </div></div>
         <% end %>
         </div>
     <!-- This is the div tag that closes the row that contains the content -->
     </div>
+
+
 
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
