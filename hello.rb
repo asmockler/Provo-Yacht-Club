@@ -13,32 +13,36 @@ configure do
  set :mongo_db, conn
 end
 
-get '/' do
 
+get '/' do
 	erb :index
- 
 end
 
 post '/' do
 	params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
-	id = settings.mongo_db["test.collection"].insert params 
+	id = settings.mongo_db["testcollection"].insert params 
 
 	erb :index
 end
 
-get '/:id' do
-	settings.mongo_db["testcollection"].remove(params, 1)
+get '/delete/:id' do
+	id = BSON::ObjectId.from_string(params[:id])
+	settings.mongo_db["testcollection"].remove({:_id => id})
 
-	erb :index
+	redirect '/'
 end
 
+get '/edit/:id' do
+  @id = BSON::ObjectId.from_string(params[:id])
+  @database = settings.mongo_db["testcollection"]
+	erb :edit
+end
 
 # Project todos:
-#  *Add Delete Button (db.testcollection.remove( { hospital: "IUPUI" } , 1 )) 
-#  *Add Update Button
+#  *Add Edit Button
 #  *Fix Times 
 #  *Sort Abilities
-#.  *Make Collapsable?
 #  *Restyle to Taste (make "in-progress" checkbox which determines color of panel)
+#  *users
 
 

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+
+    <% record = @database.find_one(:_id => @id) %>
+
+
+    <div class="container">
+      <h1><small>Edit Entry<small></h1>
+
+      <div class="panel">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= record["hospital"] %></h3>
+        </div>
+
+        <div class="panel-footer">
+          <div class="row"><div class="col-lg-6 col-offset-3">
+            <button class="btn btn-success btn-block">Save Changes</button>
+            <a href="/" class="btn btn-default btn-block">Cancel</a>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+  </body>
+</html>
+
+
+
+
+
