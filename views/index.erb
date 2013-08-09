@@ -22,7 +22,7 @@
              <fieldset>
                 <div class="panel-heading">
                     <h3 class="panel-title">New Entry
-                        <button class="btn btn-mini btn-primary pull-right visible-sm pushme" type="button" data-toggle="collapse" data-target="#demo, #demo1" style="margin-top:-3px">collapse</button>
+                        <button class="btn btn-mini btn-primary pull-right hidden-lg pushme" type="button" data-toggle="collapse" data-target="#demo, #demo1" style="margin-top:-3px">collapse</button>
                     </h3>
                 </div>
 
@@ -36,7 +36,7 @@
                     <input class="form-control" type="text" placeholder="Street Address" name="address"><br />
                     <input class="form-control" type="text" placeholder="City" name="city"><br />
                     <div class="row">
-                        <div class="col-lg-5 col-sm-12"><input class="form-control" type="text" placeholder="State" name="state" maxlength="2"></div><br class="visible-sm" />
+                        <div class="col-lg-5 col-sm-12"><input class="form-control" type="text" placeholder="State" name="state" maxlength="2"></div><br class="hidden-lg" />
                         <div class="col-lg-7 col-sm-12"><input class="form-control" type="text" placeholder="ZIP" name="zip" maxlength="5"></div>
                     </div>
 
@@ -70,7 +70,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title">
                     <%= record['hospital'] %>
-                    <button class="btn btn-mini btn-primary pull-right pushme" type="button" data-toggle="collapse" data-target="#edit-delete<%= record['_id'] %>" style="margin-top:-3px">edit/delete</button>
+                    <button class="btn btn-mini btn-primary pull-right pushme" type="button" data-toggle="collapse" data-target="#edit-delete<%= record['_id'] %>" style="color:#FDD; border:1px solid #3071a9">edit/delete</button>
                 </h3>
                 <p class="muted" style="margin-bottom:-8px"><small>Entered at <%= record['entrytime'] %></small></p>
             </div>
