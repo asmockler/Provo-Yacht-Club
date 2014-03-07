@@ -1,0 +1,176 @@
+require 'rubygems'
+require 'sinatra'
+require 'erb'
+require 'mongo'
+require 'sinatra/flash'
+
+include Mongo
+
+enable :sessions
+
+configure do
+ db = URI.parse(ENV['MONGOHQ_URL'])
+ db_name = db.path.gsub(/^\//,'')
+ conn = Mongo::Connection.new(db.host, db.port).db(db_name)
+ conn.authenticate(db.user, db.password) unless (db.user.nil? || db.password.nil?)
+ set :mongo_db, conn
+end
+
+
+
+# Calling the main view
+get '/' do
+  erb :index  
+end
+
+# A Page for dumb experiments because I'm dumb
+get '/testingstuff' do
+  erb :testtime
+end
+
+# The page for submitting new posts
+get '/NewPost' do
+  erb :NewPost
+end
+
+# Saving the new post
+post '/NewPost' do
+  params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
+  settings.mongo_db["Posts"].insert params 
+  redirect '/NewPost'
+end
+
+=begin
+
+THIS IS ALL OF THE OLD CODE FROM BEFORE. I AM LEAVING IT HERE FOR REFERENCE.
+
+#  Basic Authentication
+use Rack::Auth::Basic, "Restricted Area" do |username, password|
+    [username, password] == ['admin', 'password']  
+end
+
+# Getting the login page
+get '/login' do
+  erb :login_register
+end
+
+# Checking User Credentials
+post '/login' do
+  if settings.mongo_db["users"].find_one(:username => params[:username]) and settings.mongo_db["users"].find_one(:password => params[:password])
+    user = settings.mongo_db["users"].find_one(:username => params[:username])
+    session["user_id"] = user["_id"]
+    session["username"] = user["username"]
+    session["first_name"] = user["first_name"]
+    session["last_name"] = user["last_name"]
+    session["email"] = user["email"]
+    session["admin"] = user["admin"]
+    session["user"] = true
+    redirect '/'
+  else
+    flash[:loginerror] = true
+    redirect '/login'
+  end
+end
+
+# New User
+post '/register' do
+  settings.mongo_db["users"].insert params 
+  flash[:newuser] = true
+  redirect '/login'
+end
+
+# Get Landing Page
+get '/' do
+  if session["user"]
+	 erb :index
+  else
+   redirect '/login'
+  end
+end
+
+# New Record
+post '/' do
+	params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
+  settings.mongo_db["testcollection"].insert params 
+	redirect '/'
+end
+
+# Delete a record
+get '/delete/:id' do
+	id = BSON::ObjectId.from_string(params[:id])
+	settings.mongo_db["testcollection"].remove({:_id => id})
+
+	redirect '/'
+end
+
+# Edit Page
+get '/edit/:id' do
+  @id = BSON::ObjectId.from_string(params[:id])
+  @database = settings.mongo_db["testcollection"]
+	erb :edit
+end
+
+# Submit edited entry
+post '/edit/:id' do
+  @id = BSON::ObjectId.from_string(params[:id])
+  params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
+  settings.mongo_db["testcollection"].update({:_id => @id}, params )
+
+  if settings.mongo_db["testcollection"].update({:_id => @id}, params )
+    flash[:editsuccess] = true
+  else
+    flash[:editerror] = true
+  end
+
+  redirect '/'
+end
+
+# Log Out
+get '/logout' do
+  session["user"] = false
+  redirect '/login'
+end
+
+# Get Admin Dashboard
+get '/admin' do
+  erb :admin
+end
+
+# Get the User Approval Page
+get '/admin_approve' do
+  erb :admin_approve
+end
+
+# Approve Users
+post '/admin_approve' do
+  settings.mongo_db["users"].update({:username => params[:username]}, '$set' => {:approved => params[:approved]} )
+
+  redirect '/admin'
+end
+
+get '/admin_management' do
+  erb :admin_management
+end
+
+post '/admin_management' do
+  settings.mongo_db["users"].update({:username => params[:username]}, '$set' => {:admin => "true"} )
+
+  redirect '/admin'
+end
+
+get '/test' do
+  erb :test
+end
+
+
+# Urgent todos:
+# replace edit and submit names with user submitted information
+# Admin Management
+
+# Project todos:
+#  *Fix Times (updated v. created time as well)
+#  *Sort Abilities
+#  *Restyle to Taste (make "in-progress" checkbox which determines color of panel)
+#  *fix text/numbers in inputs
+
+=end

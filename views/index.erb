@@ -1,160 +1,161 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Test Application</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Provo Yacht Club</title>
+
     <!-- Bootstrap -->
-    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
   <body>
- 
-    <!-- Title -->
-    <div class="row"><div class="col-lg-12">
-        <h1>Test Area</h1>
-    </div></div>
 
-    <!-- This is the opening tag for the div row that contains the content -->
-    <div class="row">
+<!-- Navbar -->
+    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+      <div class="container-fluid">
 
-        <!-- This is the code for the form on the left -->
-        <div class="col-lg-5 affix-top"><div class="panel panel-primary">
-            <form method="post" action="/">
-             <fieldset>
-                <div class="panel-heading">
-                    <h3 class="panel-title">New Entry
-                        <button class="btn btn-mini btn-primary pull-right hidden-lg pushme" type="button" data-toggle="collapse" data-target="#demo, #demo1" style="margin-top:-3px">collapse</button>
-                    </h3>
-                </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
 
-                <!-- This is for the left column 
-                    The first div is expandable -->
-                <div class="row collapse in" id="demo"><div class="col-6"><div class="form-group">
-                    <label for="hospital">Hospital Name</label>
-                    <input type="text" class="form-control" placeholder="e.x. Parkview Medical Center" name="hospital"><br />
+        <a class="navbar-brand" href="#">Provo Yacht Club</a>
 
-                    <label>Address</label>
-                    <input class="form-control" type="text" placeholder="Street Address" name="address"><br />
-                    <input class="form-control" type="text" placeholder="City" name="city"><br />
-                    <div class="row">
-                        <div class="col-lg-5 col-sm-12"><input class="form-control" type="text" placeholder="State" name="state" maxlength="2"></div><br class="hidden-lg" />
-                        <div class="col-lg-7 col-sm-12"><input class="form-control" type="text" placeholder="ZIP" name="zip" maxlength="5"></div>
-                    </div>
-
-                </div></div>
-
-                <div class="col-6"><div class="form-group">
-                    <label>Technician Name</label>
-                    <input type="text" placeholder="e.x. John Doe" name="name" class="form-control"><br />
-                    <label>Reported Number of Units</label>
-                    <input type="text" name="repunits" maxlength="3" class="form-control input-small"></br >
-                    <label>Actual Number of Units</label>
-                    <input type="text" name="actunits" maxlength="3" class="form-control input-small"></br >
-                    <label>Failed Units</label>
-                    <input type="text" name="funits" maxlength="3" class="form-control input-small"></br >
-                </div></div></div>
-
-                <div class="panel-footer"><div class="collapse in" id="demo1"><button type="submit" class="btn btn-primary btn-block">Create Entry</button></div></div>
-
-             </fieldset>
-            </form>
-        </div></div>
-
-
-        <!-- This is where the code for the right column goes -->
-        <div class="col-lg-7">
-        <% settings.mongo_db["testcollection"].find.reverse_each do |record| %>
-
-        <div class="col-lg-12"><div class="panel panel-primary">
-
-            <!-- The Title Bar of the Panel -->
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <%= record['hospital'] %>
-                    <button class="btn btn-mini btn-primary pull-right pushme" type="button" data-toggle="collapse" data-target="#edit-delete<%= record['_id'] %>" style="color:#FDD; border:1px solid #3071a9">edit/delete</button>
-                </h3>
-                <p class="muted" style="margin-bottom:-8px"><small>Entered at <%= record['entrytime'] %></small></p>
-            </div>
-
-            <!-- Panel Body -->
-            <div class="row">
-            <!-- Left Column -->
-            <div class="col-lg-6 hidden-sm">
-                <strong>Address</strong><br />
-                <%= record['address'] %><br />
-                <%= record['city'] %>, <%= record['state'] %> <%= record['zip'] %>
-            </div>
-
-            <!-- Right Column -->
-            <div class="col-lg-6 col-sm-12">
-                <strong><%= record['repunits'] %></strong> Units Reported<br />
-                <strong><%= record['actunits'] %></strong> Actual Units<br />
-                <strong><%= record['funits'] %></strong> Failed Units<br />
-            </div>
-
-            <!-- For Mobile Sizes (Switches Left and Right column order when stacked) -->
-            <div class="col-12 visible-sm">
-                <br /><strong>Address</strong><br />
-                <%= record['address'] %><br />
-                <%= record['city'] %>, <%= record['state'] %> <%= record['zip'] %>
-            </div>
-            </div>
-            
-            <p class="text-muted" style="margin-bottom:-10px;">
-                <small>
-                    Inspection and work performed by <%= record['name'] %>
-                </small>
-            </p>
-
-            <!-- Footer -->
-            <div class="collapse out" id="edit-delete<%= record['_id'] %>"><div class="panel-footer"><div class="row"><div class="col-lg-6 col-offset-3">
-                <!-- Edit Button -->
-                <form method="get" action="/edit/<%= record['_id'] %>">
-                    <button class="btn btn-warning btn-block" id="edit-delete" style="margin-bottom:7px">Edit</button>
-                </form>
-
-                <!-- Delete Button -->
-                <a data-toggle="modal" href="#myModal" class="btn btn-danger btn-block">Delete</a>
-
-            </div></div></div></div>
-
-            <!-- Modal for delete confirmation -->
-                <div class="modal fade" id="myModal">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h4 class="modal-title">Delete Entry</h4>
-                        </div>
-                        <div class="modal-body">
-                          Are you sure you want to delete this entry? This cannot be undone!
-                        </div>
-                        <div class="modal-footer">
-                        <form method="get" action="/delete/<%= record['_id'] %>">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                        </div>
-                      </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                  </div><!-- /.modal -->
-
-        </div></div>
-        <% end %>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="#">Dance</a></li>
+            <li><a href="#">Chill</a></li>
+            <li><a href="#">Revival</a></li>
+            <li><a href="#">Big Beats</a></li>
+            <li><a href="#">Etc.</a></li>
+          </ul>
         </div>
-    <!-- This is the div tag that closes the row that contains the content -->
+
+      </div>
+    </nav>
+
+<!-- Header -->
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1 style="font-family:serif; color:#fff; text-shadow: 1px 2px 10px #333; font-variant:small-caps;">The Provo Yacht Club</h1>
+      </div>
     </div>
 
+<!-- Content -->
+    <div class="container-fluid" style="margin-left:5%;margin-right:5%;">
+      <div class="row">
+
+    <!-- Left Side (Strong Side) -->
+        <div class="col-md-7" style="padding-right:20px">
+
+            <div class="row"><p class="lead text-headers">This Week</p></div>
+
+          <!--Recent Posts -->
+          <div class="row">
+
+            <div class="recent-post-div" style="align:centered;padding:-15px;">
+
+              <% settings.mongo_db["Posts"].find.sort('_id','descending').limit(6).each do |post| %>
+              <div class="col-md-2" style="" data-toggle="tooltip" data-html="true" title="<strong><%= post['Song-Title'] %></strong><br /><%= post['Artist'] %> <br /> <i><%= post['Album'] %></i>">
+                  <img class="recent-post" src="<%= post['AlbumArt']%>" />
+              </div>
+              <% end %>
+
+            </div>
+          </div>
+
+          <!-- Full Posts -->
+          <div class="row" style="margin-top:15px;margin-right">
+
+            <p class="lead text-headers">Recent Posts</p>
+
+            <!-- Template for Posts -->
+            <% settings.mongo_db["Posts"].find.sort('_id','descending').limit(10).each do |post| %>
+
+            <div class="col-md-12 post-box">
+
+              <div class="col-md-3">
+                <img style="max-width:175px;max-height:175px" src="<%= post['AlbumArt']%>" /><br /><br />
+                <a href="#"><span class="label label-default">Dance</span></a>
+              </div>
+
+              <div class="col-md-9">
+                <h3><%= post['Song-Title'] %> - <%= post['Artist'] %> <br /><small><%= post["Album"] %></small></h3>
+                <p><small><%= post['Description'] %></small></p>
+                <iframe src="https://embed.spotify.com/?uri=<%= post['Media'] %>" width="250" height="80" frameborder="0" allowtransparency="true"></iframe>
+              </div>
+
+            </div>
+
+            <% end %>
+
+          </div>
 
 
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script>$(function(){
-    $(".pushme").click(function () {
-        $(this).text(function(i, v){
-            if (v === "collapse" || v === "expand") {
-                return v === "collapse" ? "expand" : "collapse";};
-        })
-    });
-    })</script>
+        </div>
+
+        <!-- to separate the sides -->
+        <div class="col-md-1" style="margin-right:-55px"></div>
+
+    <!-- Right Side -->
+        <div class="col-md-4" >
+          <div class="row">
+            <p class="text-headers lead">Featured Artist</p>
+
+            <div class="feature-box">
+              <iframe src="//www.noisetrade.com/service/widgetv2/f5c0767c-429f-46bb-ae53-35bf6c1624f6" width="300" height="375" scrolling="no" frameBorder="0"></iframe>
+            </div><br />
+
+            <button class="col-md-12 btn btn-blue">Donate to the Provo Yacht Club!</button>
+
+          </div>
+        </div>
+
+      </div>
+    </div><!-- close out content -->
+
+    <!-- Bottom Nav -->
+    <div class="bottom-menu">
+      <a href="#" class="pull-right">About Us</a>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('div').tooltip();
+    </script>
+    <script>
+      $(document).scroll(function () {
+          var y = $(this).scrollTop();
+          if (y > 80) {
+              $('.bottom-menu').slideDown(200);
+          } else {
+              $('.bottom-menu').slideUp();
+          }
+
+      });
+    </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-48737823-1', 'provoyachtclub.com');
+      ga('send', 'pageview');
+    </script>
   </body>
 </html>
