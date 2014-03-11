@@ -16,8 +16,6 @@ configure do
  set :mongo_db, conn
 end
 
-
-
 # Calling the main view
 get '/' do
   erb :index  
@@ -28,17 +26,68 @@ get '/testingstuff' do
   erb :testtime
 end
 
-# The page for submitting new posts
-get '/NewPost' do
-  erb :NewPost
+# Calling the Post Manager
+get '/Manager' do
+  erb :Manager
 end
 
-# Saving the new post
+# Saving new posts
 post '/NewPost' do
   params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
   settings.mongo_db["Posts"].insert params 
-  redirect '/NewPost'
+
+  if settings.mongo_db['Posts'].find({:_id => params[:id]})
+    flash[:postSuccess] = true
+  else
+    flash[:postError] = true
+  end
+
+  redirect '/Manager'
 end
+
+# Delete a record
+get '/delete/:id' do
+  id = BSON::ObjectId.from_string(params[:id])
+  settings.mongo_db["Posts"].remove({:_id => id})
+
+  if settings.mongo_db['Posts'].remove({:_id => id})
+    flash[:deleteSuccess] = true
+  else
+    flash[:deleteError] = true
+  end
+
+  redirect '/Manager'
+end
+
+# Submit edited entry
+post '/edit/:id' do
+  @id = BSON::ObjectId.from_string(params[:id])
+  settings.mongo_db["Posts"].update({:_id => @id}, params )
+
+  if settings.mongo_db["Posts"].update({:_id => @id}, params )
+    flash[:editSuccess] = true
+  else
+    flash[:editError] = true
+  end
+
+  redirect '/Manager'
+end
+
+get '/update' do
+  Time.now.to_s
+end
+
+get '/Manager/moreResults' do
+
+  erb :moreResults
+
+  #erb template just for table rows
+
+  #jquery onclick make an ajax call $.get and .append with the result
+
+  #keep track of the _id. On the table, have a data attribute (data-last-read); keep track on the first one and on the result 
+end
+
 
 =begin
 

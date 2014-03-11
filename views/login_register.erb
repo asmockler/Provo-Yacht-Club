@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login | Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+
+    <div class="container">
+      <h1 class="text-center" style="margin-top:10%; font-size:60px;">Welcome.</h1> 
+
+      <% if flash[:loginerror] %>
+        <div class="row">
+        <div class="alert alert-danger col-lg-4 col-offset-4">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          Check your username and password and try again.
+        </div></div>
+      <% elsif flash[:newuser] %>
+        <div class="row"><div class="alert alert-info col-lg-4 col-offset-4">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          Thanks for registering! Log-in below.
+        </div></div>
+      <% else %>
+      <% end %>
+
+      <div class="accordion" id="accordion2">
+        <div class="row">
+            <h1 class="text-center"><small><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+              Log-In
+            </a></small></h1>
+          <div id="collapseOne" class="accordion-body collapse out">
+            <div>
+              <form method="post" action="/login" class="form-horizontal">
+                <fieldset>
+                  <div class="col-offset-4">
+                  <div class="form-group">
+                    <label class="col-2 control-label">Username</label>
+                    <div class="col-lg-3">
+                      <input type="text" class="form-control" name="username">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-2 control-label">Password</label>
+                    <div class="col-lg-3">
+                      <input type="password" class="form-control" name="password">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-lg-3 col-offset-2">
+                      <button type="submit" class="btn btn-primary btn-block">Log-In</button>
+                    </div>
+                  </div>
+                  </div>
+
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div>
+            <h1 class="text-center"><small><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+              Register
+            </a></small></h1>
+          </div>
+          <div id="collapseTwo" class="accordion-body collapse">
+            <div>
+              <form method="post" action="/register" class="form-horizontal">
+                <fieldset>
+                  <div class="col-offset-4">
+                  <div class="form-group">
+                    <label class="col-2 control-label">Username</label>
+                    <div class="col-lg-3">
+                      <input type="text" class="form-control" name="username">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-2 control-label">Password</label>
+                    <div class="col-lg-3">
+                      <input type="password" class="form-control" name="password">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-2 control-label">First Name</label>
+                    <div class="col-lg-3">
+                      <input type="text" class="form-control" name="first_name">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-2 control-label">Last Name</label>
+                    <div class="col-lg-3">
+                      <input type="text" class="form-control" name="last_name">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-2 control-label">Email</label>
+                    <div class="col-lg-3">
+                      <input type="email" class="form-control" name="email">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-lg-3 col-offset-2">
+                      <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    </div>
+                  </div>
+                  </div>
+
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+  </body>
+</html>
+
+
+

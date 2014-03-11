@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Administrative Rights Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+
+    <h1>Approve New Users</h1><br />
+
+      <% settings.mongo_db["users"].find().each do |record| %>
+        <div class="row">
+          <div class="col-lg-4">
+            <h4><%= record["username"] %></h4>
+            <p><%= record["first_name"] %> <%= record["last_name"] %></p>
+            <p><%= record["email"] %></p>
+          </div>
+
+          <div class="col-lg-3">
+            <h3>Make Administrator?</h3>
+            <form method="post" action="/admin_management">
+              <input type="hidden" name="username" value="<%= record["username"] %>">
+              <button class="btn btn-success">Approve</button>
+            </form>
+          </div>
+        </div>
+    <% end %>
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+  </body>
+</html>
+
+
+

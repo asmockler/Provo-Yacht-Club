@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manage Posts</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container">
+
+      <div class="row">
+        <div class="col-lg-6">
+        <!-- Alerts -->
+            <% if flash[:postSuccess]%>
+                <div class="alert alert-success fade in">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <span class="glyphicon glyphicon-ok"></span>  <strong>Success!</strong> Your post was saved.
+                </div>
+            <% elsif flash[:deleteSuccess]%>
+                <div class="alert alert-success fade in">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <span class="glyphicon glyphicon-ok"></span>  <strong>Now you've done it...</strong> Your post was deleted.
+                </div>
+            <% elsif flash[:editSuccess]%>
+                <div class="alert alert-success fade in">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <span class="glyphicon glyphicon-ok"></span>  <strong>Success!</strong> Your post was edited.
+                </div>
+            <% elsif flash[:postError] || flash[:deleteError] || flash[:editError]%>
+                <div class="alert alert-danger fade in">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <span class="glyphicon glyphicon-remove"></span>  <strong>Oops.</strong> Something went wrong. Try again.
+                </div>
+            <% else %>
+            <% end %>
+        </div>
+      </div>
+
+     <div class="row"><h1 class="col-md-10">Manage Posts</h1>
+     <a href="/"><button class="btn btn-lg btn-warning col-md-2 pull-right" style="margin-top:20px">Home!</button></a></div>
+     <br/>
+     <h3>Submit a New Post</h3>
+     <a data-toggle="modal" href="#NewPost"><button class="btn btn-lg btn-primary col-md-2">New Post!</button></a>
+
+     <br/><br/><br/>
+
+<!-- Modal For New Posts -->
+
+          <div class="modal fade" id="NewPost">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Submit a New Post</h4>
+                  </div>
+                  <div class="modal-body">
+                        <form method="post" action="/NewPost">
+                          <fieldset>
+
+                            <label for="Song-Title">Song Title</label>
+                            <input type="text" class="form-control" placeholder="What You Won't Do For Love" name="Song-Title"><br />
+
+                            <label for="Artist">Artist</label>
+                            <input type="text" class="form-control" placeholder="Bobby Caldwell" name="Artist"><br />
+
+                            <label for="Album">Album</label>
+                            <input type="text" class="form-control" placeholder="Yacht Rock:'70s Soft Rock hits" name="Album"><br />
+
+                            <label for="Description">Post Description</label>
+                            <textarea class="form-control" rows="3" placeholder="Put all your witty jargon here..." name="Description"></textarea><br />
+
+                            <label for="Media">Embed Code (Spotify URI, etc.)</label>
+                            <input type="text" class="form-control" placeholder="spotify:track:0bsdLG0Z1TedLfJGKPpv64" name="Media"><br />
+
+                            <label for="AlbumArt">Album Art</label>
+                            <input type="text" class="form-control" placeholder="http://a3.mzstatic.com/us/r30/Music/13/d6/d1/mzi.qqcypfvi.170x170-75.jpg" name="AlbumArt"><br />
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                <label for="tag">Tag</label>
+                                <select class="form-control" name="tag">
+                                  <option></option>
+                                  <option>Dance</option>
+                                  <option>Chill</option>
+                                  <option>Revival</option>
+                                  <option>Big Beats</option>
+                                  <option>Etc.</option>
+                                </select>
+                              </div>
+
+                              <div class="col-md-6">
+                                <label for="tag2">Tag 2 (Optional)</label>
+                                <select class="form-control col-md-6" name="tag2">
+                                  <option></option>
+                                  <option>Dance</option>
+                                  <option>Chill</option>
+                                  <option>Revival</option>
+                                  <option>Big Beats</option>
+                                  <option>Etc.</option>
+                                </select>
+                              </div>
+                            </div><br />
+
+                            <label for="Author">Post Author (Your name, stupid)</label>
+                            <input type="text" class="form-control" placeholder="Michael Jordan" name="Author"><br />
+                        
+                          <div class="pull-right">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                          </div>
+
+                        </fieldset>
+                      </form>
+
+                  </div>
+                  <div class="modal-footer">
+
+                  </div>
+                </div><!-- modal-content -->
+              </div><!-- modal-dialog -->
+            </div><!-- modal -->
+
+<!-- For Editing & Deleting-->
+
+  <h3>Edit or Delete Past Posts</h3>
+     <table class="table table-hover">
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Song Title</th>
+        <th>Artist</th>
+        <th>Album</th>
+        <th>Date Posted</th>
+        <th>Author</th>
+      </tr>
+
+
+      <% settings.mongo_db["Posts"].find().sort({_id: -1}).limit(5).each do |post|  %>
+
+        <tr>
+          <td><a href="#edit<%= post['_id'] %>" data-toggle="modal"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" title="Edit"></span></a></td>
+          <td><a href="#delete<%= post['_id'] %>" data-toggle="modal" ><span class="glyphicon glyphicon-trash" data-toggle="tooltip" title="Delete"></span></a></td>
+          <td><%= post['Song-Title'] %></td>
+          <td><%= post['Artist'] %></td>
+          <td><%= post['Album'] %></td>
+          <td><%= post['entrytime'] %></td>
+          <td><%= post['Author'] %></td>
+        </tr>
+
+      <!-- Modal for delete confirmation -->
+          <div class="modal fade" id="delete<%= post['_id'] %>">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Delete Entry</h4>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure you want to delete the post about <%= post['Song-Title']%>? This cannot be undone!
+                  </div>
+                  <div class="modal-footer">
+                  <form method="get" action="/delete/<%= post['_id'] %>">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+                  </div>
+                </div><!-- modal-content -->
+              </div><!-- modal-dialog -->
+            </div><!-- modal -->
+
+<!-- Modal For Editing Posts -->
+
+          <div class="modal fade" id="edit<%= post['_id'] %>">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Submit a New Post</h4>
+                  </div>
+                  <div class="modal-body">
+                        <form method="post" action="/edit/<%= post['_id'] %>">
+                          <fieldset>
+
+                            <label for="Song-Title">Song Title</label>
+                            <input type="text" class="form-control" name="Song-Title" value="<%= post['Song-Title'] %>"><br />
+
+                            <label for="Artist">Artist</label>
+                            <input type="text" class="form-control" placeholder="Bobby Caldwell" name="Artist" value="<%= post['Artist'] %>"><br />
+
+                            <label for="Album">Album</label>
+                            <input type="text" class="form-control" placeholder="Yacht Rock:'70s Soft Rock hits" name="Album" value="<%= post['Album'] %>"><br />
+
+                            <label for="Description">Post Description</label>
+                            <textarea class="form-control" rows="3" placeholder="Put all your witty jargon here..." name="Description"><%= post['Description'] %></textarea><br />
+
+                            <label for="Media">Embed Code (Spotify URI, etc.)</label>
+                            <input type="text" class="form-control" placeholder="spotify:track:0bsdLG0Z1TedLfJGKPpv64" name="Media" value="<%= post['Media'] %>"><br />
+
+                            <label for="AlbumArt">Album Art</label>
+                            <input type="text" class="form-control" placeholder="http://a3.mzstatic.com/us/r30/Music/13/d6/d1/mzi.qqcypfvi.170x170-75.jpg" name="AlbumArt" value="<%= post['AlbumArt'] %>"><br />
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                <label for="tag">Tag</label>
+                                <select class="form-control" name="tag">
+                                  <option><%= post['tag'] %></option>
+                                  <option>Dance</option>
+                                  <option>Chill</option>
+                                  <option>Revival</option>
+                                  <option>Big Beats</option>
+                                  <option>Etc.</option>
+                                </select>
+                              </div>
+
+                              <div class="col-md-6">
+                                <label for="tag2">Tag 2 (Optional)</label>
+                                <select class="form-control col-md-6" name="tag2">
+                                  <option><%= post['tag2'] %></option>
+                                  <option>Dance</option>
+                                  <option>Chill</option>
+                                  <option>Revival</option>
+                                  <option>Big Beats</option>
+                                  <option>Etc.</option>
+                                </select>
+                              </div>
+                            </div><br />
+
+                            <label for="Author">Post Author (Your name, stupid)</label>
+                            <input type="text" class="form-control" placeholder="Michael Jordan" name="Author" value="<%= post['Author'] %>"><br />
+
+                            <label for="entrytime">Created On</label>
+                            <input type="text" class="form-control" disabled name="entrytime" value="<%= post['entrytime'] %>"><br/>
+                        
+                          <div class="pull-right">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                          </div>
+
+                        </fieldset>
+                      </form>
+
+                      <%end%>
+     </table>
+
+      <div id="moreposts"></div>
+
+     <a href="#" id="loadMore">Load more results...</a>
+
+
+
+   </div>
+
+   <!-- Modal for delete confirmation -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Delete Entry</h4>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete this entry? This cannot be undone!
+            </div>
+            <div class="modal-footer">
+            <form method="get" action="/delete/">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('span').tooltip();
+        $(".alert").alert();
+    </script>
+    <script type="text/javascript">
+      $('#loadMore').ajax('/loadMore')
+    </script>
+
+    <script type="text/javascript">
+
+      $('#loadMore').click(function() {
+        $.get('/Manager/moreResults', function(data){
+          $('#moreposts').append(data);
+        });
+      });
+
+    </script>
+
+  </body>
+</html>
