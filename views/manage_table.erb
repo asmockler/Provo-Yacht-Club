@@ -1,0 +1,105 @@
+<% @posts.each do |post|  %>
+
+  <tr>
+    <td><a href="#edit<%= post['_id'] %>" data-toggle="modal"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" title="Edit"></span></a></td>
+    <td><a href="#delete<%= post['_id'] %>" data-toggle="modal" ><span class="glyphicon glyphicon-trash" data-toggle="tooltip" title="Delete"></span></a></td>
+    <td><%= post['Song-Title'] %></td>
+    <td><%= post['Artist'] %></td>
+    <td><%= post['Album'] %></td>
+    <td><%= post['entrytime'] %></td>
+    <td><%= post['Author'] %></td>
+  </tr>
+
+<!-- Modal for delete confirmation -->
+  <div class="modal fade" id="delete<%= post['_id'] %>">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Delete Entry</h4>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete the post about <%= post['Song-Title']%>? This cannot be undone!
+        </div>
+        <div class="modal-footer">
+        <form method="get" action="/delete/<%= post['_id'] %>">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        </div>
+      </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+  </div><!-- modal -->
+
+<!-- Modal For Editing Posts -->
+
+    <div class="modal fade" id="edit<%= post['_id'] %>">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Submit a New Post</h4>
+            </div>
+            <div class="modal-body">
+                  <form method="post" action="/edit/<%= post['_id'] %>">
+                    <fieldset>
+
+                      <label for="Song-Title">Song Title</label>
+                      <input type="text" class="form-control" name="Song-Title" value="<%= post['Song-Title'] %>"><br />
+
+                      <label for="Artist">Artist</label>
+                      <input type="text" class="form-control" placeholder="Bobby Caldwell" name="Artist" value="<%= post['Artist'] %>"><br />
+
+                      <label for="Album">Album</label>
+                      <input type="text" class="form-control" placeholder="Yacht Rock:'70s Soft Rock hits" name="Album" value="<%= post['Album'] %>"><br />
+
+                      <label for="Description">Post Description</label>
+                      <textarea class="form-control" rows="3" placeholder="Put all your witty jargon here..." name="Description"><%= post['Description'] %></textarea><br />
+
+                      <label for="Media">Embed Code (Spotify URI, etc.)</label>
+                      <input type="text" class="form-control" placeholder="spotify:track:0bsdLG0Z1TedLfJGKPpv64" name="Media" value="<%= post['Media'] %>"><br />
+
+                      <label for="AlbumArt">Album Art</label>
+                      <input type="text" class="form-control" placeholder="http://a3.mzstatic.com/us/r30/Music/13/d6/d1/mzi.qqcypfvi.170x170-75.jpg" name="AlbumArt" value="<%= post['AlbumArt'] %>"><br />
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label for="tag">Tag</label>
+                          <select class="form-control" name="tag">
+                            <option><%= post['tag'] %></option>
+                            <option>Dance</option>
+                            <option>Chill</option>
+                            <option>Revival</option>
+                            <option>Big Beats</option>
+                            <option>Etc.</option>
+                          </select>
+                        </div>
+
+                        <div class="col-md-6">
+                          <label for="tag2">Tag 2 (Optional)</label>
+                          <select class="form-control col-md-6" name="tag2">
+                            <option><%= post['tag2'] %></option>
+                            <option>Dance</option>
+                            <option>Chill</option>
+                            <option>Revival</option>
+                            <option>Big Beats</option>
+                            <option>Etc.</option>
+                          </select>
+                        </div>
+                      </div><br />
+
+                      <label for="Author">Post Author (Your name, stupid)</label>
+                      <input type="text" class="form-control" placeholder="Michael Jordan" name="Author" value="<%= post['Author'] %>"><br />
+
+                      <label for="entrytime">Created On</label>
+                      <input type="text" class="form-control" disabled name="entrytime" value="<%= post['entrytime'] %>"><br/>
+
+                    <div class="pull-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+
+                  </fieldset>
+                </form>
+
+<%end%>

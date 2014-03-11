@@ -18,7 +18,7 @@ end
 
 # Calling the main view
 get '/' do
-  erb :index  
+  erb :index
 end
 
 # A Page for dumb experiments because I'm dumb
@@ -28,13 +28,14 @@ end
 
 # Calling the Post Manager
 get '/Manager' do
+  @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).limit(2)
   erb :Manager
 end
 
 # Saving new posts
 post '/NewPost' do
   params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
-  settings.mongo_db["Posts"].insert params 
+  settings.mongo_db["Posts"].insert params
 
   if settings.mongo_db['Posts'].find({:_id => params[:id]})
     flash[:postSuccess] = true
@@ -77,15 +78,16 @@ get '/update' do
   Time.now.to_s
 end
 
-get '/Manager/moreResults' do
-
-  erb :moreResults
+get '/Manager/moreResults/:batch' do |batch|
+  num_to_skip = 2 * batch.to_i
+  @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).skip(num_to_skip).limit(2)
+  erb :manage_table
 
   #erb template just for table rows
 
   #jquery onclick make an ajax call $.get and .append with the result
 
-  #keep track of the _id. On the table, have a data attribute (data-last-read); keep track on the first one and on the result 
+  #keep track of the _id. On the table, have a data attribute (data-last-read); keep track on the first one and on the result
 end
 
 
@@ -95,7 +97,7 @@ THIS IS ALL OF THE OLD CODE FROM BEFORE. I AM LEAVING IT HERE FOR REFERENCE.
 
 #  Basic Authentication
 use Rack::Auth::Basic, "Restricted Area" do |username, password|
-    [username, password] == ['admin', 'password']  
+    [username, password] == ['admin', 'password']
 end
 
 # Getting the login page
@@ -123,7 +125,7 @@ end
 
 # New User
 post '/register' do
-  settings.mongo_db["users"].insert params 
+  settings.mongo_db["users"].insert params
   flash[:newuser] = true
   redirect '/login'
 end
@@ -140,7 +142,7 @@ end
 # New Record
 post '/' do
 	params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
-  settings.mongo_db["testcollection"].insert params 
+  settings.mongo_db["testcollection"].insert params
 	redirect '/'
 end
 
