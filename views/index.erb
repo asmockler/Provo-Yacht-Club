@@ -18,7 +18,10 @@
     <![endif]-->
   </head>
   <body>
-
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
 <!-- Navbar -->
     <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container-fluid">
@@ -48,16 +51,17 @@
 <!-- Header -->
 
     <div class="jumbotron">
-      <div class="container">
+      <div class="container-fluid">
         <h1 class="main-title" style="line-height:55px">Provo Yacht <span style="letter-spacing:-6px">Club</span></h1>
       </div>
     </div>
+
 
 <!-- Content -->
     <div class="container-fluid" style="margin-left:5%;margin-right:5%;">
       <div class="row">
 
-    <!-- Left Side (Strong Side) -->
+    <!-- Left Side  -->
         <div class="col-md-7" style="padding-right:20px">
 
             <div class="row"><h2 style="font-weight:100">This Week</h2></div>
@@ -68,7 +72,7 @@
             <div class="recent-post-div" style="align:centered;padding:-15px;">
 
               <% settings.mongo_db["Posts"].find.sort('_id','descending').limit(6).each do |post| %>
-              <div class="col-md-2" style="" data-toggle="tooltip" data-html="true" title="<strong><%= post['Song-Title'] %></strong><br /><%= post['Artist'] %> <br /> <i><%= post['Album'] %></i>">
+              <div class="col-md-2" style="padding:1px" data-toggle="tooltip" data-html="true" title="<strong><%= post['Song-Title'] %></strong><br /><%= post['Artist'] %> <br /> <i><%= post['Album'] %></i>">
                   <img class="recent-post" src="<%= post['AlbumArt']%>" />
               </div>
               <% end %>
@@ -77,31 +81,16 @@
           </div>
 
           <!-- Full Posts -->
-          <div class="row" style="margin-top:15px;margin-right">
+          <div class="row" style="margin-top:15px;">
 
             <h2 style="font-weight:100">Recent Posts</h2>
 
             <!-- Template for Posts -->
-            <% settings.mongo_db["Posts"].find.sort('_id','descending').limit(10).each do |post| %>
+            <%= erb :posts_long_front %>
 
-            <div class="col-md-12 post-box" style="margin-bottom: 35px">
+            <div id="#morePosts" data-batch="1"></div>
 
-              <div class="col-md-3">
-                <img style="max-width:175px;max-height:175px" src="<%= post['AlbumArt']%>" /><br /><br />
-                <a href="#"><span class="label label-default"><%= post['tag'] %></span></a>
-                <a href="#"><span class="label label-default"><%= post['tag2'] %></span></a>
-              </div>
-
-              <div class="col-md-9">
-                <h3><%= post['Song-Title'] %> - <%= post['Artist'] %> <br /><small><%= post["Album"] %></small></h3>
-                <p><small><%= post['Description'] %></small></p>
-                <iframe src="https://embed.spotify.com/?uri=<%= post['Media'] %>" width="250" height="80" frameborder="0" allowtransparency="true"></iframe>
-              </div>
-
-            </div>
-
-
-            <% end %>
+            <a href="#" id="loadMore"><h3>Load More Posts</h3></a>
 
           </div>
 
@@ -112,12 +101,12 @@
         <div class="col-md-1" style="margin-right:-55px"></div>
 
     <!-- Right Side -->
-        <div class="col-md-4" >
+        <div class="col-md-4 right-side" data-spy="affix" data-offset-top="280" data-offset-bottom="200">
           <div class="row">
             <h2 style="font-weight:100">Featured Artist</h2>
 
             <div class="feature-box">
-              <iframe src="//www.noisetrade.com/service/widgetv2/f5c0767c-429f-46bb-ae53-35bf6c1624f6" width="300" height="375" scrolling="no" frameBorder="0"></iframe>
+              <iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/79027103&amp;auto_play=false&amp;hide_related=false&amp;visual=true"></iframe>
             </div><br />
 
             <button class="col-md-12 btn btn-blue">Donate to the Provo Yacht Club!</button>
@@ -128,13 +117,24 @@
       </div>
     </div><!-- close out content -->
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+
     <script type="text/javascript">
         $('div').tooltip();
     </script>
+
+    <script type="text/javascript">
+
+      $('#loadMore').click(function() {
+        var div = $("#morePosts");
+        var batch = parseInt(div.attr('data-batch'));
+        $.get('/moreResults/' + batch, function(data){
+          div.find('body').append(data);
+          div.attr('data-batch', batch+1);
+        });
+      });
+
+    </script>
+
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

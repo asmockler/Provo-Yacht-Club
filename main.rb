@@ -18,6 +18,7 @@ end
 
 # Calling the main view
 get '/' do
+  @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).limit(3)
   erb :index
 end
 
@@ -74,15 +75,16 @@ post '/edit/:id' do
   redirect '/Manager'
 end
 
-get '/update' do
-  Time.now.to_s
-end
-
 get '/Manager/moreResults/:batch' do |batch|
   num_to_skip = 5 * batch.to_i
   @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).skip(num_to_skip).limit(5)
   erb :manage_table
+end
 
+get '/moreResults/:batch' do |batch|
+  num_to_skip = 5 * batch.to_i
+  @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).skip(num_to_skip).limit(5)
+  erb :post_long_front
 end
 
 =begin

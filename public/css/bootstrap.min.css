@@ -28,10 +28,6 @@ body {
 	max-width: 100%;
 }
 
-.recent-post-div{
-	padding-left:5%;
-	padding-right:5%;
-}
 
 .jumbotron{
 	background:url('header.jpg') center top;
@@ -48,7 +44,7 @@ body {
 	color: #eee;
 	opacity: .75;
 	margin-top:15px;
-	margin-left: -5%;
+	margin-left: 2%
 }
 
 .content{
@@ -88,7 +84,6 @@ body {
 }
 
 .feature-box{
-	padding-bottom:20px;
 	border-bottom: 2px solid #c3c3c3;
 	width:100%;
 	text-align: center;
@@ -113,8 +108,11 @@ body {
     padding-right:15px;
 }
 
-.bottom-menu a{
-	color:#ccc;
+.right-side.affix{
+	right:7%;
+	top:50px;
+	padding-left: 37px;
+	padding-right: 40px;
 }
 
 /*!

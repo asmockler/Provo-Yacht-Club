@@ -1,0 +1,20 @@
+<% @posts.each do |post| %>
+
+<div class="col-md-12" style="border-bottom:2px solid #ccc; margin-bottom:35px; padding:1%;">
+
+  <div class="col-md-4" style="margin-right:-5%">
+    <img src="<%= post['AlbumArt']%>" style="max-width:100%"/><br /><br />
+    <a href="#"><span class="label label-default"><%= post['tag'] %></span></a>
+    <a href="#"><span class="label label-default"><%= post['tag2'] %></span></a>
+  </div>
+
+  <div class="col-md-8">
+    <h3><%= post['Song-Title'] %> - <%= post['Artist'] %> <br /><small><%= post["Album"] %></small></h3>
+    <p><small><%= post['Description'] %></small></p>
+    <iframe src="https://embed.spotify.com/?uri=<%= post['Media'] %>" width="250" height="80" frameborder="0" allowtransparency="true"></iframe>
+  </div>
+
+</div> 
+
+<%end%>
+
