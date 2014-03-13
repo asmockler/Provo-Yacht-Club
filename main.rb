@@ -88,7 +88,11 @@ get '/moreResults/:batch' do |batch|
 end
 
 =begin
-  
-Fix background image sizing
+
+Issues:
+*Load more posts on homepage
+*Make entry time not get deleted on edit
+*Disable inputs with media radio buttons (finish this)
+*Fix background image sizing
   
 =end

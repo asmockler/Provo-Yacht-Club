@@ -56,8 +56,24 @@
               <label for="Description">Post Description</label>
               <textarea class="form-control" rows="3" placeholder="Put all your witty jargon here..." name="Description"><%= post['Description'] %></textarea><br />
 
-              <label for="Media">Embed Code (Spotify URI, etc.)</label>
-              <input type="text" class="form-control" placeholder="spotify:track:0bsdLG0Z1TedLfJGKPpv64" name="Media" value="<%= post['Media'] %>"><br />
+              <label for="Media">Embedded Media</label>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="Source" id="optionsRadios1" value="Soundcloud" <% if post["Source"] == "Soundcloud" %> checked <% else %> <% end %> >
+                  Soundcloud
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="Source" id="optionsRadios2" value="spotify" <% if post["Source"] == "spotify" %> checked <% else %> <% end %> >
+                  Spotify
+                </label>
+              </div><br/>
+
+              <label>Media Link (Soundcloud)</label>
+              <input type="text" class="form-control" placeholder="https://api.soundcloud.com/tracks/136749579" value="<%= post['Media1'] %>" name="Media1"><br />
+              <label>Media Link (Spotify)</label>
+              <input type="text" class="form-control" placeholder="spotify:track:0bsdLG0Z1TedLfJGKPpv64" value="<%= post['Media'] %>" name="Media"><br />
 
               <label for="AlbumArt">Album Art</label>
               <input type="text" class="form-control" placeholder="http://a3.mzstatic.com/us/r30/Music/13/d6/d1/mzi.qqcypfvi.170x170-75.jpg" name="AlbumArt" value="<%= post['AlbumArt'] %>"><br />
@@ -92,7 +108,7 @@
               <input type="text" class="form-control" placeholder="Michael Jordan" name="Author" value="<%= post['Author'] %>"><br />
 
               <label for="entrytime">Created On</label>
-              <input type="text" class="form-control" disabled name="entrytime" value="<%= post['entrytime'] %>"><br/>
+              <input type="text" class="form-control" name="entrytime" value="<%= post['entrytime'] %>"><br/>
 
               <div class="pull-right">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -104,4 +120,7 @@
         </div>
       </div>
     </div>
+  </div>
 <%end%>
+
+

@@ -71,10 +71,28 @@
                             <input type="text" class="form-control" placeholder="Yacht Rock:'70s Soft Rock hits" name="Album"><br />
 
                             <label for="Description">Post Description</label>
-                            <textarea class="form-control" rows="3" placeholder="Put all your witty jargon here..." name="Description"></textarea><br />
+                            <textarea class="form-control" rows="3" placeholder="Put all your witty jargon here..." name="Description"></textarea><br/>
+                            
+                            <label for="Media">Embedded Media</label>
 
-                            <label for="Media">Embed Code (Spotify URI, etc.)</label>
-                            <input type="text" class="form-control" placeholder="spotify:track:0bsdLG0Z1TedLfJGKPpv64" name="Media"><br />
+                            <div class="radio">
+                              <label>
+                                <input type="radio" id="soundcloudRadio" name="Source" id="optionsRadios1" value="Soundcloud" checked>
+                                Soundcloud
+                              </label>
+                            </div>
+                            <div class="radio">
+                              <label>
+                                <input type="radio" id="spotifyRadio" name="Source" id="optionsRadios2" value="spotify">
+                                Spotify
+                              </label>
+                            </div><br/>
+
+                            <label>Media Link (Soundcloud)</label>
+                            <input type="text" class="form-control" id="SoundcloudInput" placeholder="https://api.soundcloud.com/tracks/136749579" name="Media1"><br />
+                            <label>Media Link (Spotify)</label>
+                            <input type="text" disabled class="form-control" id="SpotifyInput" placeholder="spotify:track:0bsdLG0Z1TedLfJGKPpv64" name="Media"><br />
+
 
                             <label for="AlbumArt">Album Art</label>
                             <input type="text" class="form-control" placeholder="http://a3.mzstatic.com/us/r30/Music/13/d6/d1/mzi.qqcypfvi.170x170-75.jpg" name="AlbumArt"><br />
@@ -148,26 +166,6 @@
 
    </div>
 
-   <!-- Modal for delete confirmation -->
-    <div class="modal fade" id="myModal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title">Delete Entry</h4>
-            </div>
-            <div class="modal-body">
-              Are you sure you want to delete this entry? This cannot be undone!
-            </div>
-            <div class="modal-footer">
-            <form method="get" action="/delete/">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
-            </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -187,6 +185,19 @@
           table.find('tbody').append(data);
           table.attr('data-batch', batch+1);
         });
+      });
+
+    </script>
+
+    <script type="text/javascript">
+      $('#soundcloudRadio').click(function() { 
+          $("#SpotifyInput").prop("disabled",true);
+          $("#SoundcloudInput").prop("disabled",false);
+      });
+
+      $('#spotifyRadio').click(function() { 
+          $("#SoundcloudInput").prop("disabled",true);
+          $("#SpotifyInput").prop("disabled",false);
       });
 
     </script>

@@ -85,10 +85,10 @@
 
             <h2 style="font-weight:100">Recent Posts</h2>
 
+            <div id="#morePosts" data-batch="1"></div>
+
             <!-- Template for Posts -->
             <%= erb :posts_long_front %>
-
-            <div id="#morePosts" data-batch="1"></div>
 
             <a href="#" id="loadMore"><h3>Load More Posts</h3></a>
 
@@ -128,7 +128,7 @@
         var div = $("#morePosts");
         var batch = parseInt(div.attr('data-batch'));
         $.get('/moreResults/' + batch, function(data){
-          div.find('body').append(data);
+          div.append(data);
           div.attr('data-batch', batch+1);
         });
       });
