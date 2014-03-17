@@ -81,6 +81,11 @@ get '/Manager/moreResults/:batch' do |batch|
   erb :manage_table
 end
 
+get '/Manager/edit-modal/:id' do |id|
+  @post = settings.mongo_db["Posts"].find_one({_id: BSON::ObjectId(id)})
+  erb :manager_edit_form
+end
+
 get '/moreResults/:batch' do |batch|
   num_to_skip = 5 * batch.to_i
   @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).skip(num_to_skip).limit(5)

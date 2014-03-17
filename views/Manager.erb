@@ -159,6 +159,17 @@
       <%= erb :manage_table %>
 
      </table>
+     <div class="modal fade" id="edit-modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Edit a New Post</h4>
+          </div>
+          <div class="modal-body"></div>
+        </div>
+      </div>
+    </div>
 
      <a href="#" id="loadMore">Load more results...</a>
 
@@ -172,11 +183,21 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
+      var editModal = $('#edit-modal');
+      $("#posts-table").on('click', '.edit', function (event) {
+        $.get(this.href, function (result) {
+          editModal.find('.modal-body').html(result);
+          editModal.modal();
+        });
+        event.preventDefault();
+      });
+      
+      function WireUpContent () {
         $('span').tooltip();
         $(".alert").alert();
-    </script>
-
-    <script type="text/javascript">
+      };
+      
+      WireUpContent();
 
       $('#loadMore').click(function() {
         var table = $("#posts-table");
@@ -184,12 +205,10 @@
         $.get('/Manager/moreResults/' + batch, function(data){
           table.find('tbody').append(data);
           table.attr('data-batch', batch+1);
+          WireUpContent();
         });
       });
 
-    </script>
-
-    <script type="text/javascript">
       $('#soundcloudRadio').click(function() { 
           $("#SpotifyInput").prop("disabled",true);
           $("#SoundcloudInput").prop("disabled",false);
