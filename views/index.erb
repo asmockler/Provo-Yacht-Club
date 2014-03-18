@@ -33,15 +33,15 @@
           <span class="icon-bar"></span>
         </button>
 
-        <a class="navbar-brand" href="#">Provo Yacht Club</a>
+        <a class="navbar-brand" href="/">Provo Yacht Club</a>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="#">Dance</a></li>
-            <li><a href="#">Chill</a></li>
-            <li><a href="#">Revival</a></li>
-            <li><a href="#">Big Beats</a></li>
-            <li><a href="#">Etc.</a></li>
+            <li><a href="/Dance">Dance</a></li>
+            <li><a href="/Chill">Chill</a></li>
+            <li><a href="/Revival">Revival</a></li>
+            <li><a href="/Big Beats">Big Beats</a></li>
+            <li><a href="/Etc.">Etc.</a></li>
           </ul>
         </div>
 
@@ -52,7 +52,7 @@
 
     <div class="jumbotron">
       <div class="container-fluid">
-        <h1 class="main-title" style="line-height:55px">Provo Yacht <span style="letter-spacing:-6px">Club</span></h1>
+        <h1 class="main-title" style="line-height:55px;font-weight:100">Provo Yacht <span style="letter-spacing:-4px">Club</span></h1>
       </div>
     </div>
 
@@ -71,7 +71,7 @@
 
             <div class="recent-post-div" style="align:centered;padding:-15px;">
 
-              <% settings.mongo_db["Posts"].find.sort('_id','descending').limit(6).each do |post| %>
+              <% @recentposts.each do |post| %>
               <div class="col-md-2" style="padding:1px" data-toggle="tooltip" data-html="true" title="<strong><%= post['Song-Title'] %></strong><br /><%= post['Artist'] %> <br /> <i><%= post['Album'] %></i>">
                   <img class="recent-post" src="<%= post['AlbumArt']%>" />
               </div>

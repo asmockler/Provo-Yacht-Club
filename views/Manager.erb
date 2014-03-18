@@ -159,6 +159,9 @@
       <%= erb :manage_table %>
 
      </table>
+
+      <a href="#" id="loadMore" style="text-decoration:none"><button class="btn btn-danger btn-block btn-sm" style="font-size:13px">Load more results...</button></a>
+
      <div class="modal fade" id="edit-modal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -171,7 +174,21 @@
       </div>
     </div>
 
-     <a href="#" id="loadMore">Load more results...</a>
+    <!-- Modal for delete confirmation -->
+  <div class="modal fade" id="delete-modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Delete Entry</h4>
+        </div>
+        <div class="modal-delete-content"></div>
+        </div>
+      </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+  </div><!-- modal -->
+
+
 
 
 
@@ -183,6 +200,15 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
+      var deleteModal = $('#delete-modal');
+      $("#posts-table").on('click', '.delete', function (event) {
+        $.get(this.href, function (result) {
+          deleteModal.find('.modal-delete-content').html(result);
+          deleteModal.modal();
+        });
+        event.preventDefault();
+      });
+
       var editModal = $('#edit-modal');
       $("#posts-table").on('click', '.edit', function (event) {
         $.get(this.href, function (result) {

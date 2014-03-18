@@ -19,6 +19,38 @@ end
 # Calling the main view
 get '/' do
   @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).limit(3)
+  @recentposts = settings.mongo_db["Posts"].find.sort('_id','descending').limit(6)
+  erb :index
+end
+
+# Sorting
+get '/Big Beats' do
+  @posts = settings.mongo_db["Posts"].find({ :$or => [{:tag => "Big Beats"}, {:tag2 => "Big Beats"}] }).sort({_id: -1}).limit(3)
+  @recentposts = settings.mongo_db["Posts"].find({ :$or => [{:tag => "Big Beats"}, {:tag2 => "Big Beats"}] }).limit(6)
+  erb :index
+end
+
+get '/Dance' do
+  @posts = settings.mongo_db["Posts"].find({ :$or => [{:tag => "Dance"}, {:tag2 => "Dance"}] }).sort({_id: -1}).limit(3)
+  @recentposts = settings.mongo_db["Posts"].find({ :$or => [{:tag => "Dance"}, {:tag2 => "Dance"}] }).sort('_id','descending').limit(6)
+  erb :index
+end
+
+get '/Chill' do
+  @posts = settings.mongo_db["Posts"].find({ :$or => [{:tag => "Chill"}, {:tag2 => "Chill"}] }).sort({_id: -1}).limit(3)
+  @recentposts = settings.mongo_db["Posts"].find({ :$or => [{:tag => "Chill"}, {:tag2 => "Chill"}] }).sort('_id','descending').limit(6)
+  erb :index
+end
+
+get '/Revival' do
+  @posts = settings.mongo_db["Posts"].find({ :$or => [{:tag => "Revival"}, {:tag2 => "Revival"}] }).sort({_id: -1}).limit(3)
+  @recentposts = settings.mongo_db["Posts"].find({ :$or => [{:tag => "Revival"}, {:tag2 => "Revival"}] }).sort('_id','descending').limit(6)
+  erb :index
+end
+
+get '/Etc.' do
+  @posts = settings.mongo_db["Posts"].find({ :$or => [{:tag => "Etc."}, {:tag2 => "Etc."}] }).sort({_id: -1}).limit(3)
+  @recentposts = settings.mongo_db["Posts"].find({ :$or => [{:tag => "Etc."}, {:tag2 => "Etc."}] }).sort('_id','descending').limit(6)
   erb :index
 end
 
@@ -92,12 +124,15 @@ get '/moreResults/:batch' do |batch|
   erb :post_long_front
 end
 
-=begin
+get "/Manager/delete/:id" do |id|
+  @post = settings.mongo_db["Posts"].find_one({_id: BSON::ObjectId(id)})
+  erb :manager_delete_confirm
+end
 
+
+=begin
 Issues:
 *Load more posts on homepage
-*Make entry time not get deleted on edit
 *Disable inputs with media radio buttons (finish this)
 *Fix background image sizing
-  
 =end

@@ -2,7 +2,7 @@
 
   <tr>
     <td><a class="edit" href="/Manager/edit-modal/<%= post['_id'] %>"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" title="Edit"></span></a></td>
-    <td><a class="modal-link" href="#delete<%= post['_id'] %>"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" title="Delete"></span></a></td>
+    <td><a class="delete" href="/Manager/delete/<%= post['_id'] %>"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" title="Delete"></span></a></td>
     <td><%= post['Song-Title'] %></td>
     <td><%= post['Artist'] %></td>
     <td><%= post['Album'] %></td>
@@ -10,24 +10,4 @@
     <td><%= post['Author'] %></td>
   </tr>
 
-<!-- Modal for delete confirmation -->
-  <div class="modal fade" id="delete<%= post['_id'] %>">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Delete Entry</h4>
-        </div>
-        <div class="modal-body">
-          Are you sure you want to delete the post about <%= post['Song-Title']%>? This cannot be undone!
-        </div>
-        <div class="modal-footer">
-          <form method="get" action="/delete/<%= post['_id'] %>">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-danger">Delete</button>
-          </form>
-        </div>
-      </div><!-- modal-content -->
-    </div><!-- modal-dialog -->
-  </div><!-- modal -->
 <%end%>
