@@ -62,6 +62,10 @@ body {
 	font-weight: 200;
 }
 
+.btn-blue:focus,.btn-blue:active:focus{
+	outline:none;
+}
+
 .btn-red{
 	color:#fff;
 	background-color:#D74B4B;

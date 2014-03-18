@@ -18,10 +18,7 @@
     <![endif]-->
   </head>
   <body>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+
 <!-- Navbar -->
     <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
       <div class="container-fluid">
@@ -85,12 +82,12 @@
 
             <h2 style="font-weight:100">Recent Posts</h2>
 
-            <div id="#morePosts" data-batch="1"></div>
-
             <!-- Template for Posts -->
             <%= erb :posts_long_front %>
 
-            <a href="#" id="loadMore"><h3>Load More Posts</h3></a>
+            <div id="morePosts" data-batch="1"></div>
+
+            <a id="loadMore"><button class="btn btn-blue btn-block">Load More Posts</button></a>
 
           </div>
 
@@ -117,19 +114,21 @@
       </div>
     </div><!-- close out content -->
 
-
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
-        $('div').tooltip();
-    </script>
 
-    <script type="text/javascript">
+      $('div').tooltip();
 
       $('#loadMore').click(function() {
-        var div = $("#morePosts");
+        var div = $('#morePosts');
         var batch = parseInt(div.attr('data-batch'));
-        $.get('/moreResults/' + batch, function(data){
+        $.get('/moreResults/' + batch, function(data) {
           div.append(data);
           div.attr('data-batch', batch+1);
+          console.log(result);
         });
       });
 
