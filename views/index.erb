@@ -16,6 +16,16 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48737823-1', 'provoyachtclub.com');
+  ga('send', 'pageview');
+
+</script>
   </head>
   <body>
 
@@ -34,11 +44,11 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="/Dance">Dance</a></li>
-            <li><a href="/Chill">Chill</a></li>
-            <li><a href="/Revival">Revival</a></li>
-            <li><a href="/Big Beats">Big Beats</a></li>
-            <li><a href="/Etc.">Etc.</a></li>
+            <li><a href="/Dance" data-container="body" data-toggle="popover" data-trigger="hover" data-html="true" data-placement="bottom" data-content="<strong>Sort Music!</strong><br/>Click here to see only music that will make you dance!">Dance</a></li>
+            <li><a href="/Chill" data-container="body" data-toggle="popover" data-trigger="hover" data-html="true" data-placement="bottom" data-content="<strong>Sort Music!</strong><br/>Click here to see only chill, relaxing, peaceful music.">Chill</a></li>
+            <li><a href="/Revival" data-container="body" data-toggle="popover" data-trigger="hover" data-html="true" data-placement="bottom" data-content="<strong>Sort Music!</strong><br/>Click here to see only music that belonged to another decade.">Revival</a></li>
+            <li><a href="/Big Beats" data-container="body" data-toggle="popover" data-trigger="hover" data-html="true" data-placement="bottom" data-content="<strong>Sort Music!</strong><br/>Click here to see only music that will blow your mind.">Big Beats</a></li>
+            <li><a href="/Etc." data-container="body" data-toggle="popover" data-trigger="hover" data-html="true" data-placement="bottom" data-content="<strong>Sort Music!</strong><br/>Click here to see everything else.">Etc.</a></li>
           </ul>
         </div>
 
@@ -47,9 +57,9 @@
 
 <!-- Header -->
 
-    <div class="jumbotron">
+    <div class="jumbotron" style="background-image:url('http://allisonholdridge.com/wp-content/uploads/2013/06/yolanda-fronda-.jpg');">
       <div class="container-fluid">
-        <h1 class="main-title" style="line-height:55px;font-weight:100">Provo Yacht <span style="letter-spacing:-4px">Club</span></h1>
+        <h1 class="main-title" style="line-height:55px;font-weight:100;color:#eee;text-shadow:1px 1px 1px #111">Provo Yacht <span style="letter-spacing:-4px">Club</span></h1>
       </div>
     </div>
 
@@ -121,27 +131,19 @@
     <script type="text/javascript">
 
       $('div').tooltip();
+      $('a').popover();
 
       $('#loadMore').click(function() {
         var div = $('#morePosts');
         var batch = parseInt(div.attr('data-batch'));
         $.get('/moreResults/' + batch, function(data) {
-          div.append(data);
-          div.attr('data-batch', batch+1);
-          console.log(result);
+          div.hide().append(data).fadeIn();
+          div.attr('data-batch', batch+1);;
         });
       });
 
     </script>
 
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-48737823-1', 'provoyachtclub.com');
-      ga('send', 'pageview');
-    </script>
+   
   </body>
 </html>

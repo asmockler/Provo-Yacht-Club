@@ -12,11 +12,11 @@
     <h3><%= post['Song-Title'] %> - <%= post['Artist'] %> <br /><small style="color:#777"><%= post["Album"] %></small></h3>
     <p><%= post['Description'] %></p>
     <% if post['Source'] == "spotify" %>
-      <iframe src="https://embed.spotify.com/?uri=<%= post['Media'] %>" width="250" height="80" frameborder="0" allowtransparency="true"></iframe>
+      <iframe src="https://embed.spotify.com/?uri=<%= post['Media'] %>" width="100%" height="88" frameborder="0" allowtransparency="true"></iframe>
     <% elsif post['Source'] == "Soundcloud" %>
       <iframe width="100%" height="100" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=<%= post["Media1"] %>&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=true"></iframe>
     <%else end%>
-
+    <p class="text-muted pull-right" style="margin:-5px"><small>Post by <%= post["Author"] %></small></p>
   </div>
 
 </div> 
