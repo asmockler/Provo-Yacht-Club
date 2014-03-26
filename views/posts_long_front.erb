@@ -2,14 +2,14 @@
 
 <div class="col-md-12" style="border-bottom:2px solid #ccc; margin-bottom:35px; padding:1%;">
 
-  <div class="col-md-4" style="margin-right:-5%">
-    <img src="<%= post['AlbumArt']%>" style="max-width:100%"/><br /><br />
+  <div class="col-md-4">
+    <img src="<%= post['AlbumArt']%>" class="img-responsive" style="width:100%" /><br/>
     <a href="/<%= post['tag'] %>"><span class="label label-default"><%= post['tag'] %></span></a>
     <a href="/<%= post['tag2'] %>"><span class="label label-default"><%= post['tag2'] %></span></a>
   </div>
 
   <div class="col-md-8">
-    <h3><%= post['Song-Title'] %> - <%= post['Artist'] %> <br /><small style="color:#777"><%= post["Album"] %></small></h3>
+    <h3 style="margin-top:0"><%= post['Song-Title'] %> - <%= post['Artist'] %> <br /><small style="color:#777"><%= post["Album"] %></small></h3>
     <p><%= post['Description'] %></p>
     <% if post['Source'] == "spotify" %>
       <iframe src="https://embed.spotify.com/?uri=<%= post['Media'] %>" width="100%" height="88" frameborder="0" allowtransparency="true"></iframe>
