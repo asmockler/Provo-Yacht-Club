@@ -138,7 +138,7 @@ end
      @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).limit(5)
      erb :Manager
     else
-     redirect '/login'
+     erb :login
     end
   end
 
