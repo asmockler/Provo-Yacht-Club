@@ -9,11 +9,12 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
   </head>
-  <body>
+  <body style="margin-top: 20px">
+
     <div class="container">
 
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-offset-3 col-lg-6" style="margin-top:20px">
         <!-- Alerts -->
             <% if flash[:postSuccess]%>
                 <div class="alert alert-success fade in">
@@ -70,8 +71,9 @@
                             <label for="Album">Album</label>
                             <input type="text" class="form-control" placeholder="Yacht Rock:'70s Soft Rock hits" name="Album"><br />
 
+
                             <label for="Description">Post Description</label>
-                            <textarea class="form-control" rows="3" placeholder="Put all your witty jargon here..." name="Description"></textarea><br/>
+                            <textarea class="form-control postcontent" rows="4" placeholder="Put all your witty jargon here..." name="Description"></textarea><br/>
                             
                             <label for="Media">Embedded Media</label>
 
@@ -200,6 +202,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
+
       var deleteModal = $('#delete-modal');
       $("#posts-table").on('click', '.delete', function (event) {
         $.get(this.href, function (result) {
@@ -244,6 +247,7 @@
           $("#SoundcloudInput").prop("disabled",true);
           $("#SpotifyInput").prop("disabled",false);
       });
+
 
     </script>
 

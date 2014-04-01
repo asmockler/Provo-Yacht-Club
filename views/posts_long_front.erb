@@ -10,7 +10,7 @@
 
   <div class="col-md-8">
     <h3 style="margin-top:0"><%= post['Song-Title'] %> - <%= post['Artist'] %> <br /><small style="color:#777"><%= post["Album"] %></small></h3>
-    <p><%= post['Description'] %></p>
+    <p><%= post['Description'].gsub(/\n/, '<br />') %></p>
     <% if post['Source'] == "spotify" %>
       <iframe src="https://embed.spotify.com/?uri=<%= post['Media'] %>" width="100%" height="88" frameborder="0" allowtransparency="true"></iframe>
     <% elsif post['Source'] == "Soundcloud" %>
