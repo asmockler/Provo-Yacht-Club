@@ -134,12 +134,17 @@ end
 
 # Stuff for Logging In
   get '/login' do
-    erb :login
+    if session["user"]
+     @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).limit(5)
+     erb :Manager
+    else
+     redirect '/login'
+    end
   end
 
   post '/login' do
     if settings.mongo_db["users"].find_one(:username => params[:username]) and settings.mongo_db["users"].find_one(:password => params[:password])
-      session["user"] = true
+      session["user"] = true 
       redirect '/Manager'
     else
       flash[:loginerror] = true
