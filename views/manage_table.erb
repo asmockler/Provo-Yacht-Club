@@ -8,6 +8,13 @@
     <td><%= post['Album'] %></td>
     <td><%= post['entrytime'] %></td>
     <td><%= post['Author'] %></td>
+    <td class="text-center">
+      <% if post['publish'] == true %>
+        <span class="glyphicon glyphicon-ok text-success"></span>
+      <% else %>
+        <span class="glyphicon glyphicon-remove text-danger"></span>
+      <% end %>
+    </td>
   </tr>
 
 <%end%>

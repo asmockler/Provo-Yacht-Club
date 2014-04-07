@@ -122,6 +122,17 @@ body {
 	outline:none;
 }
 
+.btn-success{
+	color:#fff;
+	background-color:#47a447;
+	border-color:#398439;
+}
+
+.btn-success:hover{
+	color:#fff;
+	background-color:#3c763d;
+}
+
 /*!
 gray: DCDDD8;
 red: D74B4B;

@@ -59,7 +59,7 @@
                     <h4 class="modal-title">Submit a New Post</h4>
                   </div>
                   <div class="modal-body">
-                        <form method="post" action="/NewPost">
+                        <form method="post">
                           <fieldset>
 
                             <label for="Song-Title">Song Title</label>
@@ -130,7 +130,8 @@
 
                           <div class="pull-right">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Submit</button>
+                          <button type="submit" formaction="/NewPost/publish" class="btn btn-success">Publish</button>
+                          <button type="submit" formaction="/NewPost/save" class="btn btn-warning">Save</button>
                           </div>
 
                         </fieldset>
@@ -156,6 +157,7 @@
         <th>Album</th>
         <th>Date Posted</th>
         <th>Author</th>
+        <th class="text-center">Published</th>
       </tr>
 
       <%= erb :manage_table %>

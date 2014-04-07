@@ -57,9 +57,9 @@
 
 <!-- Header -->
 
-    <div class="jumbotron" style="background-image:url('http://allisonholdridge.com/wp-content/uploads/2013/06/yolanda-fronda-.jpg');">
+    <div class="jumbotron" style="background-image:url('<%= @header %>');">
       <div class="container-fluid">
-        <h1 class="main-title" style="line-height:55px;font-weight:100;color:#eee;text-shadow:1px 1px 1px #111">Provo Yacht <span style="letter-spacing:-4px">Club</span></h1>
+        <h1 class="main-title" style="color:#222;line-height:55px;font-weight:100;text-shadow:1px 1px 1px #111">Provo Yacht <span style="letter-spacing:-4px">Club</span></h1>
       </div>
     </div>
 
@@ -71,10 +71,10 @@
     <!-- Left Side  -->
         <div class="col-md-7" style="padding-right:20px">
 
-            <div class="row"><h2 style="font-weight:100">This Week</h2></div>
+            <div class="row hidden-sm hidden-xs"><h2 style="font-weight:100">This Week</h2></div>
 
           <!--Recent Posts -->
-          <div class="row">
+          <div class="row hidden-sm hidden-xs">
 
             <div class="recent-post-div" style="align:centered;padding:-15px;">
 
@@ -108,7 +108,7 @@
         <div class="col-md-1" style="margin-right:-55px"></div>
 
     <!-- Right Side -->
-        <div class="col-md-4 right-side" data-spy="affix" data-offset-top="280" data-offset-bottom="200">
+        <div class="col-md-4 right-side hidden-xs hidden-sm" data-spy="affix" data-offset-top="280" data-offset-bottom="200">
           <div class="row">
             <h2 style="font-weight:100">Featured Artist</h2>
 
