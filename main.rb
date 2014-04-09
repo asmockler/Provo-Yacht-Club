@@ -21,7 +21,7 @@ end
   get '/' do
     @posts = settings.mongo_db["Posts"].find({:publish => true}).sort({_id: -1}).limit(3)
     @recentposts = settings.mongo_db["Posts"].find({:publish => true}).sort('_id','descending').limit(6)
-    @header = "http://media-cache-ak0.pinimg.com/originals/9e/de/88/9ede889349d2ef0328909322f080c29d.jpg"
+    @header = "/temp.png"
     erb :index
   end
 
@@ -35,7 +35,7 @@ end
       get '/Big Beats' do
         @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Big Beats"}, {:tag2 => "Big Beats"}]} ] }).sort({_id: -1}).limit(3)
         @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Big Beats"}, {:tag2 => "Big Beats"}]} ] }).limit(6)
-        @header = "http://wolfeyebrows.files.wordpress.com/2012/12/tropical-print.jpg?w=640&h=910"
+        @header = "/temp.png"
         erb :index
       end
 

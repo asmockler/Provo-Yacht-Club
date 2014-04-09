@@ -4,7 +4,6 @@
     <link href='http://fonts.googleapis.com/css?family=Great+Vibes|Herr+Von+Muellerhoff|Cedarville+Cursive' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Provo Yacht Club</title>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -30,19 +29,18 @@
   <body>
 
 <!-- Navbar -->
-    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-      <div class="container-fluid">
-
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-
-        <a class="navbar-brand" href="/">Provo Yacht Club</a>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Provo Yacht Club</a>
+        </div>
+        <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li><a href="/Dance" data-container="body" data-toggle="popover" data-trigger="hover" data-html="true" data-placement="bottom" data-content="<strong>Sort Music!</strong><br/>Click here to see only music that will make you dance!">Dance</a></li>
             <li><a href="/Chill" data-container="body" data-toggle="popover" data-trigger="hover" data-html="true" data-placement="bottom" data-content="<strong>Sort Music!</strong><br/>Click here to see only chill, relaxing, peaceful music.">Chill</a></li>
@@ -50,36 +48,35 @@
             <li><a href="/Big Beats" data-container="body" data-toggle="popover" data-trigger="hover" data-html="true" data-placement="bottom" data-content="<strong>Sort Music!</strong><br/>Click here to see only music that will blow your mind.">Big Beats</a></li>
             <li><a href="/Etc." data-container="body" data-toggle="popover" data-trigger="hover" data-html="true" data-placement="bottom" data-content="<strong>Sort Music!</strong><br/>Click here to see everything else.">Etc.</a></li>
           </ul>
-        </div>
-
-      </div>
-    </nav>
-
-<!-- Header -->
-
-    <div class="jumbotron" style="background-image:url('<%= @header %>');">
-      <div class="container-fluid">
-        <h1 class="main-title" style="color:#222;line-height:55px;font-weight:100;text-shadow:1px 1px 1px #111">Provo Yacht <span style="letter-spacing:-4px">Club</span></h1>
+        </div><!--/.nav-collapse -->
       </div>
     </div>
 
 
+
+<!-- Header -->
+
+    <div class="container">
+      <img src="<%= @header %>" />
+    </div>
+
+
 <!-- Content -->
-    <div class="container-fluid" style="margin-left:5%;margin-right:5%;">
+    <div class="container">
       <div class="row">
 
     <!-- Left Side  -->
-        <div class="col-md-7" style="padding-right:20px">
+        <div class="col-xs-7">
 
-            <div class="row hidden-sm hidden-xs"><h2 style="font-weight:100">This Week</h2></div>
+            <div class="row"><h2 style="font-weight:100">This Week</h2></div>
 
           <!--Recent Posts -->
-          <div class="row hidden-sm hidden-xs">
+          <div class="row">
 
             <div class="recent-post-div" style="align:centered;padding:-15px;">
 
               <% @recentposts.each do |post| %>
-              <div class="col-md-2" style="padding:1px" data-toggle="tooltip" data-html="true" title="<strong><%= post['Song-Title'] %></strong><br /><%= post['Artist'] %> <br /> <i><%= post['Album'] %></i>">
+              <div class="col-xs-2" style="padding:1px" data-toggle="tooltip" data-html="true" title="<strong><%= post['Song-Title'] %></strong><br /><%= post['Artist'] %> <br /> <i><%= post['Album'] %></i>">
                   <img class="recent-post" src="<%= post['AlbumArt']%>" />
               </div>
               <% end %>
@@ -88,7 +85,7 @@
           </div>
 
           <!-- Full Posts -->
-          <div class="row" style="margin-top:15px;">
+          <div class="row">
 
             <h2 style="font-weight:100">Recent Posts</h2>
 
@@ -105,10 +102,10 @@
         </div>
 
         <!-- to separate the sides -->
-        <div class="col-md-1" style="margin-right:-55px"></div>
+        <div class="col-xs-1"></div>
 
     <!-- Right Side -->
-        <div class="col-md-4 right-side hidden-xs hidden-sm" data-spy="affix" data-offset-top="280" data-offset-bottom="200">
+        <div class="col-xs-4 right-side" data-spy="affix" data-offset-top="280" data-offset-bottom="200">
           <div class="row">
             <h2 style="font-weight:100">Featured Artist</h2>
 
@@ -116,7 +113,7 @@
               <iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/79027103&amp;auto_play=false&amp;hide_related=false&amp;visual=true"></iframe>
             </div><br />
 
-            <button class="col-md-12 btn btn-blue">Donate to the Provo Yacht Club!</button>
+            <button class="col-xs-12 btn btn-blue">Donate to the Provo Yacht Club!</button>
 
           </div>
         </div>
