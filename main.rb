@@ -19,9 +19,8 @@ end
 
 # Calling the main view
   get '/' do
-    @posts = settings.mongo_db["Posts"].find({:publish => true}).sort({_id: -1}).limit(3)
+    @posts = settings.mongo_db["Posts"].find({:publish => true}).sort({_id: -1}).limit(5)
     @recentposts = settings.mongo_db["Posts"].find({:publish => true}).sort('_id','descending').limit(6)
-    @header = "http://media-cache-ak0.pinimg.com/originals/9e/de/88/9ede889349d2ef0328909322f080c29d.jpg"
     erb :index
   end
 
@@ -35,35 +34,30 @@ end
       get '/Big Beats' do
         @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Big Beats"}, {:tag2 => "Big Beats"}]} ] }).sort({_id: -1}).limit(3)
         @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Big Beats"}, {:tag2 => "Big Beats"}]} ] }).limit(6)
-        @header = "http://wolfeyebrows.files.wordpress.com/2012/12/tropical-print.jpg?w=640&h=910"
         erb :index
       end
 
       get '/Dance' do
         @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Dance"}, {:tag2 => "Dance"}]} ] }).sort({_id: -1}).limit(3)
         @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Dance"}, {:tag2 => "Dance"}]} ] }).sort('_id','descending').limit(6)
-        @header = "http://media-cache-ec0.pinimg.com/736x/2c/80/1f/2c801fcb4c8ddb38c2f8c2e1857d8a10.jpg"
         erb :index
       end
 
       get '/Chill' do
         @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Chill"}, {:tag2 => "Chill"}]} ] }).sort({_id: -1}).limit(3)
         @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Chill"}, {:tag2 => "Chill"}]} ] }).sort('_id','descending').limit(6)
-        @header = "http://media-cache-ec0.pinimg.com/736x/0b/2a/86/0b2a86440deed178514b2a1897392569.jpg"
         erb :index
       end
 
       get '/Revival' do
         @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Revival"}, {:tag2 => "Revival"}]} ] }).sort({_id: -1}).limit(3)
         @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Revival"}, {:tag2 => "Revival"}]} ] }).sort('_id','descending').limit(6)
-        @header = "http://media-cache-ec0.pinimg.com/736x/99/e7/d2/99e7d26b18f8210c372c11379c6f1f0b.jpg"
         erb :index
       end
 
       get '/Etc.' do
         @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Etc."}, {:tag2 => "Etc."}]} ] }).sort({_id: -1}).limit(3)
         @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Etc."}, {:tag2 => "Etc."}]} ] }).sort('_id','descending').limit(6)
-        @header = "/css/header.jpg"
         erb :index
       end
 
@@ -208,7 +202,9 @@ Issues:
 *Fix background image sizing
 
 To Do:
-*Styling & Logo
+*Fix Recent Post Image Size
+*Update Colors
+*enable feature editing
 *Finish Square Profile & Launch Space
 *Finish Facebook Page
 =end
