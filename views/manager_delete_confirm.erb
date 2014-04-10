@@ -1,9 +1,21 @@
 
         <div class="modal-body">
-          Are you sure you want to delete the post about <%= @post['Song-Title']%>? This cannot be undone!
+          Are you sure you want to delete the post about <b><%= @post['Song-Title']%></b>? This cannot be undone!
         </div>
         <div class="modal-footer">
-          <form method="get" action="/delete/<%= @post['_id'] %>">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-danger">Delete</button>
-          </form>
+
+          <button class="btn btn-default" data-dismiss="modal">Close</button>
+          <a class="btn btn-danger" id="deletePost" data-dismiss="modal" href="/delete/<%= @post['_id'] %>">Delete</a>
+
+          <script type="text/javascript">
+          	$('#deletePost').click(function() {
+          		var table = $("#posts-table");
+          		var count = parseInt(table.attr('data-individual'));
+	   	 		$.get('/delete/<%= @post['_id'] %>');
+	   	 		table.attr('data-individual', count-1);
+	   	 		$('#<%= @post['_id'] %>').show().delay(300).fadeOut(800);
+	   	 	});
+
+          </script>
+
+      </div>

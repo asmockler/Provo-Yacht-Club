@@ -1,13 +1,14 @@
 <% @posts.each do |post|  %>
 
-  <tr>
-    <td><a class="edit" href="/Manager/edit-modal/<%= post['_id'] %>"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" title="Edit"></span></a></td>
-    <td><a class="delete" href="/Manager/delete/<%= post['_id'] %>"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" title="Delete"></span></a></td>
+
+  <tr id="<%= post["_id"] %>">
+    <td><a class="edit btn btn-primary btn-xs btn-block" href="/Manager/edit-modal/<%= post['_id'] %>"> <span class="glyphicon glyphicon-pencil" data-toggle="tooltip" title="Edit"></span> </a></td>
+    <td><a class="delete btn btn-danger btn-xs btn-block" href="/Manager/delete/<%= post['_id'] %>"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" title="Delete"></span></a></td>
     <td><%= post['Song-Title'] %></td>
-    <td><%= post['Artist'] %></td>
-    <td><%= post['Album'] %></td>
-    <td><%= post['entrytime'] %></td>
-    <td><%= post['Author'] %></td>
+    <td class="hidden-sm hidden-xs"><%= post['Artist'] %></td>
+    <td class="hidden-sm hidden-xs"><%= post['Album'] %></td>
+    <td class="hidden-sm hidden-xs"><%= post['entrytime'] %></td>
+    <td class="hidden-sm hidden-xs"><%= post['Author'] %></td>
     <td class="text-center">
       <% if post['publish'] == true %>
         <span class="glyphicon glyphicon-ok text-success"></span>
@@ -16,5 +17,27 @@
       <% end %>
     </td>
   </tr>
+
+<script type="text/javascript">
+   // Delete Modal
+    var deleteModal = $('#delete-modal');
+    $(".delete").click(function (event) {
+      $.get(this.href, function (result) {
+        deleteModal.find('.modal-delete-content').html(result);
+        deleteModal.modal();
+      });
+      event.preventDefault();
+    });
+
+   // Edit Modal
+    var editModal = $('#edit-modal');
+    $("#posts-table").on('click', '.edit', function (event) {
+      $.get(this.href, function (result) {
+        editModal.find('.modal-body').html(result);
+        editModal.modal();
+      });
+      event.preventDefault();
+    });
+</script>
 
 <%end%>

@@ -1,0 +1,24 @@
+	<div class="row"><div class="col-md-4 col-md-offset-4" style="position:absolute;z-index:1">
+    <% if flash[:postSuccess]%>
+          <div class="alert alert-success fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <span class="glyphicon glyphicon-ok"></span>  <strong>Success!</strong> Your post was saved.
+          </div>
+      <% elsif flash[:deleteSuccess]%>
+          <div class="alert alert-success fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <span class="glyphicon glyphicon-ok"></span>  <strong>Now you've done it...</strong> Your post was deleted.
+          </div>
+      <% elsif flash[:editSuccess]%>
+          <div class="alert alert-success fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <span class="glyphicon glyphicon-ok"></span>  <strong>Success!</strong> Your post was edited.
+          </div>
+      <% elsif flash[:postError] || flash[:deleteError] || flash[:editError]%>
+          <div class="alert alert-danger fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <span class="glyphicon glyphicon-remove"></span>  <strong>Oops.</strong> Something went wrong. Try again.
+          </div>
+      <% else %>
+      <% end %>
+  </div></div>

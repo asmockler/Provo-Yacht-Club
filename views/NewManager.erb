@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Provo Yacht Club Backend</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/manager.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <!-- "Greeting" Area -->
+      <div class="container-fluid" id="greeting">
+
+        <!-- Header Text -->
+          <h1 class="text-center">Welcome<br/><p class="lead">What Are We Doing Today?</p></h1>
+
+        <!-- Buttons -->
+          <div class="row"><div class="col-md-4 col-md-offset-4">
+            <a data-toggle="modal" id="PostFromGreeting" href="#NewPost" class="btn btn-primary btn-lg btn-block">New Post</a>
+            <a href="#" id="GoToPostManager" class="btn btn-info btn-lg btn-block">Manage Posts</a>
+            <a href="#" id="GoToFeatureManager" class="btn btn-success btn-lg btn-block">Manage Features</a>
+            <a href="/" class="btn btn-warning btn-lg btn-block">Go To The Home Page</a>
+            <a href="/logout" class="btn btn-danger btn-lg btn-block">Log Out</a>
+          </div></div>
+      </div><!-- Container -->
+
+
+    <!-- Frame for Page -->
+      <div id="frame" style="display:none">
+        <!-- Navbar -->
+          <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#" id="BrandLink">Provo Yacht Club Manager</a>
+              </div>
+
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li id="PostNav"><a href="#GoToPostManager">Posts</a></li>
+                  <li id="FeatureNav"><a href="#GoToFeatureManager">Features</a></li>
+                </ul>
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+          </nav>
+
+        <!-- "Body" -->
+          <div class="container-fluid">
+
+            <!-- Post Manager -->
+            <div id="PostManager"></div>
+
+            <!-- Feature Manager -->
+            <div id="FeatureManager"></div>
+
+          </div><!-- Closes out the Body container -->
+      </div> <!-- Closes out the frame -->
+
+
+    <!-- Modals 4 Dayz -->
+
+      <!-- Modal for New Posts -->
+          <div class="modal fade" id="NewPost">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Submit a New Post</h4>
+                </div>
+                  <div class="modal-body">
+                        <form method="post" id="newpost">
+                          <fieldset>
+
+                            <label for="Song-Title">Song Title</label>
+                            <input type="text" class="form-control" placeholder="What You Won't Do For Love" name="Song-Title"><br />
+
+                            <label for="Artist">Artist</label>
+                            <input type="text" class="form-control" placeholder="Bobby Caldwell" name="Artist"><br />
+
+                            <label for="Album">Album</label>
+                            <input type="text" class="form-control" placeholder="Yacht Rock:'70s Soft Rock hits" name="Album"><br />
+
+
+                            <label for="Description">Post Description</label>
+                            <textarea class="form-control postcontent" rows="4" placeholder="Put all your witty jargon here..." name="Description" minlength="1"></textarea><br/>
+                            
+                            <label for="Media">Embedded Media</label>
+
+                            <div class="radio">
+                              <label>
+                                <input type="radio" id="soundcloudRadio" name="Source" id="optionsRadios1" value="Soundcloud" checked>
+                                Soundcloud
+                              </label>
+                            </div>
+                            <div class="radio">
+                              <label>
+                                <input type="radio" id="spotifyRadio" name="Source" id="optionsRadios2" value="spotify">
+                                Spotify
+                              </label>
+                            </div><br/>
+
+                            <label>Media Link (Soundcloud)</label>
+                            <input type="text" class="form-control" id="SoundcloudInput" placeholder="https://api.soundcloud.com/tracks/136749579" name="Media1"><br />
+                            <label>Media Link (Spotify)</label>
+                            <input type="text" disabled class="form-control" id="SpotifyInput" placeholder="spotify:track:0bsdLG0Z1TedLfJGKPpv64" name="Media"><br />
+
+
+                            <label for="AlbumArt">Album Art</label>
+                            <input type="text" class="form-control" placeholder="http://a3.mzstatic.com/us/r30/Music/13/d6/d1/mzi.qqcypfvi.170x170-75.jpg" name="AlbumArt"><br />
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                <label for="tag">Tag</label>
+                                <select class="form-control" name="tag">
+                                  <option></option>
+                                  <option>Dance</option>
+                                  <option>Chill</option>
+                                  <option>Revival</option>
+                                  <option>Big Beats</option>
+                                  <option>Etc.</option>
+                                </select>
+                              </div>
+
+                              <div class="col-md-6">
+                                <label for="tag2">Tag 2 (Optional)</label>
+                                <select class="form-control col-md-6" name="tag2">
+                                  <option></option>
+                                  <option>Dance</option>
+                                  <option>Chill</option>
+                                  <option>Revival</option>
+                                  <option>Big Beats</option>
+                                  <option>Etc.</option>
+                                </select>
+                              </div>
+                            </div><br />
+
+                            <label for="Author">Author</label>
+                            <input type="text" class="form-control" placeholder="Michael Jordan" name="Author"><br />
+
+                        </fieldset>
+                      </form>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="saveNew" class="btn btn-warning" data-dismiss="modal">Save</button>
+                    <button id="publishNew" class="btn btn-success" data-dismiss="modal">Publish</button>
+                  </div>
+                </div><!-- modal-content -->
+              </div><!-- modal-dialog -->
+          </div><!-- modal -->
+
+      <!-- Edit Modal for Posts -->
+           <div class="modal fade" id="edit-modal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Edit a New Post</h4>
+                </div>
+                <div class="modal-body"></div>
+              </div>
+             </div>
+            </div>
+
+      <!-- Delete Modal for Posts -->
+        <div class="modal fade" id="delete-modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Delete Entry</h4>
+              </div>
+              <div class="modal-delete-content"></div>
+              </div>
+            </div><!-- modal-content -->
+          </div><!-- modal-dialog -->
+        </div><!-- modal -->
+
+      <!-- Modal for New Feature -->
+                <div class="modal fade" id="NewFeature">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Submit a New Feature</h4>
+                      </div>
+                        <div class="modal-body">
+                              <form method="post">
+                                <fieldset>
+
+                                  <label for="Song-Title">Song Title</label>
+                                  <input type="text" class="form-control" placeholder="What You Won't Do For Love" name="Song-Title"><br />
+
+                                  <label for="Artist">Artist</label>
+                                  <input type="text" class="form-control" placeholder="Bobby Caldwell" name="Artist"><br />
+
+                                  <label for="Album">Album</label>
+                                  <input type="text" class="form-control" placeholder="Yacht Rock:'70s Soft Rock hits" name="Album"><br />
+
+
+                                  <label for="Description">Post Description</label>
+                                  <textarea class="form-control postcontent" rows="4" placeholder="Put all your witty jargon here..." name="Description"></textarea><br/>
+                                  
+                                  <label for="Media">Embedded Media</label>
+
+
+                                  <label>Media Link (Soundcloud)</label>
+                                  <input type="text" class="form-control" id="SoundcloudInput" placeholder="https://api.soundcloud.com/tracks/136749579" name="Media1"><br />
+
+
+
+                                  <label for="AlbumArt">Album Art</label>
+                                  <input type="text" class="form-control" placeholder="http://a3.mzstatic.com/us/r30/Music/13/d6/d1/mzi.qqcypfvi.170x170-75.jpg" name="AlbumArt"><br />
+
+                                  
+
+                                  <label for="Author">Author</label>
+                                  <input type="text" class="form-control" placeholder="Michael Jordan" name="Author"><br />
+
+                                <div class="pull-right">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" formaction="/NewPost/publish" class="btn btn-success">Publish</button>
+                                <button type="submit" formaction="/NewPost/save" class="btn btn-warning">Save</button>
+                                </div>
+
+                              </fieldset>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+
+                        </div>
+                      </div><!-- modal-content -->
+                    </div><!-- modal-dialog -->
+                </div><!-- modal -->
+
+
+
+    <!-- jQuery and Bootstrap Links -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+    <!-- My stuff -->
+    <script type="text/javascript">
+
+        function WireUpContent () {
+          $('span').tooltip();
+          $(".alert").alert();
+        };
+        
+        WireUpContent();
+
+      // Hiding the Greeting and showing the frame on Button Click
+        $('#GoToFeatureManager').click(function(){
+          $('#greeting').fadeOut(300, function(){
+            $('#frame').fadeIn(300);
+          });
+        });
+
+      // Hiding the Frame and Showing the Greeting on Brand Click
+        $('#BrandLink').click(function(){
+          $('#frame').fadeOut(300, function(){
+            $('#greeting').fadeIn(300);
+            $('#forRemove').remove();
+            $('#FeatureNav').removeClass('active');
+            $('#PostNav').removeClass('active');
+          });
+        });
+
+      // Bringing in the Post Manager Page
+        $('#GoToPostManager, #PostFromGreeting').click(function() {
+          $('#greeting').fadeOut(300, function(){
+            var div = $('#PostManager');
+            $.get('/Manager/PostManager', function(data) {
+              div.append(data);
+            });
+            $("#PostNav").addClass('active');
+            $("#frame").fadeIn(300);
+          });
+        });
+
+      // Bringing in the Feature Manager Page
+        $('#GoToFeatureManager').click(function() {
+          $('#greeting').fadeOut(300, function(){
+            var div = $('#FeatureManager');
+            $.get('/Manager/PostManager', function(data) {
+              div.append(data);
+            });
+            $("#FeatureNav").addClass('active');
+            $("#frame").fadeIn(300);
+          });
+        });
+
+
+      // Form Controls for New Posts
+        $('#soundcloudRadio').click(function() { 
+            $("#SpotifyInput").prop("disabled",true);
+            $("#SoundcloudInput").prop("disabled",false);
+        });
+
+        $('#spotifyRadio').click(function() { 
+            $("#SoundcloudInput").prop("disabled",true);
+            $("#SpotifyInput").prop("disabled",false);
+        });
+
+    </script>
+  </body>
+
+</html>

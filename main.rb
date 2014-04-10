@@ -21,6 +21,7 @@ end
   get '/' do
     @posts = settings.mongo_db["Posts"].find({:publish => true}).sort({_id: -1}).limit(5)
     @recentposts = settings.mongo_db["Posts"].find({:publish => true}).sort('_id','descending').limit(6)
+    @feature = settings.mongo_db["Features"].find({:publish => true}).sort({_id: -1}).limit(1)
     erb :index
   end
 
@@ -30,7 +31,7 @@ end
     erb :posts_long_front
   end
 
-      # Sorting
+    # Sorting
       get '/Big Beats' do
         @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Big Beats"}, {:tag2 => "Big Beats"}]} ] }).sort({_id: -1}).limit(3)
         @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Big Beats"}, {:tag2 => "Big Beats"}]} ] }).limit(6)
@@ -63,147 +64,168 @@ end
 
 
 
-# Calling the Post Manager
+# Calling the Manager
+  
   get '/Manager' do
     if session["user"]
-     @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).limit(5)
-     erb :Manager
+      erb :NewManager
     else
-     redirect '/login'
-    end
-  end
-
-      # Saving new posts
-      post '/NewPost/publish' do
-        params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
-        params[:publish] = true
-        settings.mongo_db["Posts"].insert params
-
-        if settings.mongo_db['Posts'].find({:_id => params[:id]})
-          flash[:postSuccess] = true
-        else
-          flash[:postError] = true
-        end
-
-        redirect '/Manager'
-      end
-
-       post '/NewPost/save' do
-        params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
-        params[:publish] = false
-        settings.mongo_db["Posts"].insert params
-
-        if settings.mongo_db['Posts'].find({:_id => params[:id]})
-          flash[:postSuccess] = true
-        else
-          flash[:postError] = true
-        end
-
-        redirect '/Manager'
-      end
-
-      # Delete a record
-      get '/delete/:id' do
-        id = BSON::ObjectId.from_string(params[:id])
-        settings.mongo_db["Posts"].remove({:_id => id})
-
-        if settings.mongo_db['Posts'].remove({:_id => id})
-          flash[:deleteSuccess] = true
-        else
-          flash[:deleteError] = true
-        end
-
-        redirect '/Manager'
-      end
-
-      # Submit edited entry
-      post '/edit/publish/:id' do
-        params[:publish] = true
-        @id = BSON::ObjectId.from_string(params[:id])
-        settings.mongo_db["Posts"].update({:_id => @id}, params )
-
-        if settings.mongo_db["Posts"].update({:_id => @id}, params )
-          flash[:editSuccess] = true
-        else
-          flash[:editError] = true
-        end
-
-        redirect '/Manager'
-      end
-
-      post '/edit/unpublish/:id' do
-        params[:publish] = false
-        @id = BSON::ObjectId.from_string(params[:id])
-        settings.mongo_db["Posts"].update({:_id => @id}, params )
-
-        if settings.mongo_db["Posts"].update({:_id => @id}, params )
-          flash[:editSuccess] = true
-        else
-          flash[:editError] = true
-        end
-
-        redirect '/Manager'
-      end
-
-      post '/edit/save/:id' do
-        @id = BSON::ObjectId.from_string(params[:id])
-        settings.mongo_db["Posts"].update({:_id => @id}, params )
-
-        if settings.mongo_db["Posts"].update({:_id => @id}, params )
-          flash[:editSuccess] = true
-        else
-          flash[:editError] = true
-        end
-
-        redirect '/Manager'
-      end
-
-      get '/Manager/moreResults/:batch' do |batch|
-        num_to_skip = 5 * batch.to_i
-        @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).skip(num_to_skip).limit(5)
-        erb :manage_table
-      end
-
-      get '/Manager/edit-modal/:id' do |id|
-        @post = settings.mongo_db["Posts"].find_one({_id: BSON::ObjectId(id)})
-        erb :manager_edit_form
-      end
-
-      get "/Manager/delete/:id" do |id|
-        @post = settings.mongo_db["Posts"].find_one({_id: BSON::ObjectId(id)})
-        erb :manager_delete_confirm
-      end
-
-
-# Stuff for Logging In
-  get '/login' do
-    if session["user"]
-     @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).limit(5)
-     erb :Manager
-    else
-     erb :login
-    end
-  end
-
-  post '/login' do
-    if settings.mongo_db["users"].find_one(:username => params[:username]) and settings.mongo_db["users"].find_one(:password => params[:password])
-      session["user"] = true 
-      redirect '/Manager'
-    else
-      flash[:loginerror] = true
       redirect '/login'
     end
   end
+
+  # Stuff for Posts
+    get '/Manager/PostManager' do
+      @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).limit(5)
+      erb :post_manager
+    end
+
+        # Expanding the Table
+          get '/Manager/moreResults/:batch' do |batch|
+            num_to_skip = batch.to_i
+            @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).skip(num_to_skip).limit(5)
+            erb :manage_table
+          end
+
+        # Saving and Publishing new posts
+
+           post '/NewPost/save' do
+            params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
+            params[:publish] = false
+            settings.mongo_db["Posts"].insert params
+           end
+
+
+           post '/NewPost/publish' do
+            params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
+            params[:publish] = true
+            settings.mongo_db["Posts"].insert params
+           end
+
+        # Deleting A Post
+          # Modal
+            get "/Manager/delete/:id" do |id|
+              @post = settings.mongo_db["Posts"].find_one({_id: BSON::ObjectId(id)})
+              erb :manager_delete_confirm
+            end
+
+          # Delete
+            get '/delete/:id' do
+              id = BSON::ObjectId.from_string(params[:id])
+              settings.mongo_db["Posts"].remove({:_id => id})
+            end
+
+
+        # Editing A Post
+
+          # Modal
+            get '/Manager/edit-modal/:id' do |id|
+              @post = settings.mongo_db["Posts"].find_one({_id: BSON::ObjectId(id)})
+              erb :manager_edit_form
+            end
+
+          # Publishing
+            post '/edit/publish/:id' do
+              params[:publish] = true
+              @id = BSON::ObjectId.from_string(params[:id])
+              settings.mongo_db["Posts"].update({:_id => @id}, params )
+
+              if settings.mongo_db["Posts"].update({:_id => @id}, params )
+                flash[:editSuccess] = true
+              else
+                flash[:editError] = true
+              end
+
+              redirect '/Manager'
+            end
+
+          # Unpublishing
+            post '/edit/unpublish/:id' do
+              params[:publish] = false
+              @id = BSON::ObjectId.from_string(params[:id])
+              settings.mongo_db["Posts"].update({:_id => @id}, params )
+
+              if settings.mongo_db["Posts"].update({:_id => @id}, params )
+                flash[:editSuccess] = true
+              else
+                flash[:editError] = true
+              end
+
+              redirect '/Manager'
+            end
+
+          # Saving (Doesn't Affect Published or Unpublished)
+            post '/edit/save/:id' do
+              @id = BSON::ObjectId.from_string(params[:id])
+              settings.mongo_db["Posts"].update({:_id => @id}, params )
+
+              if settings.mongo_db["Posts"].update({:_id => @id}, params )
+                flash[:editSuccess] = true
+              else
+                flash[:editError] = true
+              end
+
+              redirect '/Manager'
+            end
+
+  # Stuff for Features
+    get '/Manager/FeatureManager' do
+      @feature = settings.mongo_db["Features"].find().sort({_id: -1}).limit(5)
+      erb :feature_manager
+    end
+
+  # Logging In and Out
+
+          # Stuff for Logging In
+            get '/login' do
+              if session["user"]
+               @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).limit(5)
+               redirect '/Manager'
+              else
+               erb :login
+              end
+            end
+
+            post '/login' do
+              if settings.mongo_db["users"].find_one(:username => params[:username]) and settings.mongo_db["users"].find_one(:password => params[:password])
+                session["user"] = true 
+                redirect '/Manager'
+              else
+                flash[:loginerror] = true
+                redirect '/login'
+              end
+            end
+
+          #Stuff for Logging Out
+            get '/logout' do
+              session.clear
+              redirect '/'
+            end
+
+
+
+# TEST
+
+
+  get '/AddRefresh' do
+    @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).limit(1)
+    erb :manage_table
+  end
+
+  get '/StatusAlert' do
+    erb :status_alerts
+  end
+
+
+
 
 
 =begin
 Issues:
 *Disable inputs with media radio buttons (finish this)
-*Fix background image sizing
 
 To Do:
-*Fix Recent Post Image Size
-*Update Colors
+*favicon
 *enable feature editing
 *Finish Square Profile & Launch Space
 *Finish Facebook Page

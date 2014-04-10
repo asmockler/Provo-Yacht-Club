@@ -5,10 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Manage Posts</title>
-    <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
   </head>
+
   <body style="margin-top: 20px;background:#eee;color:#333">
 
     <div class="container">
@@ -41,6 +40,7 @@
         </div>
       </div>
 
+<!-- Heading -->
      <div class="row"><h1 class="col-md-10">Manage Posts</h1>
      <a href="/"><button class="btn btn-lg btn-warning col-md-2 pull-right" style="margin-top:20px">Home!</button></a></div>
      <br/>
@@ -52,12 +52,12 @@
 <!-- Modal For New Posts -->
 
           <div class="modal fade" id="NewPost">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Submit a New Post</h4>
-                  </div>
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Submit a New Post</h4>
+                </div>
                   <div class="modal-body">
                         <form method="post">
                           <fieldset>
@@ -143,11 +143,11 @@
                   </div>
                 </div><!-- modal-content -->
               </div><!-- modal-dialog -->
-            </div><!-- modal -->
+          </div><!-- modal -->
 
-<!-- For Editing & Deleting-->
+<!-- Table for Posts -->
 
-  <h3>Edit or Delete Past Posts</h3>
+     <h3>Edit or Delete Past Posts</h3>
      <table id="posts-table" class="table table-hover" data-batch="1">
       <tr>
         <th></th>
@@ -166,6 +166,10 @@
 
       <a href="#" id="loadMore" style="text-decoration:none"><button class="btn btn-danger btn-block btn-sm" style="font-size:13px">Load more results...</button></a>
 
+     <br /><br />
+
+
+<!-- Edit Modal for Posts -->
      <div class="modal fade" id="edit-modal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -175,10 +179,10 @@
           </div>
           <div class="modal-body"></div>
         </div>
+       </div>
       </div>
-    </div>
 
-    <!-- Modal for delete confirmation -->
+<!-- Delete Modal for Posts -->
   <div class="modal fade" id="delete-modal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -194,8 +198,6 @@
 
 
 
-
-
    </div>
 
 
@@ -205,6 +207,8 @@
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
 
+
+    // Modals for Posts
       var deleteModal = $('#delete-modal');
       $("#posts-table").on('click', '.delete', function (event) {
         $.get(this.href, function (result) {
@@ -223,6 +227,7 @@
         event.preventDefault();
       });
       
+    // Wire Up Tooltips after AJAX
       function WireUpContent () {
         $('span').tooltip();
         $(".alert").alert();
@@ -230,6 +235,7 @@
       
       WireUpContent();
 
+    // AJAX for Posts
       $('#loadMore').click(function() {
         var table = $("#posts-table");
         var batch = parseInt(table.attr('data-batch'));
@@ -240,6 +246,7 @@
         }).fadeIn();
       });
 
+    // Form Controls for New Posts
       $('#soundcloudRadio').click(function() { 
           $("#SpotifyInput").prop("disabled",true);
           $("#SoundcloudInput").prop("disabled",false);
