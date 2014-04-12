@@ -101,6 +101,35 @@ $().ready(function () {
     });
   });
 
+  var deleteModal = $('#delete-modal');
+  $('#PostManager').on('click', "#posts-table .delete", function(event) {
+    $.get(this.href, function (result) {
+      deleteModal.find('.modal-delete-content').html(result);
+      deleteModal.modal();
+    });
+    event.preventDefault();
+  });
+
+   // Edit Modal
+  var editModal = $('#edit-modal');
+  $('#PostManager').on('click', '#posts-table .edit', function (event) {
+    $.get(this.href, function (result) {
+      editModal.find('.modal-body').html(result);
+      editModal.modal();
+    });
+    event.preventDefault();
+  });
+
+  editModal.on('click', "button:submit", function (event) {
+    var jqForm = $(this.form);
+    $.post(this.formAction, jqForm.serialize(), function(data){
+      $('#posts-table').find("#" + jqForm.attr('data-post')).replaceWith(data);
+      editModal.find('.modal-body').html("");
+      editModal.modal("hide");
+    });
+    event.preventDefault();
+  });
+
   //================= FEATURE MANAGER ZONE ==============
   
   $("#FeatureManager").on('click', '#loadMore', function(event) {

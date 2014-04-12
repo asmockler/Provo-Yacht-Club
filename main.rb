@@ -139,8 +139,8 @@ end
               else
                 flash[:editError] = true
               end
-
-              redirect '/Manager'
+              @posts = [params]
+              erb :manage_table
             end
 
           # Unpublishing
@@ -155,7 +155,8 @@ end
                 flash[:editError] = true
               end
 
-              redirect '/Manager'
+              @posts = [params]
+              erb :manage_table
             end
 
           # Saving (Doesn't Affect Published or Unpublished)
@@ -169,7 +170,8 @@ end
                 flash[:editError] = true
               end
 
-              redirect '/Manager'
+              @posts = [params]
+              erb :manage_table
             end
 
   # Stuff for Features
