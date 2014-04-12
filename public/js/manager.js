@@ -62,8 +62,7 @@ $().ready(function () {
   });
 
   // AJAX to load more posts
-  $('#PostManager').on('click', '#loadMore', function(e) {
-    e.preventDefault();
+  $('#PostManager').on('click', '#loadMore', function(event) {
     var table = $("#posts-table");
     var batch = parseInt(table.attr('data-batch'));
     var individual = parseInt(table.attr('data-individual'));
@@ -72,6 +71,7 @@ $().ready(function () {
       $(data).hide().appendTo(tableBody).fadeIn(400);
       table.attr('data-batch', batch+1);
     });
+    event.preventDefault();
   });
 
   function AddNewPost(post) {
@@ -99,6 +99,39 @@ $().ready(function () {
     $.get('/StatusAlert', function(data){
       $(data).appendTo('#Status');
     });
+  });
+
+  //================= FEATURE MANAGER ZONE ==============
+  
+  $("#FeatureManager").on('click', '#loadMore', function(event) {
+    var table = $("#posts-table");
+    var batch = parseInt(table.attr('data-batch'));
+    var tableBody = table.find('tbody')
+    $.get('/ManagerTest/moreResults/' + batch, function(data){
+      $(data).hide().appendTo(tableBody).fadeIn();
+      table.attr('data-batch', batch+1);
+      WireUpContent();
+    });
+  });
+
+  // Delete Modal
+  var deleteModal = $('#delete-modal');
+  $("#posts-table").on('click', '.delete', function (event) {
+    $.get(this.href, function (result) {
+      deleteModal.find('.modal-delete-content').html(result);
+      deleteModal.modal();
+    });
+    event.preventDefault();
+  });
+
+  // Edit Modal
+  var editModal = $('#edit-modal');
+  $("#posts-table").on('click', '.edit', function (event) {
+    $.get(this.href, function (result) {
+      editModal.find('.modal-body').html(result);
+      editModal.modal();
+    });
+    event.preventDefault();
   });
 
 });
