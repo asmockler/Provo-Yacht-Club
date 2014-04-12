@@ -89,18 +89,22 @@ end
 
         # Saving and Publishing new posts
 
-           post '/NewPost/save' do
+          post '/NewPost/save' do
             params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
             params[:publish] = false
-            settings.mongo_db["Posts"].insert params
-           end
+            settings.mongo_db["Posts"].insert(params)
+            @posts = [params]
+            erb :manage_table
+          end
 
 
-           post '/NewPost/publish' do
+          post '/NewPost/publish' do
             params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
             params[:publish] = true
             settings.mongo_db["Posts"].insert params
-           end
+            @posts = [params]
+            erb :manage_table
+          end
 
         # Deleting A Post
           # Modal
@@ -205,12 +209,6 @@ end
 
 
 # TEST
-
-
-  get '/AddRefresh' do
-    @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).limit(1)
-    erb :manage_table
-  end
 
   get '/StatusAlert' do
     erb :status_alerts
