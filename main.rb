@@ -129,8 +129,14 @@ end
             end
 
           # Publishing
-            post '/edit/publish/:id' do
-              params[:publish] = true
+            post '/edit/:action/:id' do
+              action = params.delete("action")
+              if action == "publish"
+                params["publish"] = true
+              elsif action == "unpublish"
+                params["publish"] = false
+              end
+
               @id = BSON::ObjectId.from_string(params[:id])
               settings.mongo_db["Posts"].update({:_id => @id}, params )
 
@@ -139,37 +145,6 @@ end
               else
                 flash[:editError] = true
               end
-              @posts = [params]
-              erb :manage_table
-            end
-
-          # Unpublishing
-            post '/edit/unpublish/:id' do
-              params[:publish] = false
-              @id = BSON::ObjectId.from_string(params[:id])
-              settings.mongo_db["Posts"].update({:_id => @id}, params )
-
-              if settings.mongo_db["Posts"].update({:_id => @id}, params )
-                flash[:editSuccess] = true
-              else
-                flash[:editError] = true
-              end
-
-              @posts = [params]
-              erb :manage_table
-            end
-
-          # Saving (Doesn't Affect Published or Unpublished)
-            post '/edit/save/:id' do
-              @id = BSON::ObjectId.from_string(params[:id])
-              settings.mongo_db["Posts"].update({:_id => @id}, params )
-
-              if settings.mongo_db["Posts"].update({:_id => @id}, params )
-                flash[:editSuccess] = true
-              else
-                flash[:editError] = true
-              end
-
               @posts = [params]
               erb :manage_table
             end

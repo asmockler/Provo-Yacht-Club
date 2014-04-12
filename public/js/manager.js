@@ -124,8 +124,8 @@ $().ready(function () {
     var jqForm = $(this.form);
     $.post(this.formAction, jqForm.serialize(), function(data){
       $('#posts-table').find("#" + jqForm.attr('data-post')).replaceWith(data);
-      editModal.find('.modal-body').html("");
       editModal.modal("hide");
+      editModal.find('.modal-body').html("");
     });
     event.preventDefault();
   });
