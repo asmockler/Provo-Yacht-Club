@@ -18,26 +18,4 @@
     </td>
   </tr>
 
-<script type="text/javascript">
-   // Delete Modal
-    var deleteModal = $('#delete-modal');
-    $(".delete").click(function (event) {
-      $.get(this.href, function (result) {
-        deleteModal.find('.modal-delete-content').html(result);
-        deleteModal.modal();
-      });
-      event.preventDefault();
-    });
-
-   // Edit Modal
-    var editModal = $('#edit-modal');
-    $("#posts-table").on('click', '.edit', function (event) {
-      $.get(this.href, function (result) {
-        editModal.find('.modal-body').html(result);
-        editModal.modal();
-      });
-      event.preventDefault();
-    });
-</script>
-
 <%end%>

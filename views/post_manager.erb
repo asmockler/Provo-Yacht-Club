@@ -36,51 +36,5 @@
 	 	</div>
 	</div>
 
-
-	<script type="text/javascript">
-
-
-
-	 // AJAX to load more posts
-	      $('#loadMore').click(function() {
-	        var table = $("#posts-table");
-	        var batch = parseInt(table.attr('data-batch'));
-	        var individual = parseInt(table.attr('data-individual'));
-	        var tableBody = table.find('tbody');
-	        $.get('/Manager/moreResults/' + ((batch*5) + individual), function(data){
-	          $(data).hide().appendTo(tableBody).fadeIn(400);
-	          table.attr('data-batch', batch+1);
-	        });
-	      });
-
-     // AJAX for New Published Posts
-	     $("#publishNew").click(function() {
-		      var table = $("#posts-table");
-		      var tableBody = table.find('tbody');
-		      var count = parseInt(table.attr('data-individual'));
-		      $.post('/NewPost/publish');
-		      $.get('/AddRefresh', function(data){
-		        $(data).hide().prependTo(tableBody).fadeIn(500);
-		      });
-		      table.attr('data-individual', count+1)
-	     });
-
-	 // AJAX for New Save Posts
-	   	 $("#saveNew").click(function() {
-	   	 	var table = $("#posts-table");
-	   	 	var tableBody = table.find('tbody');
-	   	 	$.post('/NewPost/save');
-	   	 	$.get('/AddRefresh', function(data){
-	   	 		$(data).hide().prependTo(tableBody).fadeIn(500);
-	   	 	});
-	   	 	$.get('/StatusAlert', function(data){
-	   	 		$(data).appendTo('#Status');
-	   	 	});
-	   	 });
-
-	 // AJAX for Deleting Posts is in manager_delete_confirm.erb
-
-	</script>
-
 </div>
 

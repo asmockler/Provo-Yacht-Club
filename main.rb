@@ -89,18 +89,22 @@ end
 
         # Saving and Publishing new posts
 
-           post '/NewPost/save' do
+          post '/NewPost/save' do
             params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
             params[:publish] = false
-            settings.mongo_db["Posts"].insert params
-           end
+            settings.mongo_db["Posts"].insert(params)
+            @posts = [params]
+            erb :manage_table
+          end
 
 
-           post '/NewPost/publish' do
+          post '/NewPost/publish' do
             params[:entrytime] = Time.new.strftime("%I:%M%p %Z on %A, %B %d, %Y")
             params[:publish] = true
             settings.mongo_db["Posts"].insert params
-           end
+            @posts = [params]
+            erb :manage_table
+          end
 
         # Deleting A Post
           # Modal
@@ -125,8 +129,14 @@ end
             end
 
           # Publishing
-            post '/edit/publish/:id' do
-              params[:publish] = true
+            post '/edit/:action/:id' do
+              action = params.delete("action")
+              if action == "publish"
+                params["publish"] = true
+              elsif action == "unpublish"
+                params["publish"] = false
+              end
+
               @id = BSON::ObjectId.from_string(params[:id])
               settings.mongo_db["Posts"].update({:_id => @id}, params )
 
@@ -135,37 +145,8 @@ end
               else
                 flash[:editError] = true
               end
-
-              redirect '/Manager'
-            end
-
-          # Unpublishing
-            post '/edit/unpublish/:id' do
-              params[:publish] = false
-              @id = BSON::ObjectId.from_string(params[:id])
-              settings.mongo_db["Posts"].update({:_id => @id}, params )
-
-              if settings.mongo_db["Posts"].update({:_id => @id}, params )
-                flash[:editSuccess] = true
-              else
-                flash[:editError] = true
-              end
-
-              redirect '/Manager'
-            end
-
-          # Saving (Doesn't Affect Published or Unpublished)
-            post '/edit/save/:id' do
-              @id = BSON::ObjectId.from_string(params[:id])
-              settings.mongo_db["Posts"].update({:_id => @id}, params )
-
-              if settings.mongo_db["Posts"].update({:_id => @id}, params )
-                flash[:editSuccess] = true
-              else
-                flash[:editError] = true
-              end
-
-              redirect '/Manager'
+              @posts = [params]
+              erb :manage_table
             end
 
   # Stuff for Features
@@ -205,12 +186,6 @@ end
 
 
 # TEST
-
-
-  get '/AddRefresh' do
-    @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).limit(1)
-    erb :manage_table
-  end
 
   get '/StatusAlert' do
     erb :status_alerts
