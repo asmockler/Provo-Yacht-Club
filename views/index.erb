@@ -88,7 +88,7 @@ background-image: linear-gradient(to right, #2FB59A 0%, #EB4196 100%); width:100
           <!--Recent Posts -->
           <div class="row hidden-sm hidden-xs">
 
-            <div class="recent-post-div" style="align:centered;padding:-15px;">
+            <div class="recent-post-div" style="align:centered;padding:-15px;" id="localscroll">
 
               <% @recentposts.each do |post| %>
               <div class="col-md-2" style="padding:1px" data-container="body" data-toggle="tooltip" data-html="true" title="<strong><%= post['Song-Title'] %></strong><br /><%= post['Artist'] %> <br /> <i><%= post['Album'] %></i>">
@@ -122,16 +122,18 @@ background-image: linear-gradient(to right, #2FB59A 0%, #EB4196 100%); width:100
     <!-- Right Side -->
 
       <!-- Feature -->
+        <% @feature.each do |info| %>
         <div class="col-md-4 right-side hidden-xs hidden-sm">
           <div class="row">
-            <h2 style="font-weight:200;color:#AD0356">Featured Artist</h2>
+            <h2 style="font-weight:200;color:#AD0356">Spotlight On<br /><span style="font-weight:100; color:#159379"><%= info['Feature-Title'] %></span></small></h2>
 
             <div class="feature-box">
-              <iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/79027103&amp;auto_play=false&amp;hide_related=false&amp;visual=true"></iframe>
+              <iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=<%= info['Media'] %>&amp;auto_play=false&amp;hide_related=false&amp;visual=true"></iframe>
             </div><br />
+        <% end %>
 
       <!-- Donation -->
-            <button class="col-md-12 btn btn-blue">Donate to the Provo Yacht Club!</button>
+            <a href="#" class="col-md-12 btn btn-blue">Donate to the Provo Yacht Club!</a>
 
       <!-- Ads -->
         <div class="row"><div class="col-md-12">
@@ -156,6 +158,10 @@ background-image: linear-gradient(to right, #2FB59A 0%, #EB4196 100%); width:100
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <!-- Load ScrollTo -->
+    <script type="text/javascript" src="http://flesler-plugins.googlecode.com/files/jquery.scrollTo-1.4.2-min.js"></script>
+    <!-- Load LocalScroll -->
+    <script type="text/javascript" src="http://flesler-plugins.googlecode.com/files/jquery.localscroll-1.2.7-min.js"></script>
     <script type="text/javascript">
 
       $('div').tooltip();
@@ -169,6 +175,7 @@ background-image: linear-gradient(to right, #2FB59A 0%, #EB4196 100%); width:100
           div.attr('data-batch', batch+1);;
         });
       });
+
 
     </script>
 

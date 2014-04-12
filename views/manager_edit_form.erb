@@ -1,6 +1,6 @@
 <form method="post" data-post="<%= @post['_id'] %>">
   <fieldset>
-
+  <div class="modal-body">
     <label for="Song-Title">Song Title</label>
     <input type="text" class="form-control" name="Song-Title" value="<%= @post['Song-Title'] %>"><br />
 
@@ -66,8 +66,9 @@
 
     <label for="entrytime">Created On</label>
     <input type="text" class="form-control" name="entrytime" value="<%= @post['entrytime'] %>"><br/>
+  </div>
 
-    <div class="pull-right">
+    <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       <button type="submit" formaction="/edit/save/<%= @post['_id'] %>" class="btn btn-warning">Save</button>
       <% if @post['publish'] == false %>

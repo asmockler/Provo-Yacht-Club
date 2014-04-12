@@ -174,14 +174,14 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Edit a New Post</h4>
+                  <h4 class="modal-title">Edit Entry</h4>
                 </div>
-                <div class="modal-body"></div>
+                <div class="modal-edit-content"></div>
               </div>
              </div>
             </div>
 
-      <!-- Delete Modal for Posts -->
+      <!-- Delete Modal -->
         <div class="modal fade" id="delete-modal">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -196,62 +196,43 @@
         </div><!-- modal -->
 
       <!-- Modal for New Feature -->
-                <div class="modal fade" id="NewFeature">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Submit a New Feature</h4>
+          <div class="modal fade" id="NewFeature">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Submit a New Feature</h4>
+                </div>
+                <div class="modal-body">
+                  <form method="post">
+                    <fieldset>
+
+                      <label for="Feature-Title">Feature Title</label>
+                      <input type="text" class="form-control" placeholder="Nautilus" name="Feature-Title"><br />
+
+                      <label>Media Link (Soundcloud)</label>
+                      <input type="text" class="form-control" placeholder="https://api.soundcloud.com/tracks/136749579" name="Media"><br />
+
+                      <div class="col-md-6">
+                        <label for="type">Feature Type</label>
+                        <select class="form-control col-md-6" name="type">
+                          <option>Artist</option>
+                          <option>Playlist</option>
+                        </select>
                       </div>
-                        <div class="modal-body">
-                              <form method="post">
-                                <fieldset>
+                            
+                    </fieldset>
+                  </form>
 
-                                  <label for="Song-Title">Song Title</label>
-                                  <input type="text" class="form-control" placeholder="What You Won't Do For Love" name="Song-Title"><br />
-
-                                  <label for="Artist">Artist</label>
-                                  <input type="text" class="form-control" placeholder="Bobby Caldwell" name="Artist"><br />
-
-                                  <label for="Album">Album</label>
-                                  <input type="text" class="form-control" placeholder="Yacht Rock:'70s Soft Rock hits" name="Album"><br />
-
-
-                                  <label for="Description">Post Description</label>
-                                  <textarea class="form-control postcontent" rows="4" placeholder="Put all your witty jargon here..." name="Description"></textarea><br/>
-                                  
-                                  <label for="Media">Embedded Media</label>
-
-
-                                  <label>Media Link (Soundcloud)</label>
-                                  <input type="text" class="form-control" id="SoundcloudInput" placeholder="https://api.soundcloud.com/tracks/136749579" name="Media1"><br />
-
-
-
-                                  <label for="AlbumArt">Album Art</label>
-                                  <input type="text" class="form-control" placeholder="http://a3.mzstatic.com/us/r30/Music/13/d6/d1/mzi.qqcypfvi.170x170-75.jpg" name="AlbumArt"><br />
-
-                                  
-
-                                  <label for="Author">Author</label>
-                                  <input type="text" class="form-control" placeholder="Michael Jordan" name="Author"><br />
-
-                                <div class="pull-right">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" formaction="/NewPost/publish" class="btn btn-success">Publish</button>
-                                <button type="submit" formaction="/NewPost/save" class="btn btn-warning">Save</button>
-                                </div>
-
-                              </fieldset>
-                            </form>
-
-                        </div>
-                        <div class="modal-footer">
-
-                        </div>
-                      </div><!-- modal-content -->
-                    </div><!-- modal-dialog -->
-                </div><!-- modal -->
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button id="saveNewFeat" class="btn btn-warning" data-dismiss="modal">Save</button>
+                  <button id="activateNewFeat" class="btn btn-success" data-dismiss="modal">Save and Make Active</button>
+                </div>
+              </div><!-- modal-content -->
+            </div><!-- modal-dialog -->
+          </div><!-- modal -->
 
 
 

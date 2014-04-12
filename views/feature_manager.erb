@@ -11,25 +11,26 @@
 
 	<br />
 
-	     <table id="posts-table" class="table table-hover" data-batch="1">
-	      <tr>
-	        <th>Edit &nbsp;</th>
-	        <th>Erase</th>
-	        <th>Song Title</th>
-	        <th class="hidden-sm hidden-xs">Artist</th>
-	        <th class="hidden-sm hidden-xs">Album</th>
-	        <th class="hidden-sm hidden-xs">Date Posted</th>
-	        <th class="hidden-sm hidden-xs">Author</th>
-	        <th class="text-center">Published</th>
-	      </tr>
-
-	      <%= erb :manage_table %>
+	     <table id="feat-table" class="table table-hover" data-batch="1" data-individual="0">
+	      <thead>
+		      <tr>
+		        <th style="width:55px">Edit &nbsp;</th>
+		        <th style="width:55px">Erase</th>
+		        <th>Feature Title</th>
+		        <th class="hidden-sm hidden-xs">Type</th>
+		        <th class="hidden-sm hidden-xs">Date Posted</th>
+		        <th class="text-center">Active</th>
+		      </tr>
+		  </thead>
+		  <tbody>
+	      	<%= erb :manage_feat_table %>
+	      </tbody>
 
 	     </table>
 
 	<div class="row">
 		<div class="col-md-2">
-	     	<a href="#" id="loadMore" class="btn btn-primary btn-lg btn-block">Load More Posts</a>
+	     	<a href="#" id="loadMoreFeat" class="btn btn-primary btn-lg btn-block">Load More Posts</a>
 	 	</div>
 	</div>
 </div>

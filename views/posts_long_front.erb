@@ -4,12 +4,12 @@
 
   <div class="col-md-4 col-sm-4 col-xs-4">
     <img src="<%= post['AlbumArt']%>" class="img-responsive" style="width:100%" /><br/>
-    <a href="/<%= post['tag'] %>" class="hidden-sm hidden-xs"><span class="label label-default"><%= post['tag'] %></span></a>
-    <a href="/<%= post['tag2'] %>" class="hidden-sm hidden-xs"><span class="label label-default"><%= post['tag2'] %></span></a>
+    <a href="/<%= post['tag'] %>" class="hidden-sm hidden-xs"><span class="label label-default" style="background-color:#AD0356"><%= post['tag'] %></span></a>
+    <a href="/<%= post['tag2'] %>" class="hidden-sm hidden-xs"><span class="label label-default" style="background-color:#AD0356"><%= post['tag2'] %></span></a>
   </div>
 
   <div class="col-md-8">
-    <h3 style="margin-top:0" class="hidden-sm hidden-xs"><span style="color:#ddd"><%= post['Song-Title'] %></span> - <span style="color:#159379"><%= post['Artist'] %></span> <br /><small style="color:#AD0356"><%= post["Album"] %></small></h3>
+    <h3 style="margin-top:0" class="hidden-sm hidden-xs"><span style="color:#ddd"><%= post['Song-Title'] %></span><br /><span style="color:#159379; line-height:10px"><%= post['Artist'] %></span> <br /><small style="color:#AD0356"><%= post["Album"] %></small></h3>
     <h4 style="margin-top:0" class="visible-sm visible-xs"><%= post['Song-Title'] %> - <%= post['Artist'] %> <br /><small style="color:#777"><%= post["Album"] %></small></h4>
 
     <p>

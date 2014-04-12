@@ -2,8 +2,8 @@
 
 
   <tr id="<%= post["_id"] %>">
-    <td><a class="edit btn btn-primary btn-xs btn-block" href="/Manager/edit-modal/<%= post['_id'] %>"> <span class="glyphicon glyphicon-pencil" data-toggle="tooltip" title="Edit"></span> </a></td>
-    <td><a class="delete btn btn-danger btn-xs btn-block" href="/Manager/delete/<%= post['_id'] %>"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" title="Delete"></span></a></td>
+    <td><a class="edit btn btn-primary btn-xs btn-block" href="/Manager/edit-modal/<%= post['_id'] %>"> <span class="glyphicon glyphicon-pencil" style="width:40px"></span> </a></td>
+    <td><a class="delete btn btn-danger btn-xs btn-block" href="/Manager/delete/<%= post['_id'] %>"><span class="glyphicon glyphicon-trash" style="width:40px"></span></a></td>
     <td><%= post['Song-Title'] %></td>
     <td class="hidden-sm hidden-xs"><%= post['Artist'] %></td>
     <td class="hidden-sm hidden-xs"><%= post['Album'] %></td>

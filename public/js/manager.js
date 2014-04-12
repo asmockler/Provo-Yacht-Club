@@ -41,7 +41,7 @@ $().ready(function () {
   $('#GoToFeatureManager').click(function() {
     $('#greeting').fadeOut(300, function(){
       var div = $('#FeatureManager');
-      $.get('/Manager/PostManager', function(data) {
+      $.get('/Manager/FeatureManager', function(data) {
         div.append(data);
       });
       $("#FeatureNav").addClass('active');
@@ -114,7 +114,7 @@ $().ready(function () {
   var editModal = $('#edit-modal');
   $('#PostManager').on('click', '#posts-table .edit', function (event) {
     $.get(this.href, function (result) {
-      editModal.find('.modal-body').html(result);
+      editModal.find('.modal-edit-content').html(result);
       editModal.modal();
     });
     event.preventDefault();
@@ -131,36 +131,80 @@ $().ready(function () {
   });
 
   //================= FEATURE MANAGER ZONE ==============
-  
-  $("#FeatureManager").on('click', '#loadMore', function(event) {
-    var table = $("#posts-table");
+
+  // AJAX to load more posts
+  $('#FeatureManager').on('click', '#loadMoreFeat', function(event) {
+    var table = $("#feat-table");
     var batch = parseInt(table.attr('data-batch'));
-    var tableBody = table.find('tbody')
-    $.get('/ManagerTest/moreResults/' + batch, function(data){
-      $(data).hide().appendTo(tableBody).fadeIn();
+    var individual = parseInt(table.attr('data-individual'));
+    var tableBody = table.find('tbody');
+    $.get('/Manager/moreFeatResults/' + ((batch*5) + individual), function(data){
+      $(data).hide().appendTo(tableBody).fadeIn(400);
       table.attr('data-batch', batch+1);
-      WireUpContent();
-    });
-  });
-
-  // Delete Modal
-  var deleteModal = $('#delete-modal');
-  $("#posts-table").on('click', '.delete', function (event) {
-    $.get(this.href, function (result) {
-      deleteModal.find('.modal-delete-content').html(result);
-      deleteModal.modal();
     });
     event.preventDefault();
   });
 
-  // Edit Modal
-  var editModal = $('#edit-modal');
-  $("#posts-table").on('click', '.edit', function (event) {
-    $.get(this.href, function (result) {
-      editModal.find('.modal-body').html(result);
-      editModal.modal();
-    });
-    event.preventDefault();
+  function AddNewFeat(post) {
+    var table = $("#feat-table");
+    var tbody = table.find('tbody');
+    var count = parseInt(table.attr('data-individual'));
+    $(post).hide().prependTo(tbody).fadeIn(500);
+    table.attr('data-individual', count+1)
+  }
+
+  // AJAX for New Published Posts
+  var newFeatModal = $("#NewFeature");
+  newFeatModal.on('click', "#activateNewFeat", function() {
+    $.post('/NewFeat/activate',
+      newFeatModal.find('form').serialize(), 
+      AddNewFeat);
   });
+
+  // AJAX for New Save Posts
+  newFeatModal.on("click", "#saveNewFeat", function() {
+    $.post('/NewFeat/save',
+      newFeatModal.find('form').serialize(), 
+      AddNewFeat);
+  });
+
+
+ var deleteModal = $('#delete-modal');
+ $('#FeatureManager').on('click', "#feat-table .delete", function(event) {
+   $.get(this.href, function (result) {
+     deleteModal.find('.modal-delete-content').html(result);
+     deleteModal.modal();
+   });
+   event.preventDefault();
+ });
+
+   // Edit Modal
+ var editModal = $('#edit-modal');
+ $('#FeatureManager').on('click', '#feat-table .edit', function (event) {
+   $.get(this.href, function (result) {
+     editModal.find('.modal-edit-content').html(result);
+     editModal.modal();
+   });
+   event.preventDefault();
+ });
+
+ editModal.on('click', "button:submit", function (event) {
+   var jqForm = $(this.form);
+   $.post(this.formAction, jqForm.serialize(), function(data){
+     $('#feat-table').find("#" + jqForm.attr('data-post')).replaceWith(data);
+     editModal.modal("hide");
+     editModal.find('.modal-body').html("");
+   });
+   event.preventDefault();
+ });
+
+
 
 });
+
+
+// ================ ISSUES ================
+// "Published" icons don't work without refresh
+// Delete and Edit don't work without refresh
+// Forms should clear out on submit
+// Date doesn't show up without refresh but also needs to be fixed in all ways
