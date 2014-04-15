@@ -49,6 +49,32 @@ $().ready(function () {
     });
   });
 
+  // To Feature Manager from Post Manager
+  $('#FeatureFromPost').click(function(){
+    $('#forRemove').fadeOut(300, function(){
+      $(this).remove();
+      var div = $('#FeatureManager');
+      $.get('/Manager/FeatureManager', function(data) {
+        div.append(data).hide().fadeIn(400);
+        $('#PostNav').removeClass('active');
+        $('#FeatureNav').addClass('active');
+      });
+    });
+  });
+
+  // To Post Manager from Feature Manager
+  $('#PostFromFeature').click(function(){
+    $('#forRemove').fadeOut(300, function(){
+      $(this).remove();
+      var div = $('#PostManager');
+      $.get('/Manager/PostManager', function(data) {
+        div.append(data).hide().fadeIn(400);
+        $('#FeatureNav').removeClass('active');
+        $('#PostNav').addClass('active');
+      });
+    });
+  });
+
   //=================POST MANAGER ZONE ====================================
   // Form Controls for New Posts
   $('#soundcloudRadio').click(function() { 
@@ -79,7 +105,8 @@ $().ready(function () {
     var tbody = table.find('tbody');
     var count = parseInt(table.attr('data-individual'));
     $(post).hide().prependTo(tbody).fadeIn(500);
-    table.attr('data-individual', count+1)
+    table.attr('data-individual', count+1);
+    $('.alert-success').fadeIn();
   }
 
   // AJAX for New Published Posts

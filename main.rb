@@ -35,30 +35,35 @@ end
       get '/Big Beats' do
         @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Big Beats"}, {:tag2 => "Big Beats"}]} ] }).sort({_id: -1}).limit(3)
         @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Big Beats"}, {:tag2 => "Big Beats"}]} ] }).limit(6)
+        @feature = settings.mongo_db["Features"].find({:active => true}).sort({_id: -1}).limit(1)
         erb :index
       end
 
       get '/Dance' do
         @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Dance"}, {:tag2 => "Dance"}]} ] }).sort({_id: -1}).limit(3)
         @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Dance"}, {:tag2 => "Dance"}]} ] }).sort('_id','descending').limit(6)
+        @feature = settings.mongo_db["Features"].find({:active => true}).sort({_id: -1}).limit(1)
         erb :index
       end
 
       get '/Chill' do
         @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Chill"}, {:tag2 => "Chill"}]} ] }).sort({_id: -1}).limit(3)
         @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Chill"}, {:tag2 => "Chill"}]} ] }).sort('_id','descending').limit(6)
+        @feature = settings.mongo_db["Features"].find({:active => true}).sort({_id: -1}).limit(1)
         erb :index
       end
 
       get '/Revival' do
         @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Revival"}, {:tag2 => "Revival"}]} ] }).sort({_id: -1}).limit(3)
         @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Revival"}, {:tag2 => "Revival"}]} ] }).sort('_id','descending').limit(6)
+        @feature = settings.mongo_db["Features"].find({:active => true}).sort({_id: -1}).limit(1)
         erb :index
       end
 
       get '/Etc.' do
         @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Etc."}, {:tag2 => "Etc."}]} ] }).sort({_id: -1}).limit(3)
         @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Etc."}, {:tag2 => "Etc."}]} ] }).sort('_id','descending').limit(6)
+        @feature = settings.mongo_db["Features"].find({:active => true}).sort({_id: -1}).limit(1)
         erb :index
       end
 
@@ -250,7 +255,10 @@ end
     erb :status_alerts
   end
 
-
+get '/HomeTest' do
+  @posts = settings.mongo_db["Posts"].find({:publish => true}).sort({_id: -1})
+  erb :NewHomeTest
+end
 
 
 
