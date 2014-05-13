@@ -1,11 +1,26 @@
 GEM
   remote: https://www.rubygems.org/
   specs:
+    activemodel (3.2.17)
+      activesupport (= 3.2.17)
+      builder (~> 3.0.0)
+    activesupport (3.2.17)
+      i18n (~> 0.6, >= 0.6.4)
+      multi_json (~> 1.0)
     bson (1.9.1)
     bson_ext (1.9.1)
       bson (~> 1.9.1)
+    builder (3.0.4)
+    i18n (0.6.9)
     mongo (1.9.1)
       bson (~> 1.9.1)
+    mongo_mapper (0.12.0)
+      activemodel (~> 3.0)
+      activesupport (~> 3.0)
+      plucky (~> 0.5.2)
+    multi_json (1.9.2)
+    plucky (0.5.2)
+      mongo (~> 1.5)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
@@ -23,5 +38,6 @@ PLATFORMS
 DEPENDENCIES
   bson_ext
   mongo
+  mongo_mapper
   sinatra
   sinatra-flash

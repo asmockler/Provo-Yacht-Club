@@ -75,7 +75,7 @@ $().ready(function () {
     });
   });
 
-  //=================POST MANAGER ZONE ====================================
+  //================= POST MANAGER ZONE ====================================
   // Form Controls for New Posts
   $('#soundcloudRadio').click(function() { 
     $("#SpotifyInput").prop("disabled",true);

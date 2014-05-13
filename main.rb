@@ -1,8 +1,4 @@
-require 'rubygems'
-require 'sinatra'
-require 'erb'
-require 'mongo'
-require 'sinatra/flash'
+Bundler.require
 
 include Mongo
 
@@ -14,8 +10,25 @@ configure do
  conn = Mongo::Connection.new(db.host, db.port).db(db_name)
  conn.authenticate(db.user, db.password) unless (db.user.nil? || db.password.nil?)
  set :mongo_db, conn
+ # MongoMapper.setup({'production' => {'uri' => ENV['MONGOHQ_URL']}}, 'production')
 end
 
+# class Post 
+#   include MongoMapper::Document
+  
+#   key :song_title, String
+#   key :artist, String
+#   key :album, String
+#   key :description, String
+#   key :source, String
+#   key :soundcloud_media, String
+#   key :spotify_media, String
+#   key :album_art, String
+#   key :tag, String
+#   key :tag2, String
+#   key :author, String
+#   timestamps!
+# end
 
 ############### Main view ###################
   get '/' do
@@ -167,22 +180,22 @@ end
           end
 
           post '/NewFeat/activate' do
+            settings.mongo_db["Features"].update({:active => true}, '$set' => {:active => false})
             params[:entrytime] = Time.new
-            settings.mongo_db["Features"].update({:active => true}, {:active => false})
             params[:active] = true
             settings.mongo_db["Features"].insert(params)
             @posts = [params]
             erb :manage_feat_table
           end
 
-        # Expanding the Table
+        # Expanding the Feature Table
           get '/Manager/moreFeatResults/:batch' do |batch|
             num_to_skip = batch.to_i
             @posts = settings.mongo_db["Features"].find().sort({_id: -1}).skip(num_to_skip).limit(5)
             erb :manage_feat_table
           end
 
-        # Deleting A Post
+        # Deleting A Feature
            # Modal
             get "/Manager/deleteFeat/:id" do |id|
               @post = settings.mongo_db["Features"].find_one({_id: BSON::ObjectId(id)})
@@ -195,7 +208,7 @@ end
               settings.mongo_db["Features"].remove({:_id => id})
             end
 
-        # Editing a Post
+        # Editing a Feature
           # Modal
             get '/Manager/edit-modal-feat/:id' do |id|
               @post = settings.mongo_db["Features"].find_one({_id: BSON::ObjectId(id)})
@@ -206,7 +219,7 @@ end
             post '/editFeat/:action/:id' do
               action = params.delete("action")
               if action == "activate"
-                settings.mongo_db["Features"].update({:active => true}, {:active => false})
+                settings.mongo_db["Features"].update({:active => true}, '$set' => {:active => false})
                 params["active"] = true
               elsif action == "deactivate"
                 params["active"] = false
@@ -255,20 +268,22 @@ end
     erb :status_alerts
   end
 
-get '/HomeTest' do
-  @posts = settings.mongo_db["Posts"].find({:publish => true}).sort({_id: -1})
-  erb :NewHomeTest
+
+########### Making the New Layout Work ############
+get '/redesign' do
+  @posts = settings.mongo_db["Posts"].find({:publish => true}).sort({_id: -1}).limit(6)
+  erb :NewHome
 end
 
 
-
 =begin
-Issues:
-*Disable inputs with media radio buttons (finish this)
-
 To Do:
 *favicon
-*enable feature editing
+*Sort by date, not ID, and get dates to display properly
+*Get AJAX to display properly on append
+*Mobile Ads
+*Disable inputs with media radio buttons (finish this)
 *Finish Square Profile & Launch Space
 *Finish Facebook Page
+*Playlist feature?
 =end
