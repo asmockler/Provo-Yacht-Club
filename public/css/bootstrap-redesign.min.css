@@ -48,7 +48,7 @@ body {
 	position: absolute;
 	bottom:0;
 	width:100%;
-	border:3px solid black;
+	border-top:3px solid black;
 }
 
 .album-player > .row > .col-xs-1{
@@ -71,6 +71,7 @@ body {
 	box-shadow:none;
 	-webkit-box-shadow: none;
 }
+
 
 
 
