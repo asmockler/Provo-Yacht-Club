@@ -1,6 +1,5 @@
 $().ready(function(){
 
-
 	$("#testingThings").hover(function(){
 		$("#a").slideDown();
 	});
@@ -8,6 +7,8 @@ $().ready(function(){
 	$("#testingThings").mouseleave(function(){
 		$("#a").slideUp();
 	});
+
+
 
 // ################ SoundCloud! #################
 
@@ -49,6 +50,39 @@ $().ready(function(){
 	  });
 	}); //SC.get
 
+// ############### Showing the Blog #############
+	$("#showBlog").click(function() {
+		$('#landing').fadeIn(1000);
+		$('#goHome').fadeIn(1000);
+		$('#about').fadeOut(300, function(){
+			$(this).empty();
+			$.get('/load_blog', function(data){
+				$('#blog').fadeOut(300).empty().append(data).fadeIn(300);
+			});
+		});
+	});
 
+
+
+// ############### Showing the About Page #############
+	$("#showAbout").click(function() {
+		$('#landing').fadeIn(1000);
+		$("#goHome").fadeIn(1000);
+		$('#blog').fadeOut(300, function() {
+			$(this).empty();
+			$.get('load_about', function(data){
+				$("#about").fadeOut(300).empty().append(data).fadeIn(300);
+			});
+		});
+	});
+
+// ############### Going Back to the Home Page #############
+	$("#goHome").click(function(){
+		$('#landing').fadeOut(1000);
+		$("#goHome").fadeOut(1000);
+		$('#blog, #about').fadeOut(1000, function(){
+			$(this).empty();
+		});
+	});
 
 }); //Document Ready

@@ -8,12 +8,6 @@ $().ready(function () {
   WireUpContent();
 
   //------ Manager Main Nav Controls -----------------
-  // Hiding the Greeting and showing the frame on Button Click
-  $('#GoToFeatureManager').click(function(){
-    $('#greeting').fadeOut(300, function(){
-      $('#frame').fadeIn(300);
-    });
-  });
 
   // Hiding the Frame and Showing the Greeting on Brand Click
   $('#BrandLink').click(function(){
@@ -30,7 +24,7 @@ $().ready(function () {
     $('#greeting').fadeOut(300, function(){
       var div = $('#PostManager');
       $.get('/Manager/PostManager', function(data) {
-        div.append(data);
+        div.hide().append(data).fadeIn(300);
       });
       $("#PostNav").addClass('active');
       $("#frame").fadeIn(300);
@@ -42,9 +36,21 @@ $().ready(function () {
     $('#greeting').fadeOut(300, function(){
       var div = $('#FeatureManager');
       $.get('/Manager/FeatureManager', function(data) {
-        div.append(data);
+        div.hide().append(data).fadeIn(300);
       });
       $("#FeatureNav").addClass('active');
+      $("#frame").fadeIn(300);
+    });
+  });
+
+  // Bringing in the User Manager Page
+  $('#GoToUserManager').click(function() {
+    $('#greeting').fadeOut(300, function(){
+      var div = $('#UserManager');
+      $.get('/Manager/UserManager', function(data) {
+        div.hide().append(data).fadeIn(300);
+      });
+      // $("#FeatureNav").addClass('active');
       $("#frame").fadeIn(300);
     });
   });
@@ -75,7 +81,7 @@ $().ready(function () {
     });
   });
 
-  //================= POST MANAGER ZONE ====================================
+//=================  POST MANAGER ZONE  ====================================
   // Form Controls for New Posts
   $('#soundcloudRadio').click(function() { 
     $("#SpotifyInput").prop("disabled",true);
@@ -157,7 +163,7 @@ $().ready(function () {
     event.preventDefault();
   });
 
-  //================= FEATURE MANAGER ZONE ==============
+//================= FEATURE MANAGER ZONE ==================================
 
   // AJAX to load more posts
   $('#FeatureManager').on('click', '#loadMoreFeat', function(event) {
@@ -225,7 +231,20 @@ $().ready(function () {
    event.preventDefault();
  });
 
+//=================  USER MANAGER ZONE  ====================================
+    $('#UserManager').on('click', '#user-table .btn-success', function (event) {
+      $.post(this.href, function(){
+        $('#abcdef').fadeIn();
+      });
+      event.preventDefault();
+    });
 
+    $('#UserManager').on('click', '#user-table .btn-danger', function (event) {
+      $.post(this.href, function(){
+        // Make it do stuff
+      });
+      event.preventDefault();
+    });
 
 });
 

@@ -6,7 +6,6 @@
     <meta name="description" content="Provo Yacht Club is a music blog based in Provo, Utah, delivering the world's hottest tracks daily with a focus on the growing Provo music scene.">
     <!-- Bootstrap -->
     <link href="css/bootstrap-redesign.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -59,8 +58,9 @@
           <p class="navbar-text" style="font-size:13px;margin-top:17px;margin-left:0"><span id="title"></span></p>
 
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">BLOG</a></li>
-            <li><a href="#">ABOUT</a></li>
+            <li><a href="#" id="goHome" style="display:none">HOME</a></li>
+            <li><a href="#" id="showBlog">BLOG</a></li>
+            <li><a href="#" id="showAbout">ABOUT</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sort Music <b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -104,7 +104,7 @@
 
     </div><!-- container-fluid -->
 
-    <div class="album-player">
+    <div class="album-player" style="z-index:5;">
       <div class="row">
         <% @posts.each do |post| %>
 
@@ -113,9 +113,9 @@
             <img src="<%= post["AlbumArt"] %>" class="img-responsive" style="width:100%;" id="firstOne" />
             <div id="a" class="text-center" style="position:absolute;z-index:998;width:100%;left:0;bottom:0;height:50%;background-color:rgba(0,0,0,.9);display:none">
               <div style="position:absolute;top:40%;width:100%">
-                <a href="#"><span class="glyphicon glyphicon-backward" style="color:#ddd;z-index:999;padding-right:10px"></span></a> 
-                <a href="#"><span class="glyphicon glyphicon-play" style="color:#ddd;z-index:999"></span></a> 
-                <a href="#"><span class="glyphicon glyphicon-forward" style="color:#ddd;z-index:999;padding-left:10px"></span></a><br/>
+                <a href="#"><span class="glyphicon glyphicon-backward" style="color:#ddd;z-index:10;padding-right:10px"></span></a> 
+                <a href="#"><span class="glyphicon glyphicon-play" style="color:#ddd;z-index:10"></span></a> 
+                <a href="#"><span class="glyphicon glyphicon-forward" style="color:#ddd;z-index:10;padding-left:10px"></span></a><br/>
                 <p><%= post['Song-Title'] %></p>
               </div>
             </div>
@@ -126,7 +126,15 @@
       </div>
     </div>
 
+    <div id="landing" style="display:none;position:absolute;z-index:4;right:0;top:0;height:100%;width:100%;background-color:#111">
+      <div id="blog" style="display:none">
 
+      </div>
+
+      <div id="about" style="display:none">
+        <%= erb :about %>
+      </div>
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

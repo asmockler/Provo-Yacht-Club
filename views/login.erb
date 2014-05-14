@@ -18,6 +18,15 @@
             <span class="glyphicon glyphicon-remove"></span> Check your username and password and try again.
          </div>
         </div>
+
+      <% elsif flash[:not_admin] %>
+        <div class="row">
+         <div class="alert alert-warning col-lg-4 col-lg-offset-4">
+           <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <span class="glyphicon glyphicon-warning-sign"></span> <strong>Admins Only!</strong><br /> Are you sure you're supposed to be here?
+         </div>
+        </div>
+
       <% end %>
 
         <div class="col-lg-4 col-lg-offset-4">
@@ -25,9 +34,9 @@
                 <fieldset>
 
                   <div class="form-group">
-                    <label class="control-label">Username</label>
+                    <label class="control-label">Email Address</label>
                     <div>
-                      <input type="text" class="form-control" name="username">
+                      <input type="text" class="form-control" name="email">
                     </div>
                   </div>
 

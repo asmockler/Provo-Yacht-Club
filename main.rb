@@ -3,6 +3,7 @@ Bundler.require
 include Mongo
 
 enable :sessions
+set :session_secret, 'super secret'
 
 configure do
  db = URI.parse(ENV['MONGOHQ_URL'])
@@ -10,25 +11,95 @@ configure do
  conn = Mongo::Connection.new(db.host, db.port).db(db_name)
  conn.authenticate(db.user, db.password) unless (db.user.nil? || db.password.nil?)
  set :mongo_db, conn
- # MongoMapper.setup({'production' => {'uri' => ENV['MONGOHQ_URL']}}, 'production')
+ MongoMapper.setup({'production' => {'uri' => ENV['MONGOHQ_URL']}}, 'production')
 end
 
-# class Post 
-#   include MongoMapper::Document
+class User
+  include MongoMapper::Document
+
+  key :first_name,   String
+  key :last_name,    String
+  key :email,        String, :unique => true
+  key :admin,        Boolean
+  key :password,     String
+end
+
+class Song 
+  include MongoMapper::Document
   
-#   key :song_title, String
-#   key :artist, String
-#   key :album, String
-#   key :description, String
-#   key :source, String
-#   key :soundcloud_media, String
-#   key :spotify_media, String
-#   key :album_art, String
-#   key :tag, String
-#   key :tag2, String
-#   key :author, String
-#   timestamps!
-# end
+  key :_id, ObjectId
+  key :song_title, String
+  key :artist, String
+  key :album, String
+  key :soundcloud_url, String
+  key :album_art, String
+  key :tag_1, String
+  key :tag_2, String
+  key :author, String
+  key :has_blog_post, Boolean
+  key :blog_post, String
+
+  timestamps!
+end
+
+########### New Users, Admins, and Logging in or out ############
+
+
+  ######### Logging In and Out ########
+
+    # Stuff for Logging In
+      get '/login' do
+        if session["admin"]
+         redirect '/Manager'
+        else
+         erb :login
+        end
+      end
+
+      post '/login' do
+        @user = User.first(:email => params[:email])
+
+        if @user
+          if params[:password] == @user.password
+            session["admin"] = @user.admin 
+            session['logged_in'] = true
+            redirect '/Manager'
+          else
+            flash[:loginerror] = true
+            redirect '/login'
+          end
+        else
+          flash[:loginerror] = true
+          redirect '/login' 
+        end
+      end
+
+    #Stuff for Logging Out
+      get '/logout' do
+        session.clear
+        redirect '/'
+      end
+
+
+get '/new_user' do
+  erb :new_user
+end
+
+post '/new_user' do
+  user = User.new(params)
+  if user.save
+    redirect '/'
+  else
+    flash[:bad_email] = true
+    redirect '/new_user'
+  end
+end
+
+get '/usertest' do
+  @users = User.all
+  erb :usertest
+end
+
 
 ############### Main view ###################
   get '/' do
@@ -85,8 +156,11 @@ end
 ############ Manager ############
   
   get '/Manager' do
-    if session["user"]
+    if session["admin"]
       erb :NewManager
+    elsif session["logged_in"]
+      flash[:not_admin] = true
+      redirect '/login'
     else
       redirect '/login'
     end
@@ -163,7 +237,6 @@ end
             end
 
 
-
   #======== Stuff for Features ========#
     get '/Manager/FeatureManager' do
       @posts = settings.mongo_db["Features"].find().sort({_id: -1}).limit(5)
@@ -232,34 +305,25 @@ end
               erb :manage_feat_table
             end
 
-  ######### Logging In and Out ########
 
-          # Stuff for Logging In
-            get '/login' do
-              if session["user"]
-               @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).limit(5)
-               redirect '/Manager'
-              else
-               erb :login
-              end
-            end
+  #======== Stuff for Users ========#
+    get '/Manager/UserManager' do
+      @user = User.all
+      erb :user_manager
+    end
 
-            post '/login' do
-              if settings.mongo_db["users"].find_one(:username => params[:username]) and settings.mongo_db["users"].find_one(:password => params[:password])
-                session["user"] = true 
-                redirect '/Manager'
-              else
-                flash[:loginerror] = true
-                redirect '/login'
-              end
-            end
+    post '/Manager/UserManager/make_admin/:email' do
+      @user = User.first(:email => params[:email])
+      @user.set(:admin => true)
+    end
 
-          #Stuff for Logging Out
-            get '/logout' do
-              session.clear
-              redirect '/'
-            end
+    post '/Manager/UserManager/remove_admin/:email' do
+      @user = User.first(:email => params[:email])
+      @user.set(:admin => nil)
+    end
 
+
+##################################################
 
 
 # TEST
@@ -274,6 +338,46 @@ get '/redesign' do
   @posts = settings.mongo_db["Posts"].find({:publish => true}).sort({_id: -1}).limit(6)
   erb :NewHome
 end
+
+get '/load_blog' do
+  erb :blog
+end
+
+get '/load_about' do
+  erb :about
+end
+
+get '/workaround' do
+  erb :NewManager
+end
+
+  # ######### Logging In and Out ########
+
+  #         # Stuff for Logging In
+  #           get '/login' do
+  #             if session["user"]
+  #              @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).limit(5)
+  #              redirect '/Manager'
+  #             else
+  #              erb :login
+  #             end
+  #           end
+
+  #           post '/login' do
+  #             if settings.mongo_db["users"].find_one(:username => params[:username]) and settings.mongo_db["users"].find_one(:password => params[:password])
+  #               session["user"] = true 
+  #               redirect '/Manager'
+  #             else
+  #               flash[:loginerror] = true
+  #               redirect '/login'
+  #             end
+  #           end
+
+  #         #Stuff for Logging Out
+  #           get '/logout' do
+  #             session.clear
+  #             redirect '/'
+  #           end
 
 
 
