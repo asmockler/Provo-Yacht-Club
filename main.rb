@@ -14,37 +14,37 @@ configure do
  MongoMapper.setup({'production' => {'uri' => ENV['MONGOHQ_URL']}}, 'production')
 end
 
-class User
-  include MongoMapper::Document
+############## Mongo Mapper Classes ###################
 
-  key :first_name,   String
-  key :last_name,    String
-  key :email,        String, :unique => true
-  key :admin,        Boolean
-  key :password,     String
-end
+  class User
+    include MongoMapper::Document
 
-class Song 
-  include MongoMapper::Document
-  
-  key :_id, ObjectId
-  key :song_title, String
-  key :artist, String
-  key :album, String
-  key :soundcloud_url, String
-  key :album_art, String
-  key :tag_1, String
-  key :tag_2, String
-  key :author, String
-  key :has_blog_post, Boolean
-  key :blog_post, String
+    key :first_name,   String
+    key :last_name,    String
+    key :email,        String, :unique => true
+    key :admin,        Boolean
+    key :password,     String
+  end
 
-  timestamps!
-end
+  class Song 
+    include MongoMapper::Document
+    
+    key :soundcloud_url, String
+    key :title, String
+    key :artist, String
+    key :album, String
+    key :album_art, String
+    key :tag_1, String
+    key :tag_2, String
+    key :author, String
+    key :has_blog_post, Boolean
+    key :blog_post, String
+    key :published, Boolean
+
+    timestamps!
+  end
 
 ########### New Users, Admins, and Logging in or out ############
-
-
   ######### Logging In and Out ########
 
     # Stuff for Logging In
@@ -74,34 +74,32 @@ end
         end
       end
 
-    #Stuff for Logging Out
+    # Stuff for Logging Out
       get '/logout' do
         session.clear
         redirect '/'
       end
 
+    # New User Page
 
-get '/new_user' do
-  erb :new_user
-end
+      # Getting the Page
+        get '/new_user' do
+          erb :new_user
+        end
 
-post '/new_user' do
-  user = User.new(params)
-  if user.save
-    redirect '/'
-  else
-    flash[:bad_email] = true
-    redirect '/new_user'
-  end
-end
-
-get '/usertest' do
-  @users = User.all
-  erb :usertest
-end
+      # Saving w/ email validation
+        post '/new_user' do
+          user = User.new(params)
+          if user.save
+            redirect '/'
+          else
+            flash[:bad_email] = true
+            redirect '/new_user'
+          end
+        end
 
 
-############### Main view ###################
+############### Original Main view ###################
   get '/' do
     @posts = settings.mongo_db["Posts"].find({:publish => true}).sort({_id: -1}).limit(6)
     @recentposts = settings.mongo_db["Posts"].find({:publish => true}).sort('_id','descending').limit(6)
@@ -168,47 +166,50 @@ end
 
   #======== Stuff for Posts ========#
     get '/Manager/PostManager' do
-      @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).limit(5)
+      @song = Song.find_each(:order => :created_at.desc).limit(5)
       erb :post_manager
     end
 
         # Expanding the Table
+
           get '/Manager/moreResults/:batch' do |batch|
             num_to_skip = batch.to_i
-            @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).skip(num_to_skip).limit(5)
+            @song = Song.find_each(:order => :created_at.desc).skip(num_to_skip).limit(5)
             erb :manage_table
           end
+
 
         # Saving and Publishing new posts
 
           post '/NewPost/save' do
-            params[:entrytime] = Time.new
-            params[:publish] = false
-            settings.mongo_db["Posts"].insert(params)
-            @posts = [params]
+            params[:published] = false
+            song = Song.new(params)
+            song.save
+            @song = Song.find_each(:order => :created_at.desc).limit(1)
             erb :manage_table
           end
-
 
           post '/NewPost/publish' do
-            params[:entrytime] = Time.new
-            params[:publish] = true
-            settings.mongo_db["Posts"].insert params
-            @posts = [params]
+            params[:published] = true
+            song = Song.new(params)
+            song.save
+            @song = Song.find_each(:order => :created_at.desc).limit(1)
             erb :manage_table
           end
+
 
         # Deleting A Post
           # Modal
-            get "/Manager/delete/:id" do |id|
-              @post = settings.mongo_db["Posts"].find_one({_id: BSON::ObjectId(id)})
+            get "/Manager/delete/:id" do
+              id = BSON::ObjectId.from_string(params[:id])
+              @song = Song.find(id)
               erb :manager_delete_confirm
             end
 
           # Delete
             get '/delete/:id' do
               id = BSON::ObjectId.from_string(params[:id])
-              settings.mongo_db["Posts"].remove({:_id => id})
+              Song.destroy(id)
             end
 
 
@@ -326,7 +327,7 @@ end
 ##################################################
 
 
-# TEST
+# Status Alerts - this needs finishing
 
   get '/StatusAlert' do
     erb :status_alerts
@@ -347,48 +348,24 @@ get '/load_about' do
   erb :about
 end
 
-get '/workaround' do
-  erb :NewManager
-end
 
-  # ######### Logging In and Out ########
 
-  #         # Stuff for Logging In
-  #           get '/login' do
-  #             if session["user"]
-  #              @posts = settings.mongo_db["Posts"].find().sort({_id: -1}).limit(5)
-  #              redirect '/Manager'
-  #             else
-  #              erb :login
-  #             end
-  #           end
 
-  #           post '/login' do
-  #             if settings.mongo_db["users"].find_one(:username => params[:username]) and settings.mongo_db["users"].find_one(:password => params[:password])
-  #               session["user"] = true 
-  #               redirect '/Manager'
-  #             else
-  #               flash[:loginerror] = true
-  #               redirect '/login'
-  #             end
-  #           end
 
-  #         #Stuff for Logging Out
-  #           get '/logout' do
-  #             session.clear
-  #             redirect '/'
-  #           end
-
+# Things that can be done in the car
+#      Add User manager to manager toolbar
+#      Add validation to manager forms
+#      Make user page not 
 
 
 =begin
 To Do:
 *favicon
-*Sort by date, not ID, and get dates to display properly
-*Get AJAX to display properly on append
-*Mobile Ads
-*Disable inputs with media radio buttons (finish this)
+*Mobile Layout
+    *Include ads
 *Finish Square Profile & Launch Space
 *Finish Facebook Page
 *Playlist feature?
+*Figure Out why there is an error when making/removing admins
+*Fix Error on post delete...?
 =end

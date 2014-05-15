@@ -7,6 +7,40 @@ $().ready(function () {
 
   WireUpContent();
 
+// ========== Guts of the new post modal ============
+  // Show and hide the autocomplete button
+  $('#soundcloud_url').keyup(function(){
+    if( $(this).val().length != 0 ){
+      $('#autocomplete').fadeIn(200);
+    }
+    else {
+      $('#autocomplete').fadeOut(200);
+    }
+  });
+
+  // Autocomplete!
+  $("#autocomplete").click(function(){
+
+    SC.initialize({
+      client_id: '91a4f9b982b687d85c9d42e2f4991a09'
+    });
+
+    var track_url = $('#soundcloud_url').val();
+
+    SC.get('/resolve', { url: track_url }, function(track) {
+      $("#title").val(track.title);
+      $('#artist').val(track.user);
+      var artwork = track.artwork_url.replace("large", "t300x300")
+      $('#albumArt').val(artwork);
+    });
+
+  })
+
+  // Show and hide the description field
+  $('#blogPost').click(function(){
+    $('#postLabel, #postContent').slideToggle();
+  });
+
   //------ Manager Main Nav Controls -----------------
 
   // Hiding the Frame and Showing the Greeting on Brand Click
@@ -82,16 +116,6 @@ $().ready(function () {
   });
 
 //=================  POST MANAGER ZONE  ====================================
-  // Form Controls for New Posts
-  $('#soundcloudRadio').click(function() { 
-    $("#SpotifyInput").prop("disabled",true);
-    $("#SoundcloudInput").prop("disabled",false);
-  });
-
-  $('#spotifyRadio').click(function() { 
-    $("#SoundcloudInput").prop("disabled",true);
-    $("#SpotifyInput").prop("disabled",false);
-  });
 
   // AJAX to load more posts
   $('#PostManager').on('click', '#loadMore', function(event) {
@@ -248,9 +272,14 @@ $().ready(function () {
 
 });
 
+// ============== Making the success alerts work ===========================
+// Put something here to override the close - make it just hide it instead so it can come back in later
+
 
 // ================ ISSUES ================
 // "Published" icons don't work without refresh
 // Delete and Edit don't work without refresh
 // Forms should clear out on submit
 // Date doesn't show up without refresh but also needs to be fixed in all ways
+
+

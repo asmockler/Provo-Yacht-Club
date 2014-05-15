@@ -29,10 +29,9 @@
           <div class="row"><div class="col-md-4 col-md-offset-4">
             <a data-toggle="modal" id="PostFromGreeting" href="#NewPost" class="btn btn-primary btn-lg btn-block">New Post</a>
             <a href="#" id="GoToPostManager" class="btn btn-info btn-lg btn-block">Manage Posts</a>
-            <a href="#" id="GoToFeatureManager" class="btn btn-success btn-lg btn-block">Manage Features</a>
-            <a href="#" id="GoToUserManager" class="btn btn-warning btn-lg btn-block">Manage Users</a>
+            <a href="#" id="GoToUserManager" class="btn btn-success btn-lg btn-block">Manage Users</a>
+            <a href="/" class="btn btn-warning btn-lg btn-block">Go to the Home Page</a>
             <a href="/logout" class="btn btn-danger btn-lg btn-block">Log Out</a>
-            <a href="/" class="btn btn-link btn-lg btn-block">Go To The Home Page</a>
 
           </div></div>
       </div><!-- Container -->
@@ -94,47 +93,26 @@
                         <form method="post" id="newpost">
                           <fieldset>
 
-                            <label for="Song-Title">Song Title</label>
-                            <input type="text" class="form-control" placeholder="What You Won't Do For Love" name="Song-Title"><br />
+                            <label for="soundcloud_url">Soundcloud URL </label> 
+                            <a class="btn btn-xs btn-info" id="autocomplete" style="display:none">Autocomplete Album Artwork and Song Name</a>
+                            <input type="text" class="form-control" placeholder="http://www.soundcloud.com/kygo/m83-wait-kygo-remix" id="soundcloud_url" name="soundcloud_url"><br />
 
-                            <label for="Artist">Artist</label>
-                            <input type="text" class="form-control" placeholder="Bobby Caldwell" name="Artist"><br />
+                            <label for="title">Song Title</label>
+                            <input type="text" class="form-control" placeholder="What You Won't Do For Love" name="title" id="title"><br />
 
-                            <label for="Album">Album</label>
-                            <input type="text" class="form-control" placeholder="Yacht Rock:'70s Soft Rock hits" name="Album"><br />
+                            <label for="artist">Artist</label>
+                            <input type="text" class="form-control" placeholder="Bobby Caldwell" name="artist" id="artist"><br />
 
+                            <label for="album">Album</label>
+                            <input type="text" class="form-control" placeholder="Yacht Rock:'70s Soft Rock hits" name="album"><br />
 
-                            <label for="Description">Post Description</label>
-                            <textarea class="form-control postcontent" rows="4" placeholder="Put all your witty jargon here..." name="Description" minlength="1"></textarea><br/>
-                            
-                            <label for="Media">Embedded Media</label>
-
-                            <div class="radio">
-                              <label>
-                                <input type="radio" id="soundcloudRadio" name="Source" id="optionsRadios1" value="Soundcloud" checked>
-                                Soundcloud
-                              </label>
-                            </div>
-                            <div class="radio">
-                              <label>
-                                <input type="radio" id="spotifyRadio" name="Source" id="optionsRadios2" value="spotify">
-                                Spotify
-                              </label>
-                            </div><br/>
-
-                            <label>Media Link (Soundcloud)</label>
-                            <input type="text" class="form-control" id="SoundcloudInput" placeholder="https://api.soundcloud.com/tracks/136749579" name="Media1"><br />
-                            <label>Media Link (Spotify)</label>
-                            <input type="text" disabled class="form-control" id="SpotifyInput" placeholder="spotify:track:0bsdLG0Z1TedLfJGKPpv64" name="Media"><br />
-
-
-                            <label for="AlbumArt">Album Art</label>
-                            <input type="text" class="form-control" placeholder="http://a3.mzstatic.com/us/r30/Music/13/d6/d1/mzi.qqcypfvi.170x170-75.jpg" name="AlbumArt"><br />
+                            <label for="album_art">Album Art</label>
+                            <input type="text" class="form-control" placeholder="http://a3.mzstatic.com/us/r30/Music/13/d6/d1/mzi.qqcypfvi.170x170-75.jpg" name="album_art" id="albumArt"><br />
 
                             <div class="row">
                               <div class="col-md-6">
-                                <label for="tag">Tag</label>
-                                <select class="form-control" name="tag">
+                                <label for="tag_1">Tag</label>
+                                <select class="form-control" name="tag_1">
                                   <option></option>
                                   <option>Dance</option>
                                   <option>Chill</option>
@@ -145,8 +123,8 @@
                               </div>
 
                               <div class="col-md-6">
-                                <label for="tag2">Tag 2 (Optional)</label>
-                                <select class="form-control col-md-6" name="tag2">
+                                <label for="tag_2">Tag 2 (Optional)</label>
+                                <select class="form-control col-md-6" name="tag_2">
                                   <option></option>
                                   <option>Dance</option>
                                   <option>Chill</option>
@@ -157,8 +135,18 @@
                               </div>
                             </div><br />
 
-                            <label for="Author">Author</label>
-                            <input type="text" class="form-control" placeholder="Michael Jordan" name="Author"><br />
+                            <label for="author">Author</label>
+                            <input type="text" class="form-control" placeholder="Michael Jordan" name="author"><br />
+
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" id="blogPost" name="has_blog_post" value="true"> Is this a blog post?
+                              </label>
+                            </div>
+
+                            <label for="description" id="postLabel" style="display:none">Blog Post Content</label>
+                            <textarea class="form-control postcontent" rows="4" placeholder="Put all your witty jargon here..." name="description" minlength="1" style="display:none" id="postContent"></textarea>
+
 
                         </fieldset>
                       </form>
@@ -244,6 +232,9 @@
     <!-- jQuery and Bootstrap Links -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
+      <!-- soundcloud -->
+          <script src="http://connect.soundcloud.com/sdk.js"></script>
+
     <!-- My stuff -->
     <script type="text/javascript" src="js/manager.js"></script>
   </body>
