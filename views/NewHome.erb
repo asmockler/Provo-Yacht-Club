@@ -34,7 +34,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
           <ul class="nav navbar-nav">
-            <li><a href="#" style="margin-right:0; padding-right:0"><span class="glyphicon glyphicon-backward"></span></a></li>
+            <li><a href="#" style="margin-right:0; padding-right:0"><span class="glyphicon glyphicon-backward" id="skip-backward"></span></a></li>
             <li>
 
               <a href="#" id="play">
@@ -46,7 +46,7 @@
               </a>
 
             </li>
-            <li><a href="#" style="margin-left:0; padding-left:0"><span class="glyphicon glyphicon-forward"></span></a></li>
+            <li><a href="#" style="margin-left:0; padding-left:0"><span class="glyphicon glyphicon-forward" id="skip-forward"></span></a></li>
           </ul>
 
           <div class="nav navbar-text progress" style="width: 225px; margin-top:15px;margin-left:0;">
@@ -54,7 +54,9 @@
           </div>
 
           <div class="nav navbar-text" >
-            <img src="http://developers.soundcloud.com/assets/logo_big_white-bdafb3beba25fb86c2df365d05674e64.png" style="height:25px;margin-left:-20px"/>
+            <a href="#" id="soundcloudLink">
+              <img src="http://developers.soundcloud.com/assets/logo_big_white-bdafb3beba25fb86c2df365d05674e64.png" style="height:25px;margin-left:-20px"/>
+            </a>
           </div>
 
           <p class="navbar-text" style="font-size:13px;margin-top:17px;margin-left:-10px;padding-left:0"><span id="title"></span></p>
