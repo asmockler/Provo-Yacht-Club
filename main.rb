@@ -63,6 +63,7 @@ end
           if params[:password] == @user.password
             session["admin"] = @user.admin 
             session['logged_in'] = true
+            session['user_id'] = @user.id
             redirect '/Manager'
           else
             flash[:loginerror] = true
@@ -155,6 +156,7 @@ end
   
   get '/Manager' do
     if session["admin"]
+      @user = User.find(session["user_id"])
       erb :NewManager
     elsif session["logged_in"]
       flash[:not_admin] = true
@@ -216,10 +218,14 @@ end
         # Editing A Post
 
           # Modal
-            get '/Manager/edit-modal/:id' do |id|
-              @post = settings.mongo_db["Posts"].find_one({_id: BSON::ObjectId(id)})
+            get '/Manager/edit-modal/:id' do
+              id = BSON::ObjectId.from_string(params[:id])
+              @song = Song.find(id)
               erb :manager_edit_form
             end
+
+          # Saving
+              
 
           # Publishing
             post '/edit/:action/:id' do
@@ -236,76 +242,6 @@ end
               @posts = [params]
               erb :manage_table
             end
-
-
-  #======== Stuff for Features ========#
-    get '/Manager/FeatureManager' do
-      @posts = settings.mongo_db["Features"].find().sort({_id: -1}).limit(5)
-      erb :feature_manager
-    end
-
-        # New Features
-          post '/NewFeat/save' do
-            params[:entrytime] = Time.new
-            params[:active] = false
-            settings.mongo_db["Features"].insert(params)
-            @posts = [params]
-            erb :manage_feat_table
-          end
-
-          post '/NewFeat/activate' do
-            settings.mongo_db["Features"].update({:active => true}, '$set' => {:active => false})
-            params[:entrytime] = Time.new
-            params[:active] = true
-            settings.mongo_db["Features"].insert(params)
-            @posts = [params]
-            erb :manage_feat_table
-          end
-
-        # Expanding the Feature Table
-          get '/Manager/moreFeatResults/:batch' do |batch|
-            num_to_skip = batch.to_i
-            @posts = settings.mongo_db["Features"].find().sort({_id: -1}).skip(num_to_skip).limit(5)
-            erb :manage_feat_table
-          end
-
-        # Deleting A Feature
-           # Modal
-            get "/Manager/deleteFeat/:id" do |id|
-              @post = settings.mongo_db["Features"].find_one({_id: BSON::ObjectId(id)})
-              erb :manager_delete_confirm_feature
-            end
-
-          # Delete
-            get '/delete/feature/:id' do
-              id = BSON::ObjectId.from_string(params[:id])
-              settings.mongo_db["Features"].remove({:_id => id})
-            end
-
-        # Editing a Feature
-          # Modal
-            get '/Manager/edit-modal-feat/:id' do |id|
-              @post = settings.mongo_db["Features"].find_one({_id: BSON::ObjectId(id)})
-              erb :manager_edit_form_feat
-            end
-
-          # Publishing
-            post '/editFeat/:action/:id' do
-              action = params.delete("action")
-              if action == "activate"
-                settings.mongo_db["Features"].update({:active => true}, '$set' => {:active => false})
-                params["active"] = true
-              elsif action == "deactivate"
-                params["active"] = false
-              end
-
-              @id = BSON::ObjectId.from_string(params[:id])
-              settings.mongo_db["Features"].update({:_id => @id}, params )
-
-              @posts = [params]
-              erb :manage_feat_table
-            end
-
 
   #======== Stuff for Users ========#
     get '/Manager/UserManager' do
@@ -327,7 +263,7 @@ end
 ##################################################
 
 
-# Status Alerts - this needs finishing
+# Status Alerts - this needs finishing? - May be replaced.
 
   get '/StatusAlert' do
     erb :status_alerts
@@ -336,7 +272,7 @@ end
 
 ########### Making the New Layout Work ############
 get '/redesign' do
-  @posts = settings.mongo_db["Posts"].find({:publish => true}).sort({_id: -1}).limit(6)
+  @songs = Song.find_each(:order => :created_at.desc).limit(12)
   erb :NewHome
 end
 
@@ -353,8 +289,7 @@ end
 
 
 # Things that can be done in the car
-#      Add User manager to manager toolbar
-#      Add validation to manager forms
+#      Add validation to manager edit form (Fix al jquery on edit forms)
 #      Make user page not 
 
 

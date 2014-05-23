@@ -56,8 +56,8 @@
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                  <li id="PostNav"><a href="#" id="PostFromFeature">Posts</a></li>
-                  <li id="FeatureNav"><a href="#" id="FeatureFromPost">Features</a></li>
+                  <li id="PostNav"><a href="#" id="PostFromUser">Posts</a></li>
+                  <li id="userNav"><a href="#" id="userFromPost">Users</a></li>
                 </ul>
               </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -136,7 +136,7 @@
                             </div><br />
 
                             <label for="author">Author</label>
-                            <input type="text" class="form-control" placeholder="Michael Jordan" name="author"><br />
+                            <input type="text" class="form-control" placeholder="Michael Jordan" name="author" value=""><br />
 
                             <div class="checkbox">
                               <label>
@@ -188,55 +188,20 @@
           </div><!-- modal-dialog -->
         </div><!-- modal -->
 
-      <!-- Modal for New Feature -->
-          <div class="modal fade" id="NewFeature">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Submit a New Feature</h4>
-                </div>
-                <div class="modal-body">
-                  <form method="post">
-                    <fieldset>
-
-                      <label for="Feature-Title">Feature Title</label>
-                      <input type="text" class="form-control" placeholder="Nautilus" name="Feature-Title"><br />
-
-                      <label>Media Link (Soundcloud)</label>
-                      <input type="text" class="form-control" placeholder="https://api.soundcloud.com/tracks/136749579" name="Media"><br />
-
-                      <div class="col-md-6">
-                        <label for="type">Feature Type</label>
-                        <select class="form-control col-md-6" name="type">
-                          <option>Artist</option>
-                          <option>Playlist</option>
-                        </select>
-                      </div>
-                            
-                    </fieldset>
-                  </form>
-
-                </div>
-                <div class="modal-footer">
-                  <button class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button id="saveNewFeat" class="btn btn-warning" data-dismiss="modal">Save</button>
-                  <button id="activateNewFeat" class="btn btn-success" data-dismiss="modal">Save and Make Active</button>
-                </div>
-              </div><!-- modal-content -->
-            </div><!-- modal-dialog -->
-          </div><!-- modal -->
-
-
 
     <!-- jQuery and Bootstrap Links -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
-      <!-- soundcloud -->
-          <script src="http://connect.soundcloud.com/sdk.js"></script>
+    <!-- soundcloud -->
+      <script src="http://connect.soundcloud.com/sdk.js"></script>
+    <!-- Form Validation -->
+      <script type="text/javascript" src="bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
+
 
     <!-- My stuff -->
     <script type="text/javascript" src="js/manager.js"></script>
+
+
   </body>
 
 </html>

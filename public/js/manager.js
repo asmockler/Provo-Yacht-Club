@@ -9,36 +9,36 @@ $().ready(function () {
 
 // ========== Guts of the new post modal ============
   // Show and hide the autocomplete button
-  $('#soundcloud_url').keyup(function(){
+  $('#soundcloud_url, #soundcloud_urlEdit').keyup(function(){
     if( $(this).val().length != 0 ){
-      $('#autocomplete').fadeIn(200);
+      $('#autocomplete, #autocompleteEdit').fadeIn(200);
     }
     else {
-      $('#autocomplete').fadeOut(200);
+      $('#autocomplete, #autocompleteEdit').fadeOut(200);
     }
   });
 
   // Autocomplete!
-  $("#autocomplete").click(function(){
+  $("#autocomplete, #autocompleteEdit").click(function(){
 
     SC.initialize({
       client_id: '91a4f9b982b687d85c9d42e2f4991a09'
     });
 
-    var track_url = $('#soundcloud_url').val();
+    var track_url = $('#soundcloud_url, #soundcloud_urlEdit').val();
 
     SC.get('/resolve', { url: track_url }, function(track) {
-      $("#title").val(track.title);
-      $('#artist').val(track.user);
+      $("#title, #titleEdit").val(track.title);
+      $('#artist, #artistEdit').val(track.user);
       var artwork = track.artwork_url.replace("large", "t300x300")
-      $('#albumArt').val(artwork);
+      $('#albumArt, #albumArtEdit').val(artwork);
     });
 
   })
 
   // Show and hide the description field
-  $('#blogPost').click(function(){
-    $('#postLabel, #postContent').slideToggle();
+  $('#blogPost, #blogPostEdit').click(function(){
+    $('#postLabel, #postContent, #postLabelEdit, #postContentEdit').slideToggle();
   });
 
   //------ Manager Main Nav Controls -----------------
@@ -48,7 +48,7 @@ $().ready(function () {
     $('#frame').fadeOut(300, function(){
       $('#greeting').fadeIn(300);
       $('#forRemove').remove();
-      $('#FeatureNav').removeClass('active');
+      $('#userNav').removeClass('active');
       $('#PostNav').removeClass('active');
     });
   });
@@ -65,18 +65,6 @@ $().ready(function () {
     });
   });
 
-  // Bringing in the Feature Manager Page
-  $('#GoToFeatureManager').click(function() {
-    $('#greeting').fadeOut(300, function(){
-      var div = $('#FeatureManager');
-      $.get('/Manager/FeatureManager', function(data) {
-        div.hide().append(data).fadeIn(300);
-      });
-      $("#FeatureNav").addClass('active');
-      $("#frame").fadeIn(300);
-    });
-  });
-
   // Bringing in the User Manager Page
   $('#GoToUserManager').click(function() {
     $('#greeting').fadeOut(300, function(){
@@ -84,32 +72,32 @@ $().ready(function () {
       $.get('/Manager/UserManager', function(data) {
         div.hide().append(data).fadeIn(300);
       });
-      // $("#FeatureNav").addClass('active');
+      $("#userNav").addClass('active');
       $("#frame").fadeIn(300);
     });
   });
 
   // To Feature Manager from Post Manager
-  $('#FeatureFromPost').click(function(){
+  $('#userFromPost').click(function(){
     $('#forRemove').fadeOut(300, function(){
       $(this).remove();
-      var div = $('#FeatureManager');
-      $.get('/Manager/FeatureManager', function(data) {
+      var div = $('#UserManager');
+      $.get('/Manager/UserManager', function(data) {
         div.append(data).hide().fadeIn(400);
         $('#PostNav').removeClass('active');
-        $('#FeatureNav').addClass('active');
+        $('#userNav').addClass('active');
       });
     });
   });
 
   // To Post Manager from Feature Manager
-  $('#PostFromFeature').click(function(){
+  $('#PostFromUser').click(function(){
     $('#forRemove').fadeOut(300, function(){
       $(this).remove();
       var div = $('#PostManager');
       $.get('/Manager/PostManager', function(data) {
         div.append(data).hide().fadeIn(400);
-        $('#FeatureNav').removeClass('active');
+        $('#userNav').removeClass('active');
         $('#PostNav').addClass('active');
       });
     });
@@ -269,6 +257,55 @@ $().ready(function () {
       });
       event.preventDefault();
     });
+
+//=============== NEW POST FORM VALIDATION ===============
+
+$('#NewPost, #newpost').bootstrapValidator({
+
+              feedbackIcons: {
+                  valid: 'glyphicon glyphicon-ok',
+                  invalid: 'glyphicon glyphicon-remove',
+                  validating: 'glyphicon glyphicon-refresh'
+              },
+
+              fields: {
+                  soundcloud_url: {
+                      validators: {
+                          notEmpty: {
+                              message: 'Soundcloud URL is Required'
+                          }
+                      }
+                  },
+                  title: {
+                      validators: {
+                          notEmpty: {
+                              message: 'Song Title is Required'
+                          }
+                      }
+                  },
+                  artist: {
+                      validators: {
+                          notEmpty: {
+                              message: 'Artist Name is Required'
+                          }
+                      }
+                  },
+                  album: {
+                      validators: {
+                          notEmpty: {
+                              message: 'Album Name is Required'
+                          }
+                      }
+                  },
+                  album_art: {
+                      validators: {
+                          notEmpty: {
+                              message: 'Album Art URL is Required'
+                          }
+                      }
+                  },                    
+              },
+          });
 
 });
 
