@@ -284,6 +284,11 @@ get '/load_about' do
   erb :about
 end
 
+get '/load_more_songs' do
+  @songs = Song.find_each(:order => :created_at.desc).limit(9)
+  erb :song_thumbs
+end
+
 
 
 
