@@ -38,6 +38,7 @@ end
     key :tag_2, String
     key :author, String
     key :has_blog_post, Boolean
+    key :blog_title, String
     key :blog_post, String
     key :published, Boolean
 
@@ -219,7 +220,7 @@ end
 
           # Modal
             get '/Manager/edit-modal/:id' do
-              id = BSON::ObjectId.from_string(params[:id])
+              id = params[:id]
               @song = Song.find(id)
               erb :manager_edit_form
             end
@@ -272,11 +273,14 @@ end
 
 ########### Making the New Layout Work ############
 get '/redesign' do
+  @total_songs = Song.count
+  @number = 0
   @songs = Song.find_each(:order => :created_at.desc).limit(12)
   erb :NewHome
 end
 
 get '/load_blog' do
+  @posts = Song.find_each(:has_blog_post => true, :order => :created_at.desc).limit(5)
   erb :blog
 end
 
@@ -284,8 +288,10 @@ get '/load_about' do
   erb :about
 end
 
-get '/load_more_songs' do
-  @songs = Song.find_each(:order => :created_at.desc).limit(9)
+get '/load_more_songs/:number' do
+  number = params[:number]
+  @number = number.to_i
+  @songs = Song.find_each(:order => :created_at.desc).limit(9).skip(@number)
   erb :song_thumbs
 end
 

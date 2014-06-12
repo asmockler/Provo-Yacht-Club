@@ -144,9 +144,13 @@
                               </label>
                             </div>
 
-                            <label for="description" id="postLabel" style="display:none">Blog Post Content</label>
-                            <textarea class="form-control postcontent" rows="4" placeholder="Put all your witty jargon here..." name="description" minlength="1" style="display:none" id="postContent"></textarea>
+                            <div class="blog-guts" style="display:none;">
+                              <label for="blog_title">Blog Post Title</label>
+                              <input type="text" class="form-control" name="blog_title" value=""><br/>
 
+                              <label for="description" id="postLabel">Blog Post Content</label>
+                              <textarea class="form-control postcontent" rows="4" placeholder="Put all your witty jargon here..." name="blog_post" minlength="1" id="postContent"></textarea>
+                            </div>
 
                         </fieldset>
                       </form>

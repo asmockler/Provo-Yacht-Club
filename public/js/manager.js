@@ -1,12 +1,5 @@
 $().ready(function () {
 
-  function WireUpContent () {
-    $('span').tooltip();
-    $(".alert").alert();
-  };
-
-  WireUpContent();
-
 // ========== Guts of the new post modal ============
   // Show and hide the autocomplete button
   $('#soundcloud_url, #soundcloud_urlEdit').keyup(function(){
@@ -38,7 +31,7 @@ $().ready(function () {
 
   // Show and hide the description field
   $('#blogPost, #blogPostEdit').click(function(){
-    $('#postLabel, #postContent, #postLabelEdit, #postContentEdit').slideToggle();
+    $('.blog-guts').slideToggle();
   });
 
   //------ Manager Main Nav Controls -----------------
@@ -77,7 +70,7 @@ $().ready(function () {
     });
   });
 
-  // To Feature Manager from Post Manager
+  // To User Manager from Post Manager
   $('#userFromPost').click(function(){
     $('#forRemove').fadeOut(300, function(){
       $(this).remove();
@@ -90,7 +83,7 @@ $().ready(function () {
     });
   });
 
-  // To Post Manager from Feature Manager
+  // To Post Manager from User Manager
   $('#PostFromUser').click(function(){
     $('#forRemove').fadeOut(300, function(){
       $(this).remove();
@@ -161,6 +154,11 @@ $().ready(function () {
     $.get(this.href, function (result) {
       editModal.find('.modal-edit-content').html(result);
       editModal.modal();
+      $('#blogPost, #blogPostEdit').click(function(){
+          $('#blogPost, #blogPostEdit').click(function(){
+            $('.blog-guts').slideToggle();
+          });
+      });
     });
     event.preventDefault();
   });
@@ -174,74 +172,6 @@ $().ready(function () {
     });
     event.preventDefault();
   });
-
-//================= FEATURE MANAGER ZONE ==================================
-
-  // AJAX to load more posts
-  $('#FeatureManager').on('click', '#loadMoreFeat', function(event) {
-    var table = $("#feat-table");
-    var batch = parseInt(table.attr('data-batch'));
-    var individual = parseInt(table.attr('data-individual'));
-    var tableBody = table.find('tbody');
-    $.get('/Manager/moreFeatResults/' + ((batch*5) + individual), function(data){
-      $(data).hide().appendTo(tableBody).fadeIn(400);
-      table.attr('data-batch', batch+1);
-    });
-    event.preventDefault();
-  });
-
-  function AddNewFeat(post) {
-    var table = $("#feat-table");
-    var tbody = table.find('tbody');
-    var count = parseInt(table.attr('data-individual'));
-    $(post).hide().prependTo(tbody).fadeIn(500);
-    table.attr('data-individual', count+1)
-  }
-
-  // AJAX for New Published Posts
-  var newFeatModal = $("#NewFeature");
-  newFeatModal.on('click', "#activateNewFeat", function() {
-    $.post('/NewFeat/activate',
-      newFeatModal.find('form').serialize(), 
-      AddNewFeat);
-  });
-
-  // AJAX for New Save Posts
-  newFeatModal.on("click", "#saveNewFeat", function() {
-    $.post('/NewFeat/save',
-      newFeatModal.find('form').serialize(), 
-      AddNewFeat);
-  });
-
-
- var deleteModal = $('#delete-modal');
- $('#FeatureManager').on('click', "#feat-table .delete", function(event) {
-   $.get(this.href, function (result) {
-     deleteModal.find('.modal-delete-content').html(result);
-     deleteModal.modal();
-   });
-   event.preventDefault();
- });
-
-   // Edit Modal
- var editModal = $('#edit-modal');
- $('#FeatureManager').on('click', '#feat-table .edit', function (event) {
-   $.get(this.href, function (result) {
-     editModal.find('.modal-edit-content').html(result);
-     editModal.modal();
-   });
-   event.preventDefault();
- });
-
- editModal.on('click', "button:submit", function (event) {
-   var jqForm = $(this.form);
-   $.post(this.formAction, jqForm.serialize(), function(data){
-     $('#feat-table').find("#" + jqForm.attr('data-post')).replaceWith(data);
-     editModal.modal("hide");
-     editModal.find('.modal-body').html("");
-   });
-   event.preventDefault();
- });
 
 //=================  USER MANAGER ZONE  ====================================
     $('#UserManager').on('click', '#user-table .btn-success', function (event) {

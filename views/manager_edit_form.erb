@@ -52,8 +52,13 @@
         </label>
       </div>
 
-      <label for="description" id="postLabelEdit" style="display:none">Blog Post Content</label>
-      <textarea class="form-control postcontent" rows="4" placeholder="Put all your witty jargon here..." name="description" minlength="1" style="display:none" id="postContentEdit" value="<%= @song.description %>"></textarea>
+      <div class="blog-guts" <% unless @song.has_blog_post == true %>style="display:none;"<% end %>>
+        <label for="blog_title">Blog Post Title</label>
+        <input type="text" class="form-control" name="blog_title" value="<%= @song.blog_title %>"><br/>
+
+        <label for="description" id="postLabel">Blog Post Content</label>
+        <textarea class="form-control postcontent" rows="4" placeholder="Put all your witty jargon here..." name="blog_post" minlength="1" id="postContent"><%= @song.blog_post %></textarea>
+      </div>
 
   </div>
 

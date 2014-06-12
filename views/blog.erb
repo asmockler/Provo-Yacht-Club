@@ -1,9 +1,12 @@
-<div style="padding-top:55px">
+<div style="padding-top:55px; overflow-y:hidden">
 	<div class="container">
 
 		<div class="row">
-			<div class="col-xs-8">
+			<div class="col-xs-8 blog-post-container">
 				<h1 style="color:#2FB59A;font-size:65px">The Blog</h1>
+
+				<%= erb :blog_post %>
+
 			</div>
 
 			<div class="col-xs-4 text-center">
@@ -20,6 +23,15 @@
 					(adsbygoogle = window.adsbygoogle || []).push({});
 					</script>
 		        </div></div></div>
+
+		        <script>
+		        	function setHeight() {
+			        	height = $(window).height();
+			        	$('.blog-post-container').css('max-height', height-200 + 'px');
+		        	}
+		        	setHeight();
+		   			$(window).on("resize", setHeight);
+		        </script>
 
 		        
 			</div>
