@@ -187,55 +187,6 @@ $().ready(function () {
       event.preventDefault();
     });
 
-//=============== NEW POST FORM VALIDATION ===============
-
-$('#NewPost, #newpost').bootstrapValidator({
-
-              feedbackIcons: {
-                  valid: 'glyphicon glyphicon-ok',
-                  invalid: 'glyphicon glyphicon-remove',
-                  validating: 'glyphicon glyphicon-refresh'
-              },
-
-              fields: {
-                  soundcloud_url: {
-                      validators: {
-                          notEmpty: {
-                              message: 'Soundcloud URL is Required'
-                          }
-                      }
-                  },
-                  title: {
-                      validators: {
-                          notEmpty: {
-                              message: 'Song Title is Required'
-                          }
-                      }
-                  },
-                  artist: {
-                      validators: {
-                          notEmpty: {
-                              message: 'Artist Name is Required'
-                          }
-                      }
-                  },
-                  album: {
-                      validators: {
-                          notEmpty: {
-                              message: 'Album Name is Required'
-                          }
-                      }
-                  },
-                  album_art: {
-                      validators: {
-                          notEmpty: {
-                              message: 'Album Art URL is Required'
-                          }
-                      }
-                  },                    
-              },
-          });
-
 });
 
 // ============== Making the success alerts work ===========================
