@@ -158,6 +158,7 @@ function viewPreviousPosts () {
 	}
 	else {
 		var firstVisible = $songRow.find('.song-thumb:visible').first().attr('data-number');
+		$(this).off('click');
 		$songRow.animate({
 			left: '75%'
 		},
@@ -165,6 +166,7 @@ function viewPreviousPosts () {
 			$(this).css('left', '0');
 			$('.song-thumb').slice(parseInt(firstVisible)+2, parseInt(firstVisible)+11).hide();
 			$('.song-thumb').slice(parseInt(firstVisible)-10, parseInt(firstVisible)).fadeIn(400);
+			$('#view-previous-set').on('click', viewPreviousPosts())
 		});
 	}
 
