@@ -194,6 +194,18 @@ $playButtons.click(function(e){
 		function trackTime() {
 			setTimeout(trackTime, 1000);
 			$("#songProgress").width( (Player.getCurrentPosition() / Player.getDuration() ) * 200);
+			
+			if( Player.getState() == 'ended'){
+				Player.stop();
+				Player = undefined;
+				var nextSong = $('.current-song').next('.song-thumb');
+				$('.current-song').removeClass('current-song');
+				nextSong.addClass('current-song');
+				current_track_url = nextSong.attr('data-url');
+				getAndPlayTrack(current_track_url);
+				$playButtons.hide();
+				$pauseButtons.show();
+			}
 		}
 		setTimeout(trackTime, 1000);
 	}
