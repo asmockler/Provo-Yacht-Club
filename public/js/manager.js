@@ -126,6 +126,7 @@ $().ready(function () {
     $.post('/NewPost/publish',
       newPostModal.find('form').serialize(), 
       AddNewPost);
+      $(this).closest('form').find("input[type=text], textarea").val("");
   });
 
   // AJAX for New Save Posts
@@ -133,6 +134,7 @@ $().ready(function () {
     $.post('/NewPost/save',
       newPostModal.find('form').serialize(), 
       AddNewPost);
+      $(this).closest('form').find("input[type=text], textarea").val("");
   });
 
   var deleteModal = $('#delete-modal');
