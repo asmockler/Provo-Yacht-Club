@@ -118,7 +118,7 @@ end
 
   #======== Stuff for Posts ========#
     get '/Manager/PostManager' do
-      @song = Song.limit(8).find_each(:order => :created_at.desc)
+      @song = Song.limit(10).find_each(:order => :created_at.desc)
       erb :post_manager
     end
 
@@ -126,7 +126,7 @@ end
 
           get '/Manager/moreResults/:batch' do |batch|
             num_to_skip = batch.to_i
-            @song = Song.skip(num_to_skip).limit(5).find_each(:order => :created_at.desc)
+            @song = Song.skip(num_to_skip).limit(10).find_each(:order => :created_at.desc)
             erb :manage_table
           end
 
@@ -264,13 +264,6 @@ get '/setup' do
   erb :NewManager
 end
 
-
-
-
-
-# Things that can be done in the car
-#      Add validation to manager edit form (Fix al jquery on edit forms)
-#      Make user page not 
 
 
 =begin
