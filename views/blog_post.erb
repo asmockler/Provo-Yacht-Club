@@ -18,7 +18,7 @@
     	<span class="blog-post-title"><%= post.blog_title %></span><br/>
     	<%= post.title %>
     </h4>
-    <p><%= post.blog_post %></p>
+    <p><%= post.blog_post.gsub(/\n/, '<br />') %></p>
     <p class="text-muted pull-right"><small>Post by <%= post.author %> on <%= post.created_at.strftime("%B %d, %Y") %></small></p>
   </div>
 </div>
