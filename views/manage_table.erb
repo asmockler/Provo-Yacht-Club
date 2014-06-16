@@ -1,16 +1,21 @@
-<% @posts.each do |post|  %>
+<% @song.each do |song| %>
 
 
-  <tr id="<%= post["_id"] %>">
-    <td><a class="edit btn btn-primary btn-xs btn-block" href="/Manager/edit-modal/<%= post['_id'] %>"> <span class="glyphicon glyphicon-pencil" style="width:40px"></span> </a></td>
-    <td><a class="delete btn btn-danger btn-xs btn-block" href="/Manager/delete/<%= post['_id'] %>"><span class="glyphicon glyphicon-trash" style="width:40px"></span></a></td>
-    <td><%= post['Song-Title'] %></td>
-    <td class="hidden-sm hidden-xs"><%= post['Artist'] %></td>
-    <td class="hidden-sm hidden-xs"><%= post['Album'] %></td>
-    <td class="hidden-sm hidden-xs"><%= post['entrytime'] %></td>
-    <td class="hidden-sm hidden-xs"><%= post['Author'] %></td>
+  <tr id="<%= song.id %>" 
+      <% if song.has_blog_post == true %> 
+        style="border-left:3px solid #428bca"
+      <% end %>
+    >
+    <td style="width:auto"><a class="edit btn btn-primary btn-xs btn-block" href="/Manager/edit-modal/<%= song.id %>"> <span class="glyphicon glyphicon-pencil" style="width:40px"></span> </a></td>
+    <td style="width:auto"><a class="delete btn btn-danger btn-xs btn-block" href="/Manager/delete/<%= song.id %>"><span class="glyphicon glyphicon-trash" style="width:40px"></span></a></td>
+    <td><%= song.title %> <% if song.has_blog_post == true %> <span class="pull-right label label-primary">Blog</span> <% end %>
+    </td>
+    <td class="hidden-sm hidden-xs"><%= song.artist %></td>
+    <td class="hidden-sm hidden-xs"><%= song.album %></td>
+    <td class="hidden-sm hidden-xs"><%= song.created_at %></td>
+    <td class="hidden-sm hidden-xs"><%= song.author %></td>
     <td class="text-center">
-      <% if post['publish'] == true %>
+      <% if song.published == true %>
         <span class="glyphicon glyphicon-ok text-success"></span>
       <% else %>
         <span class="glyphicon glyphicon-remove text-danger"></span>
@@ -18,4 +23,4 @@
     </td>
   </tr>
 
-<%end%>
+<% end %>

@@ -1,0 +1,17 @@
+<% @posts.each do |post| %>
+
+<div class="media">
+  <a class="pull-left" href="<%= post.soundcloud_url %>">
+    <img class="media-object" src="<%= post.album_art %>" style="width:100px;height:auto">
+  </a>
+  <div class="media-body">
+    <h4 class="media-heading">
+    	<span class="blog-post-title"><%= post.blog_title %></span><br/>
+    	<%= post.title %>
+    </h4>
+    <p><%= post.blog_post %></p>
+    <p class="text-muted pull-right"><small>Post by <%= post.author %> on <%= post.created_at.strftime("%B %d, %Y") %></small></p>
+  </div>
+</div>
+
+<% end %>

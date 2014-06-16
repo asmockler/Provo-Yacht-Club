@@ -1,0 +1,25 @@
+
+<div id="forRemove">
+
+	<h1>Manage Users</h1>
+	<br />
+
+	     <table id="user-table" class="table table-hover" data-batch="1" data-individual="0">
+	     	<thead>
+		      <tr>
+		        <th style="width:55px">Edit &nbsp;</th>
+		        <th style="width:55px">Erase</th>
+		        <th>First Name</th>
+		        <th>Last Name</th>
+		        <th class="hidden-sm hidden-xs">Email</th>
+		        <th class="text-center">Admin?</th>
+		        <th class="text-center">Change Rights</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+	      		<%= erb :manage_user_table %>
+	      	</tbody>
+
+	     </table>
+
+</div>

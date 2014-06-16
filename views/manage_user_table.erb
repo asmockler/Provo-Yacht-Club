@@ -1,0 +1,29 @@
+<% @user.each do |user| %>
+
+  <tr id="<%= user.id %>">
+    <td style="width:auto"><a class="edit btn btn-primary btn-xs btn-block" href="#" disabled style="width:40px"><span class="glyphicon glyphicon-pencil" style="width:40px"></span></a></td>
+    <td style="width:auto"><a class="delete btn btn-danger btn-xs btn-block" href="/delete_user_confirm/<%= user.id %>"><span class="glyphicon glyphicon-trash" style="width:40px"></span></a></td>
+    <td><%= user.first_name %></td>
+    <td><%= user.last_name %></td>
+    <td class="hidden-sm hidden-xs"><%= user.email %></td>
+    <td class="text-center">
+      <% if user.admin == true %>
+        <span class="glyphicon glyphicon-ok text-success"></span>
+      <% else %>
+        <span class="glyphicon glyphicon-remove text-danger"></span>
+      <% end %>
+    </td>
+    <td class="text-center rights" data-user="<%= user.id %>">
+      <% if user.admin == true %>
+        <a href="/Manager/UserManager/remove_admin/<%= user.email %>" class="btn btn-danger btn-xs remove">Remove Rights</a>
+      <% else %>
+        <a href="/Manager/UserManager/make_admin/<%= user.email %>" class="btn btn-success btn-xs give" id="makeAdmin">Make Admin</a>
+      <% end %>      
+    </td>
+  </tr>
+
+<% end %>
+
+
+
+
