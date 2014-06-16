@@ -18,12 +18,14 @@ end
 
   class User
     include MongoMapper::Document
+    include ActiveModel::SecurePassword
 
-    key :first_name,   String
-    key :last_name,    String
-    key :email,        String, :unique => true
-    key :admin,        Boolean
-    key :password,     String
+    has_secure_password
+    key :first_name,          String
+    key :last_name,           String
+    key :email,               String, :unique => true
+    key :admin,               Boolean
+    key :password_digest,     String
   end
 
   class Song 
@@ -61,7 +63,7 @@ end
         @user = User.first(:email => params[:email])
 
         if @user
-          if params[:password] == @user.password
+          if @user.authenticate params[:password]
             session["admin"] = @user.admin 
             session['logged_in'] = true
             session['user_id'] = @user.id
@@ -91,7 +93,7 @@ end
 
       # Saving w/ email validation
         post '/new_user' do
-          user = User.new(params)
+          user = User.create! first_name: params["first_name"], last_name: params["last_name"], email: params["email"], password: params["password"], password_confirmation: params["password"]
           if user.save
             redirect '/'
           else
@@ -99,59 +101,6 @@ end
             redirect '/new_user'
           end
         end
-
-
-############### Original Main view ###################
-  get '/' do
-    @posts = settings.mongo_db["Posts"].find({:publish => true}).sort({_id: -1}).limit(6)
-    @recentposts = settings.mongo_db["Posts"].find({:publish => true}).sort('_id','descending').limit(6)
-    @feature = settings.mongo_db["Features"].find({:active => true}).sort({_id: -1}).limit(1)
-    erb :index
-  end
-
-  get '/moreResults/:batch' do |batch|
-    num_to_skip = 6 * batch.to_i
-    @posts = settings.mongo_db["Posts"].find({:publish => true}).sort({_id: -1}).skip(num_to_skip).limit(6)
-    erb :posts_long_front
-  end
-
-    ######## Sorting ########
-      get '/Big Beats' do
-        @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Big Beats"}, {:tag2 => "Big Beats"}]} ] }).sort({_id: -1}).limit(3)
-        @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Big Beats"}, {:tag2 => "Big Beats"}]} ] }).limit(6)
-        @feature = settings.mongo_db["Features"].find({:active => true}).sort({_id: -1}).limit(1)
-        erb :index
-      end
-
-      get '/Dance' do
-        @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Dance"}, {:tag2 => "Dance"}]} ] }).sort({_id: -1}).limit(3)
-        @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Dance"}, {:tag2 => "Dance"}]} ] }).sort('_id','descending').limit(6)
-        @feature = settings.mongo_db["Features"].find({:active => true}).sort({_id: -1}).limit(1)
-        erb :index
-      end
-
-      get '/Chill' do
-        @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Chill"}, {:tag2 => "Chill"}]} ] }).sort({_id: -1}).limit(3)
-        @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Chill"}, {:tag2 => "Chill"}]} ] }).sort('_id','descending').limit(6)
-        @feature = settings.mongo_db["Features"].find({:active => true}).sort({_id: -1}).limit(1)
-        erb :index
-      end
-
-      get '/Revival' do
-        @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Revival"}, {:tag2 => "Revival"}]} ] }).sort({_id: -1}).limit(3)
-        @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Revival"}, {:tag2 => "Revival"}]} ] }).sort('_id','descending').limit(6)
-        @feature = settings.mongo_db["Features"].find({:active => true}).sort({_id: -1}).limit(1)
-        erb :index
-      end
-
-      get '/Etc.' do
-        @posts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Etc."}, {:tag2 => "Etc."}]} ] }).sort({_id: -1}).limit(3)
-        @recentposts = settings.mongo_db["Posts"].find({:$and => [{:publish => true}, {:$or => [{:tag => "Etc."}, {:tag2 => "Etc."}]} ] }).sort('_id','descending').limit(6)
-        @feature = settings.mongo_db["Features"].find({:active => true}).sort({_id: -1}).limit(1)
-        erb :index
-      end
-
-
 
 ############ Manager ############
   
@@ -169,7 +118,7 @@ end
 
   #======== Stuff for Posts ========#
     get '/Manager/PostManager' do
-      @song = Song.find_each(:order => :created_at.desc).limit(5)
+      @song = Song.limit(8).find_each(:order => :created_at.desc)
       erb :post_manager
     end
 
@@ -177,7 +126,7 @@ end
 
           get '/Manager/moreResults/:batch' do |batch|
             num_to_skip = batch.to_i
-            @song = Song.find_each(:order => :created_at.desc).skip(num_to_skip).limit(5)
+            @song = Song.skip(num_to_skip).limit(5).find_each(:order => :created_at.desc)
             erb :manage_table
           end
 
@@ -188,7 +137,7 @@ end
             params[:published] = false
             song = Song.new(params)
             song.save
-            @song = Song.find_each(:order => :created_at.desc).limit(1)
+            @song = Song.limit(1).find_each(:order => :created_at.desc)
             erb :manage_table
           end
 
@@ -196,7 +145,7 @@ end
             params[:published] = true
             song = Song.new(params)
             song.save
-            @song = Song.find_each(:order => :created_at.desc).limit(1)
+            @song = Song.limit(1).find_each(:order => :created_at.desc)
             erb :manage_table
           end
 
@@ -231,16 +180,21 @@ end
           # Publishing
             post '/edit/:action/:id' do
               action = params.delete("action")
+
+              song = Song.find(params[:id])
+
               if action == "publish"
-                params["publish"] = true
+                params[:published] = true
               elsif action == "unpublish"
-                params["publish"] = false
+                params[:published] = false
+              else
+                params[:published] = song.published
               end
 
-              @id = BSON::ObjectId.from_string(params[:id])
-              settings.mongo_db["Posts"].update({:_id => @id}, params )
+              song.update_attributes(params)
 
-              @posts = [params]
+              song.reload
+              @song = song
               erb :manage_table
             end
 
@@ -260,6 +214,17 @@ end
       @user.set(:admin => nil)
     end
 
+    get '/delete_user_confirm/:id' do
+      id = params[:id]
+      @user = User.find(id)
+      erb :user_delete_confirm
+    end
+
+    get '/delete_user/:id' do
+      id = params[:id]
+      User.destroy(id)
+    end
+
 
 ##################################################
 
@@ -271,16 +236,16 @@ end
   end
 
 
-########### Making the New Layout Work ############
-get '/redesign' do
+########### Home Page ############
+get '/' do
   @total_songs = Song.count
   @number = 0
-  @songs = Song.find_each(:order => :created_at.desc).limit(12)
+  @songs = Song.limit(12).find_each(:published => true, :order => :created_at.desc)
   erb :NewHome
 end
 
 get '/load_blog' do
-  @posts = Song.find_each(:has_blog_post => true, :order => :created_at.desc).limit(5)
+  @posts = Song.limit(5).find_each(:has_blog_post => true, :order => :created_at.desc)
   erb :blog
 end
 
@@ -291,8 +256,12 @@ end
 get '/load_more_songs/:number' do
   number = params[:number]
   @number = number.to_i
-  @songs = Song.find_each(:order => :created_at.desc).limit(9).skip(@number)
+  @songs = Song.limit(9).skip(@number).find_each(:order => :created_at.desc)
   erb :song_thumbs
+end
+
+get '/setup' do
+  erb :NewManager
 end
 
 

@@ -170,6 +170,9 @@ body {
 	padding-bottom: 100px;
 }
 
+.progress{
+	cursor: pointer;
+}
 
 
 /*!

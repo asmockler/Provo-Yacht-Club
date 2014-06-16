@@ -1,12 +1,18 @@
 $().ready(function(){
 
-
-// HEY DUDE! RIGHT NOW YOU WERE MAKING IT SO THE PLAYER WON'T ANIMATE 
-// IF YOU ARE DISPLAYING THE LAST SONG IN THE SET. SO LIKE, GET AFTER IT! 
-// THIS CONSOLE LOG IS SHOWING THAT THE BODY HAS A DATA ATTRIBUTE WITH THE TOTAL NUMBER. 
-// GO GET 'EM CHAMP
-
 // ################ Streaming from SoundCloud! #################
+
+// play()
+// stop()
+// pause()
+// seek(ms)
+// setVolume(volume)
+// getVolume()
+// getType()
+// getCurrentPosition()
+// getLoadedPosition()
+// getDuration()
+// getState()
 
 $pauseButtons = $('#pause, #pause_big');
 $playButtons = $('#play, #play_big, #play_start_text');
@@ -198,8 +204,16 @@ $pauseButtons.click(function(e){
 });
 
 
-// Getting a new track from bottom selector
+// Click to seek on progress bar
 
+$('.progress').on('click', function (e) {
+	var clickPosition = e.pageX - this.offsetLeft;
+	var totalDuration = Player.getDuration();
+	// Total width of the progress bar is 200
+	var songTime = (totalDuration / 200) * clickPosition
+	Player.seek(songTime);
+	$("#songProgress").width( (songTime / totalDuration) * 200);
+});
 
 $('#skip-forward').click(function(e){
 	e.preventDefault();

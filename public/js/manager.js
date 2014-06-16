@@ -133,10 +133,6 @@ $().ready(function () {
     $.post('/NewPost/save',
       newPostModal.find('form').serialize(), 
       AddNewPost);
-
-    $.get('/StatusAlert', function(data){
-      $(data).appendTo('#Status');
-    });
   });
 
   var deleteModal = $('#delete-modal');
@@ -174,16 +170,17 @@ $().ready(function () {
   });
 
 //=================  USER MANAGER ZONE  ====================================
-    $('#UserManager').on('click', '#user-table .btn-success', function (event) {
+    $('#UserManager').on('click', '.remove, .give', function (event) {
       $.post(this.href, function(){
-        $('#abcdef').fadeIn();
+        $(this).parents('tr').fadeOut();
       });
       event.preventDefault();
     });
 
-    $('#UserManager').on('click', '#user-table .btn-danger', function (event) {
-      $.post(this.href, function(){
-        // Make it do stuff
+    $('#UserManager').on('click', '.delete', function (event) {
+      $.get(this.href, function (result) {
+        deleteModal.find('.modal-delete-content').html(result);
+        deleteModal.modal();
       });
       event.preventDefault();
     });
