@@ -4,13 +4,12 @@
 
   <div class="pull-left">
     <a href="<%= post.soundcloud_url %>">
-      <img class="media-object" src="<%= post.album_art %>" style="width:100px;height:auto" />
+      <img class="media-object" src="<%= post.album_art %>" style="width:100px;height:auto" /></a>
       <span class="label label-success"><%= post.tag_1 %></span>
       <span class="label label-success"><%= post.tag_2 %></span><br />
       <% if post.is_local == true %>
         <span class="label label-success">Provo Artist</span>
       <% end %>
-    </a>
   </div>
   
   <div class="media-body">
@@ -18,7 +17,7 @@
     	<span class="blog-post-title"><%= post.blog_title %></span><br/>
     	<%= post.title %>
     </h4>
-    <p><%= post.blog_post.gsub(/\n/, '<br />') %></p>
+    <p><%= post.blog_post.to_s.gsub(/\n/, '<br />') %></p>
     <p class="text-muted pull-right"><small>Post by <%= post.author %> on <%= post.created_at.strftime("%B %d, %Y") %></small></p>
   </div>
 </div>

@@ -130,8 +130,8 @@ function loadMorePosts () {
 		},
 		1000, 'easeInOutBack', function(){
 			$(this).css('left', '0');
-			$('.song-thumb').slice((parseInt(lastVisible)-12), (parseInt(lastVisible)-3)).hide();
-			$('.song-thumb').slice((parseInt(lastVisible), (parseInt(lastVisible)+9).each(function (index){
+			$('.song-thumb').slice((lastVisible-12), (lastVisible-3)).hide();
+			$('.song-thumb').slice(lastVisible, lastVisible*1+9).each(function (index){
 				$(this).delay(50*index).fadeIn(400);
 				if ( $(this).hasClass('viewed') ) {
 				}
@@ -141,11 +141,11 @@ function loadMorePosts () {
 				}
 			}).promise().done(function(){
 				var lastLoaded = $songRow.find('.song-thumb').last().attr('data-number');
-				if ( lastLoaded < (parseInt(lastVisible)+12 ) {
+				if ( lastLoaded < lastVisible*1+12 ) {
 					queueUpSelector();
 				}
 				else {
-					$('#view-next-set').on('click', loadMorePosts);
+					$('#view-next-set').on('click', loadMorePosts());
 				}
 			});
 		});
@@ -164,8 +164,8 @@ function viewPreviousPosts () {
 		},
 		1000, 'easeInOutBack', function(){
 			$(this).css('left', '0');
-			$('.song-thumb').slice(parseInt(firstVisible)+2, parseInt(firstVisible)+11).hide();
-			$('.song-thumb').slice(parseInt(firstVisible)-10, parseInt(firstVisible)).fadeIn(400);
+			$('.song-thumb').slice(firstVisible*1+2, firstVisible*1+11).hide();
+			$('.song-thumb').slice(firstVisible-10, firstVisible).fadeIn(400);
 			$('#view-previous-set').on('click', viewPreviousPosts())
 		});
 	}
