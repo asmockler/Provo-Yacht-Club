@@ -44,6 +44,12 @@
           </select>
         </div>
       </div><br />
+      
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="is_local" value="true" <% if @song.is_local == true %> checked <% else %> <% end %>> Is this a local artist?
+        </label>
+      </div>
 
       <label for="author">Author</label>
       <input type="text" class="form-control" placeholder="Michael Jordan" name="author" value="<%= @song.author %>"><br />
