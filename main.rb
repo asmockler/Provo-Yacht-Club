@@ -38,6 +38,7 @@ end
     key :album_art, String
     key :tag_1, String
     key :tag_2, String
+    key :is_local, Boolean
     key :author, String
     key :has_blog_post, Boolean
     key :blog_title, String
