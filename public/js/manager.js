@@ -104,7 +104,7 @@ $().ready(function () {
     var batch = parseInt(table.attr('data-batch'));
     var individual = parseInt(table.attr('data-individual'));
     var tableBody = table.find('tbody');
-    $.get('/Manager/moreResults/' + ((batch*5) + individual), function(data){
+    $.get('/Manager/moreResults/' + ((batch*10) + individual), function(data){
       $(data).hide().appendTo(tableBody).fadeIn(400);
       table.attr('data-batch', batch+1);
     });
