@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Provo Yacht Club | Great Music Daily, Featuring Provo's Finest Artists</title>
+
+    <!-- Sets initial viewport load and disables zooming  -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Include the compiled Ratchet CSS -->
+    <link href="/mobile/css/ratchet.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+
+
+    <!-- Include the compiled Ratchet JS -->
+    <script src="mobile/js/ratchet.js"></script>
+  </head>
+  <body>
+
+    <!-- Make sure all your bars are the first things in your <body> -->
+    <header class="bar bar-nav">
+      <h1 class="title">Provo Yacht Club</h1>
+    </header>
+
+    <nav class="bar bar-tab bar-standard bar-footer">
+      <a class="tab-item" href="#">
+      </a>
+      <a class="tab-item" href="#">
+        <span class="icon icon-back"></span>
+        <span class="tab-label">Back</span>
+      </a>
+      <a class="tab-item" href="#">
+        <span class="icon icon-play"></span>
+        <span class="tab-label">Play</span>
+      </a>
+      <a class="tab-item" href="#">
+        <span class="icon icon-forward"></span>
+        <span class="tab-label">Skip</span>
+      </a>
+      <a class="tab-item" href="#myModalexample">
+        <span class="icon icon-list"></span>
+        <span class="tab-label">Recent</span>
+      </a>
+    </nav>
+
+    <div class="bar bar-standard bar-footer-secondary">
+        <p class="title">Song - Artist</p>
+    </div>
+
+    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+    <div class="content">
+
+      <div class="slider" id="mySlider">
+        <div class="slide-group">
+          <% @songs.each do |post| %>
+          <div class="slide">
+            <img src="<%= post.album_art%>" style="width:100%">
+          </div>
+          <% end %>
+
+        </div>
+      </div>
+
+        <div id="myModalexample" class="modal">
+          <header class="bar bar-nav">
+            <a class="icon icon-close pull-right" href="#myModalexample"></a>
+            <h1 class="title">Recent Posts</h1>
+          </header>
+
+          <div class="content">
+            <ul class="table-view">
+
+              <% @songs.each do |post| %>
+                <li class="table-view-cell media">
+                  <a class="navigate-right">
+                    <img class="media-object pull-left" src="<%= post.album_art %>" style="max-width:100px;">
+                    <div class="media-body">
+                      <%= post.title %>
+                    </div>
+                  </a>
+                </li>
+              <% end %>
+
+            </ul>
+          </div>
+        </div>
+
+    </div>
+
+  </body>
+</html>

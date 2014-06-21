@@ -11,6 +11,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     bcrypt (3.1.7)
+    browser (0.6.0)
     bson (1.10.1)
     bson_ext (1.10.1)
       bson (~> 1.10.1)
@@ -46,6 +47,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt
+  browser
   bson_ext
   mongo
   mongo_mapper
