@@ -124,7 +124,7 @@ function loadMorePosts () {
 	var totalSongs = $('body').attr('data-total-songs');
 	var lastVisible = $songRow.find('.song-thumb:visible').last().attr('data-number');
 	if ( lastVisible < totalSongs ) {
-		$(this).off('click');
+		$('#view-next-set').off('click');
 		$songRow.animate({
 			left: '-75%'
 		},
@@ -158,7 +158,7 @@ function viewPreviousPosts () {
 	}
 	else {
 		var firstVisible = $songRow.find('.song-thumb:visible').first().attr('data-number');
-		$(this).off('click');
+		$('#view-previous-set').off('click');
 		$songRow.animate({
 			left: '75%'
 		},
