@@ -124,7 +124,7 @@ function loadMorePosts () {
 	var totalSongs = $('body').attr('data-total-songs');
 	var lastVisible = $songRow.find('.song-thumb:visible').last().attr('data-number');
 	if ( lastVisible < totalSongs ) {
-		$('#view-next-set').off('click');
+		$(this).off('click');
 		$songRow.animate({
 			left: '-75%'
 		},
@@ -145,7 +145,7 @@ function loadMorePosts () {
 					queueUpSelector();
 				}
 				else {
-					$('#view-next-set').on('click', loadMorePosts());
+					$('#view-next-set').on('click', loadMorePosts);
 				}
 			});
 		});
@@ -166,7 +166,7 @@ function viewPreviousPosts () {
 			$(this).css('left', '0');
 			$('.song-thumb').slice(firstVisible*1+2, firstVisible*1+11).hide();
 			$('.song-thumb').slice(firstVisible-10, firstVisible).fadeIn(400);
-			$('#view-previous-set').on('click', viewPreviousPosts())
+			$('#view-previous-set').on('click', viewPreviousPosts)
 		});
 	}
 
