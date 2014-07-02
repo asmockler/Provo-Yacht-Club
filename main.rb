@@ -243,14 +243,7 @@ get '/' do
   @number = 0
   @songs = Song.limit(12).find_each(:published => true, :order => :created_at.desc)
 
-  browser = Browser.new(:ua => "some string", :accept_language => "en-us")
-
-  if browser.mobile?
-    erb :Mobile
-  else
-    erb :NewHome
-  end
-
+  erb :NewHome
 end
 
 get '/load_blog' do
