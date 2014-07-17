@@ -220,7 +220,7 @@ $pauseButtons.click(function(e){
 
 // Click to seek on progress bar
 
-$('.progress').on('click', function (e) {
+$('.song-progress').on('click', function (e) {
 	var clickPosition = e.pageX - this.offsetLeft;
 	var totalDuration = Player.getDuration();
 	// Total width of the progress bar is 200
@@ -286,6 +286,25 @@ function WireUpContentFirst () {
 	});
 }
 
+// ############### Volume Control ###############
+
+	$("#volume-control").on('mouseover', function(){
+		$('.volume-bar').show();
+	});
+
+	$(".volume-container").on('mouseleave', function(){
+		$('.volume-bar').hide();
+	});
+
+	$(".volume-bar").on( 'click', function (e) {
+		console.log("hello");
+
+		var clickPosition = e.pageX - this.offsetLeft;
+		// Total width of the progress bar is 200
+		var newVolume = (clickPosition / 200);
+		Player.setVolume(newVolume);
+		$("#volumeControl").width( newVolume * 200 );
+	});
 
 // ############### Showing the Blog #############
 	$("#showBlog").click(function() {

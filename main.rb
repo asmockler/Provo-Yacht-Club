@@ -273,6 +273,13 @@ get '/test' do
   erb :'mobile/enter'
 end
 
+########### BOOTY CALL SNAPCHAT ############
+
+["/bcsc", "/bootycallsnapchat", "/booty_call_snapchat"].each do |path|
+  get path do
+    erb :'bootycallsnapchat/booty_call_snapchat'
+  end
+end
 
 
 =begin

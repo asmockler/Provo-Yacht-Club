@@ -1,0 +1,36 @@
+body{
+	background:url('/BCSCgif.gif');
+	background-size:cover;
+	font-family:"Open Sans";
+	height:auto;
+	width:100%;
+}
+
+.song-container{
+    margin-top:200px; 
+    padding:20px;
+}
+
+.song-art{
+	width:229px;
+	height:229px;
+	background:url('/bcscthumb.png');
+	background-size:cover;
+	border-radius:10px;
+	margin:auto;
+	padding-top:80px;
+	box-shadow:0 0 50px black;
+}
+
+.glyphicon{
+	font-size:50px;
+}
+
+.pic-fade{
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:auto;
+	background:rgba(0,0,0,.5);
+}
