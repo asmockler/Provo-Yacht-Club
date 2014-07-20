@@ -281,6 +281,10 @@ end
   end
 end
 
+get '/setup' do
+  erb :NewManager
+end
+
 
 =begin
 To Do:
