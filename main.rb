@@ -263,6 +263,7 @@ get '/load_more_songs/:number' do
 end
 
 get '/setup' do
+  @user = User.first()
   erb :NewManager
 end
 
