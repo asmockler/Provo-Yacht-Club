@@ -1,5 +1,5 @@
 body{
-	background:url('/BCSCgif.gif');
+	background:url('/BCSCgif.gif') no-repeat center center fixed;
 	background-size:cover;
 	font-family:"Open Sans";
 	height:auto;
@@ -26,11 +26,3 @@ body{
 	font-size:50px;
 }
 
-.pic-fade{
-	position:absolute;
-	left:0;
-	top:0;
-	width:100%;
-	height:auto;
-	background:rgba(0,0,0,.5);
-}
