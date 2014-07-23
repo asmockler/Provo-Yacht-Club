@@ -268,8 +268,10 @@ get '/setup' do
 end
 
 get '/more_blog_posts/:batch' do |batch|
- skip = batch.to_i * 5
- @posts = Song.skip(skip).limit(5).find_each(:has_blog_post => true, :order => :created_at.desc) 
+  skip = batch.to_i * 5
+ @posts = Song.limit(5).skip(skip).find_each(:has_blog_post => true, :order => :created_at.desc) 
+
+ erb :blog_post
 end
 
 ########### BOOTY CALL SNAPCHAT ############

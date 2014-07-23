@@ -314,16 +314,17 @@ function WireUpContentFirst () {
 			$(this).empty();
 			$.get('/load_blog', function(data){
 				$('#blog').fadeOut(300).empty().append(data).fadeIn(300);
+				$('.load-more-blog').on('click', function(e){
+					e.preventDefault();
+					var container = $('.blog-post-container');
+					var batch = container.attr('data-batch');
+					$.get('/more_blog_posts/' + batch, function(data){
+						$('.media').last().append(data);	
+						container.attr('data-batch', parseInt(batch)+1);
+					});
+					console.log(batch);
+				});
 			});
-		});
-	});
-
-	$('.load-more-blog').on('click', function(){
-		var container = $('.blog-post-container');
-		var batch = container.attr('data-batch');
-		$.get('/more_blog_posts/' + batch, function(data){
-			container.append(data);	
-			container.attr('data-batch', batch+1);
 		});
 	});
 
