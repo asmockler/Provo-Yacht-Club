@@ -246,6 +246,12 @@ get '/' do
   erb :NewHome
 end
 
+get '/sort/:category' do |category|
+ cat = category.to_s
+ @number = 0
+ @songs = Song.limit(12).find_each(:published => true, :order => :created_at.desc, :tag_1 => cat || :tag_2 => cat)
+end
+
 get '/load_blog' do
   @posts = Song.limit(5).find_each(:has_blog_post => true, :order => :created_at.desc)
   erb :blog
