@@ -250,6 +250,7 @@ get '/sort/:category' do |category|
  cat = category.to_s
  @number = 0
  @songs = Song.limit(12).find_each(:published => true, :order => :created_at.desc, :tag_1 => cat || :tag_2 => cat)
+  erb :song_thumb
 end
 
 get '/load_blog' do
@@ -266,11 +267,6 @@ get '/load_more_songs/:number' do
   @number = number.to_i
   @songs = Song.limit(9).skip(@number).find_each(:order => :created_at.desc)
   erb :song_thumbs
-end
-
-get '/setup' do
-  @user = User.first()
-  erb :NewManager
 end
 
 get '/more_blog_posts/:batch' do |batch|
