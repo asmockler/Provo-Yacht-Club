@@ -221,7 +221,7 @@ end
       erb :user_delete_confirm
     end
 
-    get '/delete_user/:id' do
+    get '/delete_user/:id' do 
       id = params[:id]
       User.destroy(id)
     end
@@ -267,11 +267,9 @@ get '/setup' do
   erb :NewManager
 end
 
-get '/test' do
-   @songs = Song.limit(12).find_each(:published => true, :order => :created_at.desc)
-
-
-  erb :'mobile/enter'
+get '/more_blog_posts/:batch' do |batch|
+ skip = batch.to_i * 5
+ @posts = Song.skip(skip).limit(5).find_each(:has_blog_post => true, :order => :created_at.desc) 
 end
 
 ########### BOOTY CALL SNAPCHAT ############
