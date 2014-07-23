@@ -247,10 +247,10 @@ get '/' do
 end
 
 get '/sort/:category' do |category|
- cat = category.to_s
- @number = 0
- @songs = Song.limit(12).find_each(:published => true, :order => :created_at.desc, :tag_1 => cat || :tag_2 => cat)
-  erb :song_thumb
+  cat = category.to_s
+  @number = 0
+  @songs = Song.limit(12).find_each(:published => true, :order => :created_at.desc, :tag_1 => cat || :tag_2 => cat)
+  erb :song_thumbs
 end
 
 get '/load_blog' do
@@ -262,10 +262,10 @@ get '/load_about' do
   erb :about
 end
 
-get '/load_more_songs/:number' do
-  number = params[:number]
-  @number = number.to_i
-  @songs = Song.limit(9).skip(@number).find_each(:order => :created_at.desc)
+get '/load_more_songs/:number/:category' do
+  number = params[:number].to_i
+  category = params[:category]
+  @songs = Song.limit(9).skip(number).find_each(:order => :created_at.desc, :tag_1 => category || :tag_2 => category)
   erb :song_thumbs
 end
 
