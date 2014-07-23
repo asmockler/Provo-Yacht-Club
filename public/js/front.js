@@ -319,8 +319,11 @@ function WireUpContentFirst () {
 	});
 
 	$('.load-more-blog').on('click', function(){
-		$.get('/more_blog_posts', function(data){
-			$('.blog-post-container').append(data);	
+		var container = $('.blog-post-container');
+		var batch = container.attr('data-batch');
+		$.get('/more_blog_posts/' + batch, function(data){
+			container.append(data);	
+			container.attr('data-batch', batch+1);
 		});
 	});
 
