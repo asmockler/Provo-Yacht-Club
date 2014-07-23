@@ -318,6 +318,11 @@ function WireUpContentFirst () {
 		});
 	});
 
+	$('.load-more-blog').on('click', function(){
+		$.get('/more_blog_posts', function(data){
+			$('.blog-post-container').append(data);	
+		});
+	});
 
 
 // ############### Showing the About Page #############
