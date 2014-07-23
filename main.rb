@@ -265,7 +265,11 @@ end
 get '/load_more_songs/:number/:category' do
   number = params[:number].to_i
   category = params[:category]
-  @songs = Song.limit(9).skip(number).find_each(:order => :created_at.desc, :tag_1 => category || :tag_2 => category)
+  @songs = Song.where(:order => :created_at.desc)
+  unless category.nil? || category == ""
+   @songs.where(:tag_1 => category || :tag_2 => category)
+  end
+  @songs.skip(number).limit(9)
   erb :song_thumbs
 end
 
