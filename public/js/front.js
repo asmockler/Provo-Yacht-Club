@@ -328,6 +328,15 @@ function WireUpContentFirst () {
 		});
 	});
 
+// ############### Post Sorting #############
+
+	$('#dummy-selector').on('click', function(e){
+		e.preventDefault();
+		var sort = $(this).text();
+		$.get('/sort/' + sort, function(data){
+			
+		});
+	});
 
 // ############### Showing the About Page #############
 	$("#showAbout").click(function() {
