@@ -238,6 +238,7 @@ end
 
 
 ########### Home Page ############
+
 get '/' do
   @total_songs = Song.count
   @number = 0
@@ -246,10 +247,16 @@ get '/' do
   erb :NewHome
 end
 
-get '/sort/:category' do |category|
-  cat = category.to_s
+# get '/:sort/:number' do
+#   sort = params[:sort].to_s.capitalize
+#   @number = params[:number]
+# end
+
+get '/sort/:category' do
+  category = params[:category].to_s.capitalize
   @number = 0
-  @songs = Song.limit(12).find_each(:published => true, :order => :created_at.desc, :tag_1 => cat || :tag_2 => cat)
+  @songs = Song.where(:order => :created_at.desc, :published => true)
+  @songs = Song.limit(12).find_each(:tag_1 => category)
   erb :song_thumbs
 end
 
@@ -267,7 +274,7 @@ get '/load_more_songs/:number/:category' do
   category = params[:category]
   @songs = Song.where(:order => :created_at.desc)
   unless category.nil? || category == ""
-   @songs.where(:tag_1 => category || :tag_2 => category)
+   @songs.where(:tag_1 => category, :tag_2 => category)
   end
   @songs.skip(number).limit(9)
   erb :song_thumbs
@@ -287,6 +294,8 @@ end
     erb :'bootycallsnapchat/booty_call_snapchat'
   end
 end
+
+
 
 
 =begin

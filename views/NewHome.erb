@@ -13,6 +13,7 @@
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
         ga('create', 'UA-48737823-1', 'provoyachtclub.com');
+        ga('require', 'displayfeatures');
         ga('send', 'pageview');
       </script>
   </head>
@@ -29,7 +30,7 @@
             <!-- Play and Pause -->
             <li>
               <a href="#" id="play"><span class="glyphicon glyphicon-play" id="play_button"></span></a>
-              <a href="#" id="pause"><span class="glyphicon glyphicon-pause" id="pause_button"></span></a>
+              <a href="#" id="pause" style="display:none;"><span class="glyphicon glyphicon-pause" id="pause_button"></span></a>
             </li>
             <!-- Skip Forward -->
             <li><a href="#"><span class="glyphicon glyphicon-forward" id="skip-forward"></span></a></li>
@@ -61,7 +62,7 @@
 
             <!-- Dropdown for Sorting Posts (Saved for Later) -->
             <li class="dropdown">
-              <a href="" class="dropdown-toggle">SORT <b class="caret"></b></a>
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">SORT <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="#">DANCE</a></li>
                 <li><a href="#">CHILL</a></li>
