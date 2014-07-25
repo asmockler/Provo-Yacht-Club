@@ -246,13 +246,6 @@ get '/' do
   erb :NewHome
 end
 
-get '/sort/:category' do |category|
-  cat = category.to_s
-  @number = 0
-  @songs = Song.limit(12).find_each(:published => true, :order => :created_at.desc, :tag_1 => cat || :tag_2 => cat)
-  erb :song_thumbs
-end
-
 get '/load_blog' do
   @posts = Song.limit(5).find_each(:has_blog_post => true, :order => :created_at.desc)
   erb :blog
@@ -262,15 +255,16 @@ get '/load_about' do
   erb :about
 end
 
-get '/load_more_songs/:number/:category' do
-  number = params[:number].to_i
-  category = params[:category]
-  @songs = Song.where(:order => :created_at.desc)
-  unless category.nil? || category == ""
-   @songs.where(:tag_1 => category || :tag_2 => category)
-  end
-  @songs.skip(number).limit(9)
+get '/load_more_songs/:number' do
+  number = params[:number]
+  @number = number.to_i
+  @songs = Song.limit(9).skip(@number).find_each(:order => :created_at.desc)
   erb :song_thumbs
+end
+
+get '/setup' do
+  @user = User.first()
+  erb :NewManager
 end
 
 get '/more_blog_posts/:batch' do |batch|
