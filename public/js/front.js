@@ -111,7 +111,7 @@ function controlSongFromSelector () {
 function queueUpSelector () {
 	var lastLoaded = $songRow.find('.song-thumb').last().attr('data-number');
 	var category = $('body').attr('data-category');
-	$.get('/load_more_songs/' + lastLoaded + category, function (data){
+	$.get('/load_more_songs/' + lastLoaded, function (data){
 		$songRow.append(data);
 	});
 	$('#view-next-set').on('click', loadMorePosts);
@@ -331,20 +331,23 @@ function WireUpContentFirst () {
 
 // ############### Post Sorting #############
 
-	$('ul.dropdown-menu>li>a').on('click', function(e){
-		e.preventDefault();
-		var sort = $(this).text();
-		$.get('/sort/' + sort, function(data){
-			var height = $('.song-thumb').height();
-			$('.song-selector > .row').css('height', height);
-			$('.song-thumb').fadeOut(function(){
-				$(this).remove();
-			});
-			$('.song-selector > .row').append(data).fadeIn(function(){
-				$(this).css('height', '');
-			});
-		});
-	});
+	// $('.dropdown-menu>li>a').on('click', function (e) {
+	// 	e.preventDefault();
+	// 	var sort = $(this).text();
+	// 	var height = $('.song-thumb').height();
+	// // Prevent the slider from collapsing
+	// 	$('.song-selector').css('height', height);
+	// // Remove the old thumbnails
+	// 	$('.song-thumb').hide('drop', {direction: 'down', complete: function () {
+	// 			$(this).remove();
+	// 		}
+	// 	});
+	// // Get the new thumbnails
+	// 	$.get('/sort/' + sort, function (data) {
+	// 		$('.song-selector > .row').append(data);
+	// 		$('.song-thumb').show('drop', { direction: 'down' });
+	// 	});
+	// });
 
 
 // ############### Showing the About Page #############
