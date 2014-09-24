@@ -1,0 +1,23 @@
+html{
+	height:100%;
+}
+body {
+	/*background:url('/photo1.jpg') no-repeat center center fixed; 
+	background-size:cover;*/
+	padding-top:6%;
+	background-image: -webkit-gradient(
+		linear,
+		right bottom,
+		left top,
+		color-stop(0, #1DC2A1),
+		color-stop(1, #ED499B)
+	);
+	background-image: -o-linear-gradient(left top, #1DC2A1 0%, #ED499B 100%);
+	background-image: -moz-linear-gradient(left top, #1DC2A1 0%, #ED499B 100%);
+	background-image: -webkit-linear-gradient(left top, #1DC2A1 0%, #ED499B 100%);
+	background-image: -ms-linear-gradient(left top, #1DC2A1 0%, #ED499B 100%);
+	background-image: linear-gradient(to left top, #1DC2A1 0%, #ED499B 100%);
+}
+.container{
+	width: 1024px !important;
+}
