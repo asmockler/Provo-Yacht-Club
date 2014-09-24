@@ -1,9 +1,9 @@
 source "https://www.rubygems.org"
 
-gem 'sinatra'
-gem 'mongo'
-gem 'mongo_mapper'
-gem 'bson_ext'
-gem 'sinatra-flash'
-gem 'bcrypt'
-gem 'browser'
+gem 'sinatra', '1.4.5'
+gem 'mongo', '1.10.1'
+gem 'mongo_mapper', '0.13.0'
+gem 'bson_ext', '1.10.1'
+gem 'sinatra-flash', '0.3.0'
+gem 'bcrypt', '3.1.7'
+gem 'browser', '0.6.0'
