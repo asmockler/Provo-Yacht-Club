@@ -25,6 +25,10 @@ $().ready(function(){
   var firstTrack = $('#frame').find('li').first().attr('data-url');
   console.log(firstTrack);
 
+  SC.initialize({
+    client_id: '91a4f9b982b687d85c9d42e2f4991a09'
+  });
+
   SC.get('/resolve', { url: firstTrack }, function (track) {
     Track = track;
     $('#title').html(track.title);
@@ -32,40 +36,6 @@ $().ready(function(){
         Player = song;
     });
   });
-
- SC.get('/resolve', { url: current_track_url }, function (track) {
-   // Putting the title in the player
-   $("#title").html(track.title);
-   Track = track;
-   // Streaming the song (play and pause as well)
-   SC.stream('/tracks/' + track.id, 
-     {onfinish: function(){ alert('track finished');}}, 
-     function (song) {
-         Player = song;
-         Player.play();
-         // Guts for making the progress bar work
-     function trackTime() {
-         if(Player != undefined){
-             setTimeout(trackTime, 1000);
-             $("#songProgress").width( (Player.getCurrentPosition() / Player.getDuration()) * 200);
-                
-             if( Player.getState() == 'ended'){
-                 Player.stop();
-                 Player = undefined;
-                 var nextSong = $('.current-song').next('.song-thumb');
-                 $('.current-song').removeClass('current-song');
-                 nextSong.addClass('current-song');
-                 current_track_url = nextSong.attr('data-url');
-                 getAndPlayTrack(current_track_url);
-                 $playButtons.hide();
-                 $pauseButtons.show();
-             }           
-         }
-     }
-     setTimeout(trackTime, 1000);
-
-   });
- }); //SC.get
 
 });
 
