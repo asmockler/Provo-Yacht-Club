@@ -1,7 +1,7 @@
 get '/' do
   @total_songs = Song.count
   @number = 0
-  @songs = Song.limit(12).find_each(:published => true, :order => :created_at.desc)
+  @songs = Song.limit(20).find_each(:published => true, :order => :created_at.desc)
 
   erb :'Index/index'
 end

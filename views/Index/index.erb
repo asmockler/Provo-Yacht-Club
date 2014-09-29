@@ -8,91 +8,46 @@
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <script type="text/javascript" src="js/analytics.js"></script>
-  <style>
-    #frame{
-      width: 160px;
-      height: 160px;
-      padding: 0;
-    }
-    .slidee{
-      margin: 0;
-      padding: 0;
-      height:100%;
-      list-style: none;
-    }
-    .slidee li{
-      float: left;
-      margin: 0 5px 0 0;
-      padding: 0;
-      width:120px;
-      height:100%;
-    }
-    li.active{
-      color:white;
-    }
-  </style>
-    
 </head>
 <body>
 
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
-        <img src="logo.png" alt="" class="img-responsive center-block logo">
+  <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+            <img src="logo.png" alt="" class="img-responsive center-block logo">
+            <p class="lead text-center">Click a Thumbnail to Start Playing</p>
+            <p class="lead" id="title"></p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+  </section>
 
-  <div id="frame">
-    <ul id="slidee">
-        <li>
-          <p>2</p>
+  <section class="song-selector">
+    <div class="scrollbar">
+        <div class="handle"></div>
+    </div>
+    <div id="frame">
+      <ul id="slidee">
+        
+      <% @songs.each do |song| %>
+        <li data-url="<%= song.soundcloud_url %>">
+          <img src="<%= song.album_art %>">
+
         </li>
-        <li>
-          <p>4</p>
-        </li>
-        <li>
-          <p>6</p>
-        </li>
-        <li>
-          <p>2</p>
-        </li>
-        <li>
-          <p>4</p>
-        </li>
-        <li>
-          <p>3</p>
-        </li>
-        <li>
-          <p>7</p>
-        </li>
-        <li>
-          <p>4</p>
-        </li>
-        <li>
-          <p>8</p>
-        </li>
-        <li>
-          <p>9</p>
-        </li>
-    </ul>
-  </div>
-  <p></p>
+      <% end %>
+
+      </ul>
+    </div>
+  </section>
+
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <script src="//connect.soundcloud.com/sdk-2.0.0.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/Sly/1.2.1/sly.min.js"></script>
-  <!-- <script type="text/javascript" src="js/front.js"></script> -->
-  <script>
-    $(document).ready(function(){
-      var options = {
-        horizontal: 1,
-      }
-      var sly = new Sly('#frame', options)
-    })
-  </script>
-
+  <script type="text/javascript" src="js/front.js"></script>
 
 </body>
 </html>
+
