@@ -29,7 +29,7 @@
             <!-- Play and Pause -->
             <li>
               <a href="#" id="play"><span class="glyphicon glyphicon-play" id="play_button"></span></a>
-              <a href="#" id="pause" style="display:none"><span class="glyphicon glyphicon-pause" id="pause_button"></span></a>
+              <a href="#" id="pause"><span class="glyphicon glyphicon-pause" id="pause_button"></span></a>
             </li>
             <!-- Skip Forward -->
             <li><a href="#"><span class="glyphicon glyphicon-forward" id="skip-forward"></span></a></li>
@@ -60,7 +60,7 @@
             <li><a href="#" id="showAbout">ABOUT</a></li>
 
             <!-- Dropdown for Sorting Posts (Saved for Later) -->
-            <!-- <li class="dropdown">
+            <li class="dropdown">
               <a href="" class="dropdown-toggle">SORT <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="#">DANCE</a></li>
@@ -70,13 +70,13 @@
                 <li><a href="#">FOLK</a></li>
                 <li><a href="#">ETC.</a></li>
               </ul>
-            </li> -->
+            </li>
           </ul>
         </div>
       </nav>
       
       <!-- Volume Controller Pop-Over -->
-      <div class="volume-container">
+      <div class="colume-container">
         <div class="progress volume-bar" style="width: 200px; margin-top:15px;margin-left:0;">
           <div class="progress-bar" id="volumeControl" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="1"></div>
         </div>
@@ -151,17 +151,5 @@
         <script src="http://connect.soundcloud.com/sdk-2.0.0.js"></script>
         <script type="text/javascript" src="js/front.js"></script>
     </div><!-- /Desktop -->
-  
-    <!-- <div class="mobile hidden-md hidden-lg">
-      <section class="col-xs-12">
-        <img src="provo_yacht_club2.png" alt="" class="img-responsive">
-      </section>
-      <div class="row">
-        <%= erb :mobile_thumbs %>
-      </div>
-    </div>  -->
-
-
-
   </body>
 </html>
