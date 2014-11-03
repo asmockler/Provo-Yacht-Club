@@ -124,7 +124,7 @@ function showFirstTracks () {
 function loadMorePosts () {
 	var totalSongs = $('body').attr('data-total-songs');
 	var lastVisible = $songRow.find('.song-thumb:visible').last().attr('data-number');
-	if ( lastVisible < totalSongs ) {
+	if ( parseInt(lastVisible, 10) < parseInt(totalSongs, 10) ) {
 		$(this).off('click');
 		$songRow.animate({
 			left: '-75%'
