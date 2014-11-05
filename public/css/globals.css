@@ -1,0 +1,13 @@
+html {
+	font-size:62.5%;
+}
+body {
+	font-family:'Source Sans Pro', 'Helvetica Neue', Arial, Helvetica, Sans;
+	margin:0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	font-weight: 300;
+}
+h1 {
+	font-size: 3em;
+}

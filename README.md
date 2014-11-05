@@ -19,3 +19,5 @@ TODO
 Other important information as you rebuild:
 
 Old colors were #1DC2A1 and #ED499B
+
+BCSC gif: http://giant.gfycat.com/SphericalSorrowfulGrayfox.gif

@@ -1,0 +1,65 @@
+header {
+	width: 100%;
+	height: 200px;
+}
+
+html {
+	height:100%;
+	background-image: -webkit-gradient(
+		linear,
+		left top,
+		right bottom,
+		color-stop(0, #F55DA9),
+		color-stop(1, #1DC2A1)
+	);
+	background-image: -o-linear-gradient(right bottom, #F55DA9 0%, #1DC2A1 100%);
+	background-image: -moz-linear-gradient(right bottom, #F55DA9 0%, #1DC2A1 100%);
+	background-image: -webkit-linear-gradient(right bottom, #F55DA9 0%, #1DC2A1 100%);
+	background-image: -ms-linear-gradient(right bottom, #F55DA9 0%, #1DC2A1 100%);
+	background-image: linear-gradient(to right bottom, #F55DA9 0%, #1DC2A1 100%);
+}
+
+header > img{
+	width: auto;	
+	height: 100%;
+}
+
+header > section {
+	display: inline-block;
+}
+
+nav {
+	display:inline-block;
+	position: absolute;
+}
+
+nav > ul {
+	list-style-type: none;
+	color: white;
+}
+
+.song-info {
+	position:absolute;
+	text-align: right;
+	right: 225px;
+	top:25px;
+	font-size:14px;
+	color:white;
+}
+
+.album-art {
+	float: right;
+	width:auto;
+	height:100%;
+}
+
+.album-art > img {
+	width: 180px;
+	height: 180px;
+	padding: 10px;
+}
+
+
+/*
+#1DC2A1 and #ED499B
+*/
