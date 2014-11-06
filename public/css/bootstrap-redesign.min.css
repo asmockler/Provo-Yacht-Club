@@ -9,7 +9,6 @@
 
 html{
 	height:100%;
-	overflow:hidden;
 }
 
 .container{
@@ -33,6 +32,8 @@ body {
 	background-image: -webkit-linear-gradient(left top, #1DC2A1 0%, #ED499B 100%);
 	background-image: -ms-linear-gradient(left top, #1DC2A1 0%, #ED499B 100%);
 	background-image: linear-gradient(to left top, #1DC2A1 0%, #ED499B 100%);
+	background-repeat: no-repeat;
+	background-attachment: fixed
 }
 
 .navbar{
@@ -48,7 +49,7 @@ body {
 
 
 .holds-all-the-guts{
-	position:absolute;
+	position:fixed;
 	bottom:0;
 	width:100%;
 	z-index:5;
