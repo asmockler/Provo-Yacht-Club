@@ -12,7 +12,7 @@
               e.preventDefault();
           		var table = $("#posts-table");
           		var count = parseInt(table.attr('data-individual'));
-    	   	 		$.get('admin/users/delete/<%= @user.id %>');
+    	   	 		$.post('admin/users/delete/<%= @user.id %>', {_method: "delete"});
     	   	 		table.attr('data-individual', count-1);
     	   	 		$('#<%= @user.id %>').show().delay(300).fadeOut(800);
       	   	});
