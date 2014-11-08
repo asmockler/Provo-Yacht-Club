@@ -1,25 +1,27 @@
-get '/Manager/UserManager' do
+get '/admin/users' do
   @user = User.all
-  erb :user_manager
+  erb :'Admin/partials/users'
 end
 
-post '/Manager/UserManager/make_admin/:email' do
+post '/admin/users/make_admin/:email' do
   @user = User.first(:email => params[:email])
   @user.set(:admin => true)
 end
 
-post '/Manager/UserManager/remove_admin/:email' do
+post '/admin/users/remove_admin/:email' do
   @user = User.first(:email => params[:email])
   @user.set(:admin => nil)
 end
 
-get '/delete_user_confirm/:id' do
+# GET delete confirmation modal
+get '/admin/users/delete/:id' do
   id = params[:id]
   @user = User.find(id)
-  erb :user_delete_confirm
+  erb :'Admin/partials/user_delete'
 end
 
-get '/delete_user/:id' do 
+# DELETE user record
+delete '/admin/users/delete/:id' do 
   id = params[:id]
   User.destroy(id)
 end

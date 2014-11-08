@@ -5,13 +5,14 @@
         <div class="modal-footer">
 
           <button class="btn btn-default" data-dismiss="modal">Close</button>
-          <a class="btn btn-danger" id="deletePost" data-dismiss="modal" href="/delete/<%= @user.id %>">Delete</a>
+          <a class="btn btn-danger" id="delete-user" data-dismiss="modal" href="#">Delete</a>
 
           <script type="text/javascript">
-          	$('#deletePost').click(function() {
+          	$('#delete-user').click(function (e) {
+              e.preventDefault();
           		var table = $("#posts-table");
           		var count = parseInt(table.attr('data-individual'));
-    	   	 		$.get('/delete_user/<%= @user.id %>');
+    	   	 		$.get('admin/users/delete/<%= @user.id %>');
     	   	 		table.attr('data-individual', count-1);
     	   	 		$('#<%= @user.id %>').show().delay(300).fadeOut(800);
       	   	});

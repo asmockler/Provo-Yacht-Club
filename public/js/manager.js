@@ -37,7 +37,8 @@ $().ready(function () {
   //------ Manager Main Nav Controls -----------------
 
   // Hiding the Frame and Showing the Greeting on Brand Click
-  $('#BrandLink').click(function(){
+  $('#BrandLink').click(function(e){
+    e.preventDefault();
     $('#frame').fadeOut(300, function(){
       $('#greeting').fadeIn(300);
       $('#forRemove').remove();
@@ -47,10 +48,11 @@ $().ready(function () {
   });
 
   // Bringing in the Post Manager Page
-  $('#GoToPostManager, #PostFromGreeting').click(function() {
+  $('#GoToPostManager, #PostFromGreeting').click(function(e) {
+    e.preventDefault();
     $('#greeting').fadeOut(300, function(){
       var div = $('#PostManager');
-      $.get('/Manager/PostManager', function(data) {
+      $.get('/admin/posts', function(data) {
         div.hide().append(data).fadeIn(300);
       });
       $("#PostNav").addClass('active');
@@ -59,10 +61,11 @@ $().ready(function () {
   });
 
   // Bringing in the User Manager Page
-  $('#GoToUserManager').click(function() {
+  $('#GoToUserManager').click(function(e) {
+    e.preventDefault();
     $('#greeting').fadeOut(300, function(){
       var div = $('#UserManager');
-      $.get('/Manager/UserManager', function(data) {
+      $.get('/admin/users', function(data) {
         div.hide().append(data).fadeIn(300);
       });
       $("#userNav").addClass('active');
@@ -71,11 +74,12 @@ $().ready(function () {
   });
 
   // To User Manager from Post Manager
-  $('#userFromPost').click(function(){
+  $('#userFromPost').click(function(e){
+    e.preventDefault();
     $('#forRemove').fadeOut(300, function(){
       $(this).remove();
       var div = $('#UserManager');
-      $.get('/Manager/UserManager', function(data) {
+      $.get('/admin/users', function(data) {
         div.append(data).hide().fadeIn(400);
         $('#PostNav').removeClass('active');
         $('#userNav').addClass('active');
@@ -84,11 +88,12 @@ $().ready(function () {
   });
 
   // To Post Manager from User Manager
-  $('#PostFromUser').click(function(){
+  $('#PostFromUser').click(function(e){
+    e.preventDefault();
     $('#forRemove').fadeOut(300, function(){
       $(this).remove();
       var div = $('#PostManager');
-      $.get('/Manager/PostManager', function(data) {
+      $.get('/admin/posts', function(data) {
         div.append(data).hide().fadeIn(400);
         $('#userNav').removeClass('active');
         $('#PostNav').addClass('active');
@@ -104,7 +109,7 @@ $().ready(function () {
     var batch = parseInt(table.attr('data-batch'));
     var individual = parseInt(table.attr('data-individual'));
     var tableBody = table.find('tbody');
-    $.get('/Manager/moreResults/' + ((batch*10) + individual), function(data){
+    $.get('/admin/posts/more_results/' + ((batch*10) + individual), function(data){
       $(data).hide().appendTo(tableBody).fadeIn(400);
       table.attr('data-batch', batch+1);
     });
@@ -123,7 +128,7 @@ $().ready(function () {
   // AJAX for New Published Posts
   var newPostModal = $("#NewPost");
   newPostModal.on('click', "#publishNew", function() {
-    $.post('/NewPost/publish',
+    $.post('/admin/posts/new/publish',
       newPostModal.find('form').serialize(), 
       AddNewPost);
       $(this).closest('form').find("input[type=text], textarea").val("");
@@ -131,7 +136,7 @@ $().ready(function () {
 
   // AJAX for New Save Posts
   newPostModal.on("click", "#saveNew", function() {
-    $.post('/NewPost/save',
+    $.post('/admin/posts/new/save',
       newPostModal.find('form').serialize(), 
       AddNewPost);
       $(this).closest('form').find("input[type=text], textarea").val("");

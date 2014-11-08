@@ -1,10 +1,10 @@
 require_relative 'admin/users'
 require_relative 'admin/posts'
 
-get '/Manager' do
+get '/admin' do
   if session["admin"]
     @user = User.find(session["user_id"])
-    erb :NewManager
+    erb :'Admin/admin'
   elsif session["logged_in"]
     flash[:not_admin] = true
     redirect '/login'

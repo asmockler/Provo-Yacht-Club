@@ -1,48 +1,48 @@
-get '/Manager/PostManager' do
+get '/admin/posts' do
   @song = Song.limit(10).find_each(:order => :created_at.desc)
-  erb :post_manager
+  erb :'Admin/partials/posts'
 end
 
-get '/Manager/moreResults/:batch' do |batch|
+get '/admin/posts/more_results/:batch' do |batch|
   num_to_skip = batch.to_i
   @song = Song.skip(num_to_skip).limit(10).find_each(:order => :created_at.desc)
-  erb :manage_table
+  erb :'Admin/partials/post'
 end
 
-post '/NewPost/save' do
+post '/admin/posts/new/save' do
   params[:published] = false
   song = Song.new(params)
   song.save
   @song = Song.limit(1).find_each(:order => :created_at.desc)
-  erb :manage_table
+  erb :'Admin/partials/post'
 end
 
-post '/NewPost/publish' do
+post '/admin/posts/new/publish' do
   params[:published] = true
   song = Song.new(params)
   song.save
   @song = Song.limit(1).find_each(:order => :created_at.desc)
-  erb :manage_table
+  erb :'Admin/partials/post'
 end
 
-get "/Manager/delete/:id" do
+get "/admin/posts/delete/:id" do
   id = BSON::ObjectId.from_string(params[:id])
   @song = Song.find(id)
-  erb :manager_delete_confirm
+  erb :'Admin/partials/post_delete'
 end
 
-get '/delete/:id' do
+delete '/admin/posts/delete/:id' do
   id = BSON::ObjectId.from_string(params[:id])
   Song.destroy(id)
 end
 
-get '/Manager/edit-modal/:id' do
+get '/admin/posts/edit/:id' do
   id = params[:id]
   @song = Song.find(id)
-  erb :manager_edit_form
+  erb :'Admin/partials/post_edit'
 end
 
-post '/edit/:action/:id' do
+post '/admin/posts/edit/:action/:id' do
   action = params.delete("action")
 
   song = Song.find(params[:id])
@@ -59,5 +59,5 @@ post '/edit/:action/:id' do
 
   song.reload
   @song = song
-  erb :manage_table
+  erb :'Admin/partials/posts'
 end

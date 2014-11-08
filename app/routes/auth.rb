@@ -1,8 +1,8 @@
 get '/login' do
   if session["admin"]
-   redirect '/Manager'
+   redirect '/admin'
  else
-   erb :login
+   erb :'Admin/auth/login'
  end
 end
 
@@ -14,7 +14,7 @@ post '/login' do
       session["admin"] = @user.admin 
       session['logged_in'] = true
       session['user_id'] = @user.id
-      redirect '/Manager'
+      redirect '/admin'
     else
       flash[:loginerror] = true
       redirect '/login'
@@ -31,13 +31,13 @@ get '/logout' do
 end
 
 get '/new_user' do
-  erb :new_user
+  erb :'Admin/auth/new_user'
 end
 
 post '/new_user' do
   user = User.create! first_name: params["first_name"], last_name: params["last_name"], email: params["email"], password: params["password"], password_confirmation: params["password"]
   if user.save
-    redirect '/'
+    redirect '/login'
   else
     flash[:bad_email] = true
     redirect '/new_user'

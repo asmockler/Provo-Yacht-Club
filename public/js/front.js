@@ -313,13 +313,13 @@ function WireUpContentFirst () {
 		$('#goHome').fadeIn(1000);
 		$('#about').fadeOut(300, function(){
 			$(this).empty();
-			$.get('/load_blog', function(data){
+			$.get('/blog', function(data){
 				$('#blog').fadeOut(300).empty().append(data).fadeIn(300);
 				$('.load-more-blog').on('click', function(e){
 					e.preventDefault();
 					var container = $('.blog-post-container');
 					var batch = container.attr('data-batch');
-					$.get('/more_blog_posts/' + batch, function(data){
+					$.get('/load_more_blog_posts/' + batch, function(data){
 						$('.media').last().append(data);	
 						container.attr('data-batch', parseInt(batch)+1);
 					});
@@ -356,7 +356,7 @@ function WireUpContentFirst () {
 		$("#goHome").fadeIn(1000);
 		$('#blog').fadeOut(300, function() {
 			$(this).empty();
-			$.get('load_about', function(data){
+			$.get('about', function(data){
 				$("#about").fadeOut(300).empty().append(data).fadeIn(300);
 			});
 		});
