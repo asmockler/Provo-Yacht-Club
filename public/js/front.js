@@ -128,7 +128,7 @@ function loadMorePosts () {
 	var totalSongs = $('body').attr('data-total-songs');
 	var lastVisible = $songRow.find('.song-thumb:visible').last().attr('data-number');
 	if ( parseInt(lastVisible, 10) < parseInt(totalSongs, 10) ) {
-		$(this).off('click');
+		$('#view-next-set').off('click');
 		$songRow.animate({
 			left: '-75%'
 		},
@@ -150,8 +150,8 @@ function loadMorePosts () {
 				}
 				else {
 					$('#view-next-set').on('click', function (e){
-						loadMorePosts();
 						e.preventDefault();
+						loadMorePosts();
 					});
 				}
 			});
