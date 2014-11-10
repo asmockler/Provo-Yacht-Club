@@ -1,0 +1,22 @@
+
+        <div class="modal-body">
+          Are you sure you want to delete <b><%= @user.email %></b> and all their information? This cannot be undone!
+        </div>
+        <div class="modal-footer">
+
+          <button class="btn btn-default" data-dismiss="modal">Close</button>
+          <a class="btn btn-danger" id="delete-user" data-dismiss="modal" href="#">Delete</a>
+
+          <script type="text/javascript">
+          	$('#delete-user').click(function (e) {
+              e.preventDefault();
+          		var table = $("#posts-table");
+          		var count = parseInt(table.attr('data-individual'));
+    	   	 		$.post('admin/users/delete/<%= @user.id %>', {_method: "delete"});
+    	   	 		table.attr('data-individual', count-1);
+    	   	 		$('#<%= @user.id %>').show().delay(300).fadeOut(800);
+      	   	});
+
+          </script>
+
+      </div>

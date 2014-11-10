@@ -1,0 +1,20 @@
+<% @posts.each do |post| %>
+<div class="media">
+  <div class="pull-left">
+    <a href="<%= post.soundcloud_url %>">
+      <img class="media-object" src="<%= post.album_art %>" /></a>
+      <% if post.is_local == true %>
+        <span class="label label-success">Provo Artist</span>
+      <% end %>
+  </div>
+  
+  <div class="media-body">
+    <h4 class="media-heading">
+    	<span class="blog-post-title"><%= post.blog_title %></span><br/>
+    	<%= post.title %>
+    </h4>
+    <p><%= post.blog_post.to_s.gsub(/\n/, '<br />') %></p>
+    <p class="pull-right"><small>Post by <%= post.author %> on <%= post.created_at.strftime("%B %d, %Y") %></small></p>
+  </div>
+</div>
+<% end %>

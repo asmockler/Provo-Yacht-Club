@@ -1,0 +1,84 @@
+<form method="post" data-post="<%= @song.id %>">
+  <fieldset>
+  <div class="modal-body">
+      <label for="soundcloud_url">Soundcloud URL </label> 
+      <a class="btn btn-xs btn-info" id="autocompleteEdit" style="display:none">Autocomplete Album Artwork and Song Name</a>
+      <input type="text" class="form-control" placeholder="http://www.soundcloud.com/kygo/m83-wait-kygo-remix" id="soundcloud_urlEdit" name="soundcloud_url" value="<%= @song.soundcloud_url %>"><br />
+
+      <label for="title">Song Title</label>
+      <input type="text" class="form-control" placeholder="What You Won't Do For Love" name="title" id="titleEdit" value="<%= @song.title %>" ><br />
+
+      <label for="artist">Artist</label>
+      <input type="text" class="form-control" placeholder="Bobby Caldwell" name="artist" id="artistEdit" value="<%= @song.artist %>" ><br />
+
+      <label for="album">Album</label>
+      <input type="text" class="form-control" placeholder="Yacht Rock:'70s Soft Rock hits" name="album" value="<%= @song.album %>"><br />
+
+      <label for="album_art">Album Art</label>
+      <input type="text" class="form-control" placeholder="http://a3.mzstatic.com/us/r30/Music/13/d6/d1/mzi.qqcypfvi.170x170-75.jpg" name="album_art" id="albumArtEdit" value="<%= @song.album_art %>"><br />
+
+      <div class="row">
+        <div class="col-md-6">
+          <label for="tag_1">Tag</label>
+          <select class="form-control" name="tag_1">
+            <option><%= @song.tag_1 %></option>
+            <option>Dance</option>
+            <option>Chill</option>
+            <option>Revival</option>
+            <option>Big Beats</option>
+            <option>Folk</option>
+            <option>Etc.</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="tag_2">Tag 2 (Optional)</label>
+          <select class="form-control col-md-6" name="tag_2">
+            <option><%= @song.tag_2 %></option>
+            <option>Dance</option>
+            <option>Chill</option>
+            <option>Revival</option>
+            <option>Big Beats</option>
+            <option>Folk</option>
+            <option>Etc.</option>
+          </select>
+        </div>
+      </div><br />
+      
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="is_local" value="true" <% if @song.is_local == true %> checked <% else %> <% end %>> Is this a local artist?
+        </label>
+      </div>
+
+      <label for="author">Author</label>
+      <input type="text" class="form-control" placeholder="Michael Jordan" name="author" value="<%= @song.author %>"><br />
+
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="blogPostEdit" name="has_blog_post" value="true" <% if @song.has_blog_post == true %> checked <% else %> <% end %> > Is this a blog post?
+        </label>
+      </div>
+
+      <div class="blog-guts" <% unless @song.has_blog_post == true %>style="display:none;"<% end %>>
+        <label for="blog_title">Blog Post Title</label>
+        <input type="text" class="form-control" name="blog_title" value="<%= @song.blog_title %>"><br/>
+
+        <label for="description" id="postLabel">Blog Post Content</label>
+        <textarea class="form-control postcontent" rows="4" placeholder="Put all your witty jargon here..." name="blog_post" minlength="1" id="postContent"><%= @song.blog_post %></textarea>
+      </div>
+
+  </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="submit" formaction="admin/edit/save/<%= @song.id %>" class="btn btn-warning">Save</button>
+      <% if @song.published == false %>
+        <button type="submit" formaction="admin/edit/publish/<%= @song.id %>" class="btn btn-success">Publish</button>
+      <% else %>
+        <button type="submit" formaction="admin/edit/unpublish/<%= @song.id %>" class="btn btn-danger">Unpublish</button>
+      <% end %>
+    </div>
+
+  </fieldset>
+</form>

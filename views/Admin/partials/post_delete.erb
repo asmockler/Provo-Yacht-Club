@@ -1,0 +1,21 @@
+<div class="modal-body">
+  Are you sure you want to delete the post about <b><%= @song.title %></b>? This cannot be undone!
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-default" data-dismiss="modal">Close</button>
+  <a class="btn btn-danger" id="delete-post" data-dismiss="modal" href="#">Delete</a>
+
+  <script type="text/javascript">
+  	$('#delete-post').click(function (e) {
+  		e.preventDefault();
+  		var table = $("#posts-table");
+  		var count = parseInt(table.attr('data-individual'));
+ 		$.post('admin/delete/<%= @song.id %>', {_method: "delete"}, function(){
+ 			table.attr('data-individual', count-1);
+ 			$('#<%= @song.id %>').show().delay(300).fadeOut(800);	
+ 		});
+   	});
+  </script>
+</div>
+

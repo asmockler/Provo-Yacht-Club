@@ -1,0 +1,23 @@
+<% @song.each do |song| %>
+<tr id="<%= song.id %>" 
+    <% if song.has_blog_post == true %> 
+      style="border-left:3px solid #428bca"
+    <% end %>
+>
+  <td style="width:auto"><a class="edit btn btn-primary btn-xs btn-block" href="/admin/posts/edit/<%= song.id %>"> <span class="glyphicon glyphicon-pencil" style="width:40px"></span> </a></td>
+  <td style="width:auto"><a class="delete btn btn-danger btn-xs btn-block" href="/admin/posts/delete/<%= song.id %>"><span class="glyphicon glyphicon-trash" style="width:40px"></span></a></td>
+  <td><%= song.title.truncate(25, separator: ' ') %> <% if song.has_blog_post == true %> <span class="pull-right label label-primary">Blog</span> <% end %>
+  </td>
+  <td class="hidden-sm hidden-xs"><%= song.artist.truncate(25, separator: ' ') %></td>
+  <td class="hidden-sm hidden-xs"><%= song.album.truncate(25, separator: ' ') %></td>
+  <td class="hidden-sm hidden-xs"><%= song.created_at %></td>
+  <td class="hidden-sm hidden-xs"><%= song.author %></td>
+  <td class="text-center">
+    <% if song.published == true %>
+      <span class="glyphicon glyphicon-ok text-success"></span>
+    <% else %>
+      <span class="glyphicon glyphicon-remove text-danger"></span>
+    <% end %>
+  </td>
+</tr>
+<% end %>
