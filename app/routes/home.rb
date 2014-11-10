@@ -13,7 +13,7 @@ get '/' do
   erb :'Index/index'
 end
 
-get '/blog/?:post?' do
+get '/blog/?:id?/?:slug?' do
   @sidebar_state = "sidebar"
   @total_songs = Song.count
   @number = 0
@@ -38,8 +38,13 @@ get '/load_more_songs/:number' do
   erb :'Index/partials/song_thumbs'
 end
 
-get '/api/blog' do
-  @posts = Song.limit(5).find_each(:has_blog_post => true, :order => :created_at.desc)
+get '/api/blog/?:id?' do
+  if params[:id]
+    @posts = Song.FIND_BY_ID
+  else
+    @posts = Song.limit(5).find_each(:has_blog_post => true, :order => :created_at.desc)
+  end
+  
   erb :'Index/blog/blog'
 end
 

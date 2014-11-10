@@ -1,12 +1,12 @@
 get '/admin/posts' do
   @song = Song.limit(10).find_each(:order => :created_at.desc)
-  erb :'Admin/partials/posts'
+  erb :'/Admin/partials/posts'
 end
 
 get '/admin/posts/more_results/:batch' do |batch|
   num_to_skip = batch.to_i
   @song = Song.skip(num_to_skip).limit(10).find_each(:order => :created_at.desc)
-  erb :'Admin/partials/post'
+  erb :'/Admin/partials/post'
 end
 
 post '/admin/posts/new/save' do
@@ -14,7 +14,7 @@ post '/admin/posts/new/save' do
   song = Song.new(params)
   song.save
   @song = Song.limit(1).find_each(:order => :created_at.desc)
-  erb :'Admin/partials/post'
+  erb :'/Admin/partials/post'
 end
 
 post '/admin/posts/new/publish' do
@@ -22,13 +22,13 @@ post '/admin/posts/new/publish' do
   song = Song.new(params)
   song.save
   @song = Song.limit(1).find_each(:order => :created_at.desc)
-  erb :'Admin/partials/post'
+  erb :'/Admin/partials/post'
 end
 
 get "/admin/posts/delete/:id" do
   id = BSON::ObjectId.from_string(params[:id])
   @song = Song.find(id)
-  erb :'Admin/partials/post_delete'
+  erb :'/Admin/partials/post_delete'
 end
 
 delete '/admin/posts/delete/:id' do
@@ -39,7 +39,7 @@ end
 get '/admin/posts/edit/:id' do
   id = params[:id]
   @song = Song.find(id)
-  erb :'Admin/partials/post_edit'
+  erb :'/Admin/partials/post_edit'
 end
 
 post '/admin/posts/edit/:action/:id' do
@@ -59,5 +59,5 @@ post '/admin/posts/edit/:action/:id' do
 
   song.reload
   @song = song
-  erb :'Admin/partials/posts'
+  erb :'/Admin/partials/posts'
 end

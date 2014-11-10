@@ -1,4 +1,8 @@
 $(document).ready(function(){
+	var formatStr = function (str) {
+		return str.replace(/\/$/, "");
+	}
+
 	var loadAbout = function() {
 		$('#goHome').show();
 		$.get('/api/about', function (data) {
@@ -13,9 +17,8 @@ $(document).ready(function(){
 		});
 	}
 
-	switch (window.location.pathname) {
+	switch ( formatStr(window.location.pathname) ) {
 		case '/':
-			console.log("This is the home page!");
 			break;
 		case '/about':
 			loadAbout();
@@ -23,5 +26,14 @@ $(document).ready(function(){
 		case '/blog':
 			loadBlog();
 			break;
-	}	
-})
+	}
+
+	if ( (window.location.pathname).match(/\/blog\/.+\/.+/) ) {
+		console.log('matched')
+	}
+});
+
+/* TODO
+	Listen for history pop and allow back/forward
+	Add big play button again (Fay)
+*/
