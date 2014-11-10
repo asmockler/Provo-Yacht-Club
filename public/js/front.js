@@ -287,57 +287,13 @@ function WireUpContentFirst () {
 	});
 }
 
-// ############### Volume Control ###############
-
-	$("#volume-control").on('mouseover', function(){
-		$('.volume-bar').show();
-	});
-
-	$(".volume-container").on('mouseleave', function(){
-		$('.volume-bar').hide();
-	});
-
-	$(".volume-bar").on( 'click', function (e) {
-		console.log("hello");
-
-		var clickPosition = e.pageX - this.offsetLeft;
-		// Total width of the progress bar is 200
-		var newVolume = (clickPosition / 200);
-		Player.setVolume(newVolume);
-		$("#volumeControl").width( newVolume * 200 );
-	});
-
-
-
-
-// ############### Showing the About Page #############
-	// $("#showAbout").click(function() {
-	// 	$('#landing').fadeIn(1000);
-	// 	$("#goHome").fadeIn(1000);
-	// 	$('#blog').fadeOut(300, function() {
-	// 		$(this).empty();
-	// 		$.get('about', function(data){
-	// 			$("#about").fadeOut(300).empty().append(data).fadeIn(300);
-	// 		});
-	// 	});
-	// });
-
-// ############### Going Back to the Home Page #############
-	$("#goHome").click(function(){
-		$('#landing').fadeOut(1000);
-		$("#goHome").fadeOut(1000);
-		$('#blog, #about').fadeOut(1000, function(){
-			$(this).empty();
-		});
-	});
-
-	// Handle menu color change on scroll
-	$(document).scroll(function(){
-		if ( $(this).scrollTop() > 50 ){
-			$('.navbar').css('background', 'rgba(0,0,0,.75)')
-		} else if ( $(this).scrollTop() < 50 ) {
-			$('.navbar').css('background', 'rgba(0,0,0,0')
-		}
-	});
+// Handle menu color change on scroll
+$(document).scroll(function(){
+	if ( $(this).scrollTop() > 50 ){
+		$('.navbar').css('background', 'rgba(0,0,0,.75)')
+	} else if ( $(this).scrollTop() < 50 ) {
+		$('.navbar').css('background', 'rgba(0,0,0,0')
+	}
+});
 
 }); //Document Ready
