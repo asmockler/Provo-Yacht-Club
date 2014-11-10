@@ -3,7 +3,7 @@ var setUpClickEvents = function() {
 		e.preventDefault();
 		var container = $('.blog-post-container');
 		var batch = container.attr('data-batch');
-		$.get('/load_more_blog_posts/' + batch, function(data){
+		$.get('/api/load_more_blog_posts/' + batch, function(data){
 			$('.media').last().append(data);	
 			container.attr('data-batch', parseInt(batch)+1);
 		});
