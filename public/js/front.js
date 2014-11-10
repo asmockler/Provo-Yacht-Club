@@ -311,16 +311,16 @@ function WireUpContentFirst () {
 
 
 // ############### Showing the About Page #############
-	$("#showAbout").click(function() {
-		$('#landing').fadeIn(1000);
-		$("#goHome").fadeIn(1000);
-		$('#blog').fadeOut(300, function() {
-			$(this).empty();
-			$.get('about', function(data){
-				$("#about").fadeOut(300).empty().append(data).fadeIn(300);
-			});
-		});
-	});
+	// $("#showAbout").click(function() {
+	// 	$('#landing').fadeIn(1000);
+	// 	$("#goHome").fadeIn(1000);
+	// 	$('#blog').fadeOut(300, function() {
+	// 		$(this).empty();
+	// 		$.get('about', function(data){
+	// 			$("#about").fadeOut(300).empty().append(data).fadeIn(300);
+	// 		});
+	// 	});
+	// });
 
 // ############### Going Back to the Home Page #############
 	$("#goHome").click(function(){
@@ -328,58 +328,6 @@ function WireUpContentFirst () {
 		$("#goHome").fadeOut(1000);
 		$('#blog, #about').fadeOut(1000, function(){
 			$(this).empty();
-		});
-	});
-
-// ############### Showing the Blog #############
-	// $("#showBlog").click(function() {
-	// 	$('#landing').fadeIn(1000);
-	// 	$('#goHome').fadeIn(1000);
-	// 	$('#about').fadeOut(300, function(){
-	// 		$(this).empty();
-	// 		$.get('/blog', function(data){
-	// 			$('#blog').fadeOut(300).empty().append(data).fadeIn(300);
-	// 			$('.load-more-blog').on('click', function(e){
-	// 				e.preventDefault();
-	// 				var container = $('.blog-post-container');
-	// 				var batch = container.attr('data-batch');
-	// 				$.get('/load_more_blog_posts/' + batch, function(data){
-	// 					$('.media').last().append(data);	
-	// 					container.attr('data-batch', parseInt(batch)+1);
-	// 				});
-	// 				console.log(batch);
-	// 			});
-	// 		});
-	// 	});
-	// });
-
-	// New Blog Calling
-	$('#showBlog').on('click', function (e) {
-		e.preventDefault();
-		$('#goHome').fadeIn(1000);
-
-		if ( !$('.logo').hasClass('sidebar') ) {
-			$('.logo').addClass('sidebar');
-			$.get( '/blog', function (data){
-				$('.content').append(data).delay(1000).fadeIn(1000);
-				//window.history.pushState({}, "", '/blog')
-			});
-		} 
-		else {
-			$('#goHome').fadeOut(1000);
-			$('.content').fadeOut(1000, function(){
-				$('.logo').removeClass('sidebar');
-			});
-		}
-	});
-
-	$('.load-more-blog').on('click', function(e){
-		e.preventDefault();
-		var container = $('.blog-post-container');
-		var batch = container.attr('data-batch');
-		$.get('/load_more_blog_posts/' + batch, function(data){
-			$('.media').last().append(data);	
-			container.attr('data-batch', parseInt(batch)+1);
 		});
 	});
 
