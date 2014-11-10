@@ -14,15 +14,14 @@ $(document).ready(function(){
 		$('#goHome').show();
 		$.get('/api/blog', function (data) {
 			$('.content').html(data).show();
-		});
-
-		$('.load-more-posts').on('click', function(e){
-			e.preventDefault();
-			var container = $('.blog-post-container');
-			var batch = container.attr('data-batch');
-			$.get('/api/load_more_blog_posts/' + batch, function(data){
-				$('.media').last().append(data);	
-				container.attr('data-batch', parseInt(batch)+1);
+			$('.load-more-posts').on('click', function(e){
+				e.preventDefault();
+				var container = $('.blog-post-container');
+				var batch = container.attr('data-batch');
+				$.get('/api/load_more_blog_posts/' + batch, function(data){
+					$('.media').last().append(data);	
+					container.attr('data-batch', parseInt(batch)+1);
+				});
 			});
 		});
 	}
