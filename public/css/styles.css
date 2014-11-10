@@ -167,6 +167,10 @@ body {
 	line-height:1.5;
 }
 
+.media-body > p > a {
+	color: gold;
+}
+
 .blog-post-title{
 	font-weight:500;
 	font-size:30px;

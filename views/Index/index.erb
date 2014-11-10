@@ -5,8 +5,8 @@
     <title>Provo Yacht Club | Great Music Daily, Featuring Provo's Finest Artists</title>
       <meta name="description" content="Provo Yacht Club is a music blog based in Provo, Utah, delivering the world's hottest tracks daily with a focus on the growing Provo music scene.">
       <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
-      <link href="css/bootstrap.min.css" rel="stylesheet">
-      <link href="css/styles.css" rel="stylesheet">
+      <link href="/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/css/styles.css" rel="stylesheet">
       <!-- Analytics -->
       <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -41,7 +41,7 @@
           <p class="navbar-text" style="font-size:13px;margin-top:17px;margin-left:-10px;padding-left:0"><span id="title"></span></p>
           <!-- Right Side Nav Stuff -->
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#" id="goHome" style="display:none">HOME</a></li>
+            <li><a href="#" id="goHome" style="<% unless @sidebar_state %>display:none<% end %>">HOME</a></li>
             <li><a href="#" id="showBlog">BLOG</a></li>
             <li><a href="#" id="showAbout">ABOUT</a></li>
           </ul>
@@ -51,8 +51,8 @@
 
 
       <main class="container">
-        <section class="logo">
-          <img src="provo_yacht_club2.png" alt="Provo Yacht Club" class="img-responsive">
+        <section class="logo <%= @sidebar_state %>">
+          <img src="/provo_yacht_club2.png" alt="Provo Yacht Club" class="img-responsive">
 
         </section>
         <section class="content"></section>
@@ -98,11 +98,12 @@
       </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
         <script src="http://connect.soundcloud.com/sdk-2.0.0.js"></script>
-        <script type="text/javascript" src="js/front.js"></script>
-        <script type="text/javascript" src="js/blog.js"></script>
+        <script type="text/javascript" src="/js/front.js"></script>
+        <script type="text/javascript" src="/js/blog.js"></script>
+        <script type="text/javascript" src="/js/router.js"></script>
 
 
 
