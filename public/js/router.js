@@ -1,19 +1,23 @@
 $(document).ready(function(){
 	var formatStr = function (str) {
-		return str.replace(/\/$/, "");
+		if ( str === '/' ) {
+			return '/'
+		} else {
+			return str.replace(/\/$/, "");
+		}
 	}
 
-	var loadAbout = function() {
+	var loadAbout = function(delay, fade) {
 		$('#goHome').show();
 		$.get('/api/about', function (data) {
-			$('.content').html(data).show();
+			$('.content').delay(delay).html(data).fadeIn(fade);
 		});
 	}
 
-	var loadBlog = function() {
+	var loadBlog = function(delay, fade) {
 		$('#goHome').show();
 		$.get('/api/blog', function (data) {
-			$('.content').html(data).show();
+			$('.content').delay(delay).html(data).fadeIn(fade);
 			$('.load-more-posts').on('click', function(e){
 				e.preventDefault();
 				var container = $('.blog-post-container');
@@ -26,20 +30,44 @@ $(document).ready(function(){
 		});
 	}
 
+	var loadHome = function() {
+		$('#goHome').fadeOut(500);
+		$('.content').fadeOut(500, function(){
+			$(this).html('');
+			$('.logo').removeClass('sidebar')
+		});
+	}
+
 	switch ( formatStr(window.location.pathname) ) {
 		case '/':
 			break;
 		case '/about':
-			loadAbout();
+			loadAbout(0,0);
 			break;
 		case '/blog':
-			loadBlog();
+			loadBlog(0,0);
 			break;
 	}
 
 	if ( (window.location.pathname).match(/\/blog\/.+\/.+/) ) {
 		console.log('matched')
 	}
+
+	window.addEventListener("popstate", function(e) {
+	    switch ( formatStr(window.location.pathname) ) {
+	    	case '/':
+	    		loadHome();
+	    		break;
+	    	case '/about':
+	    		$('.logo').addClass('sidebar');
+	    		loadAbout(500, 500);
+	    		break;
+	    	case '/blog':
+	    		$('.logo').addClass('sidebar');
+	    		loadBlog(500, 500);
+	    		break;
+	    }
+	});
 });
 
 /* TODO
