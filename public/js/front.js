@@ -114,7 +114,10 @@ function queueUpSelector () {
 	$.get('/load_more_songs/' + lastLoaded, function (data){
 		$songRow.append(data);
 	});
-	$('#view-next-set').on('click', loadMorePosts);
+	$('#view-next-set').on('click', function (e){
+		loadMorePosts();
+		e.preventDefault();
+	});
 }
 
 function showFirstTracks () {
@@ -146,7 +149,10 @@ function loadMorePosts () {
 					queueUpSelector();
 				}
 				else {
-					$('#view-next-set').on('click', loadMorePosts);
+					$('#view-next-set').on('click', function (e){
+						loadMorePosts();
+						e.preventDefault();
+					});
 				}
 			});
 		});
@@ -154,10 +160,7 @@ function loadMorePosts () {
 }
 
 function viewPreviousPosts () {
-	if ($('.song-thumb:visible').first().hasClass('no-skipping-back') ){
-
-	}
-	else {
+	if ( !$('.song-thumb:visible').first().hasClass('no-skipping-back') ) {
 		var firstVisible = $songRow.find('.song-thumb:visible').first().attr('data-number');
 		$('#view-previous-set').off('click');
 		$songRow.animate({
@@ -167,10 +170,12 @@ function viewPreviousPosts () {
 			$(this).css('left', '0');
 			$('.song-thumb').slice(firstVisible*1+2, firstVisible*1+11).hide();
 			$('.song-thumb').slice(firstVisible-10, firstVisible).fadeIn(400);
-			$('#view-previous-set').on('click', viewPreviousPosts)
+			$('#view-previous-set').on('click', function (e) {
+				e.preventDefault();
+				viewPreviousPosts();
+			});
 		});
 	}
-
 }
 
 
@@ -222,6 +227,7 @@ $pauseButtons.click(function(e){
 // Click to seek on progress bar
 
 $('.song-progress').on('click', function (e) {
+	e.preventDefault();
 	var clickPosition = e.pageX - this.offsetLeft;
 	var totalDuration = Player.getDuration();
 	// Total width of the progress bar is 200
@@ -274,7 +280,10 @@ function WireUpContent (e) {
 		$(".song-popover", this).fadeOut();
 	});
 
-	$(e).find('.play-this-song').on('click', controlSongFromSelector);
+	$(e).find('.play-this-song').on('click', function (e){
+		e.preventDefault()
+		controlSongFromSelector
+	});
 }
 
 function WireUpContentFirst () {

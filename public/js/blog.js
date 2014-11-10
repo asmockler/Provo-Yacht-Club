@@ -13,9 +13,10 @@ var setUpClickEvents = function() {
 // New Blog Calling
 $('#showBlog').on('click', function (e) {
 	e.preventDefault();
+	window.history.pushState({}, "", '/blog');
 	if ( $('.logo').hasClass('sidebar') ){
 		$('.content').fadeOut(500, function(){
-			$.get('/blog', function (data){
+			$.get('/api/blog', function (data){
 				$('.content').html(data).fadeIn(500);
 				setUpClickEvents();
 			});
@@ -23,7 +24,7 @@ $('#showBlog').on('click', function (e) {
 	} else {
 		$('#goHome').fadeIn(1000);
 		$('.logo').addClass('sidebar');
-		$.get('/blog', function (data){
+		$.get('/api/blog', function (data){
 			$('.content').html(data).delay(1000).fadeIn(1000);
 			setUpClickEvents();
 		})
@@ -32,17 +33,17 @@ $('#showBlog').on('click', function (e) {
 
 $('#showAbout').on('click', function(e){
 	e.preventDefault();
-	//window.history.pushState({}, "", '/about')
+	window.history.pushState({}, "", '/about');
 	if ( $('.logo').hasClass('sidebar') ) {
 		$('.content').fadeOut(500, function(){
-			$.get('/about', function (data){
+			$.get('/api/about', function (data){
 				$('.content').html(data).fadeIn(500);
 			});
 		});
 	} else {
 		$('#goHome').fadeIn(1000);
 		$('.logo').addClass('sidebar');
-		$.get('/about', function (data){
+		$.get('/api/about', function (data){
 			$('.content').html(data).delay(1000).fadeIn(1000);
 		});
 	}
@@ -50,6 +51,7 @@ $('#showAbout').on('click', function(e){
 
 $('#goHome').on('click', function (e) {
 	e.preventDefault();
+	window.history.pushState({}, "", '/')
 	$('#goHome, .content').fadeOut(500, function(){
 		$('.content').html('');
 		$('.logo').removeClass('sidebar');
