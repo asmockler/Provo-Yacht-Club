@@ -10,6 +10,16 @@ var setUpClickEvents = function() {
 	});
 }
 
+var keyEvents = function () {
+	if ( $('.logo').hasClass('sidebar') ) {
+		$(document).keyup(function(e) {
+		  if (e.keyCode == 27) { $('#goHome').click() }   // esc
+		});
+	} else {
+		$(document).keyup(function(e){});
+	}
+}
+
 // New Blog Calling
 $('#showBlog').on('click', function (e) {
 	e.preventDefault();
@@ -19,6 +29,7 @@ $('#showBlog').on('click', function (e) {
 			$.get('/api/blog', function (data){
 				$('.content').html(data).fadeIn(500);
 				setUpClickEvents();
+				keyEvents();
 			});
 		});
 	} else {
@@ -27,6 +38,7 @@ $('#showBlog').on('click', function (e) {
 		$.get('/api/blog', function (data){
 			$('.content').html(data).delay(1000).fadeIn(1000);
 			setUpClickEvents();
+			keyEvents();
 		})
 	}
 });
@@ -38,6 +50,7 @@ $('#showAbout').on('click', function(e){
 		$('.content').fadeOut(500, function(){
 			$.get('/api/about', function (data){
 				$('.content').html(data).fadeIn(500);
+				keyEvents();
 			});
 		});
 	} else {
@@ -45,6 +58,7 @@ $('#showAbout').on('click', function(e){
 		$('.logo').addClass('sidebar');
 		$.get('/api/about', function (data){
 			$('.content').html(data).delay(1000).fadeIn(1000);
+			keyEvents();
 		});
 	}
 });
@@ -55,5 +69,6 @@ $('#goHome').on('click', function (e) {
 	$('#goHome, .content').fadeOut(500, function(){
 		$('.content').html('');
 		$('.logo').removeClass('sidebar');
+		keyEvents();
 	});
 })
