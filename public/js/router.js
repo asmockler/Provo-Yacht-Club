@@ -7,10 +7,24 @@ $(document).ready(function(){
 		}
 	}
 
+	var keyEvents = function () {
+		if ( $('.logo').hasClass('sidebar') ) {
+			$(document).keyup(function(e) {
+			  if (e.keyCode == 27) { 
+			  	loadHome(); 
+			  	window.history.pushState({}, "", '/')
+		  	  }   // esc
+			});
+		} else {
+			$(document).keyup(function(e){});
+		}
+	}
+
 	var loadAbout = function(delay, fade) {
 		$('#goHome').show();
 		$.get('/api/about', function (data) {
 			$('.content').delay(delay).html(data).fadeIn(fade);
+			keyEvents();
 		});
 	}
 
@@ -18,6 +32,7 @@ $(document).ready(function(){
 		$('#goHome').show();
 		$.get('/api/blog', function (data) {
 			$('.content').delay(delay).html(data).fadeIn(fade);
+			keyEvents();
 			$('.load-more-posts').on('click', function(e){
 				e.preventDefault();
 				var container = $('.blog-post-container');
@@ -34,7 +49,8 @@ $(document).ready(function(){
 		$('#goHome').fadeOut(500);
 		$('.content').fadeOut(500, function(){
 			$(this).html('');
-			$('.logo').removeClass('sidebar')
+			$('.logo').removeClass('sidebar');
+			keyEvents();
 		});
 	}
 
