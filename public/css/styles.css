@@ -186,6 +186,29 @@ body {
 	cursor: pointer;
 }
 
+/* ====== ABOUT ====== */
+.about {
+	color: white;
+	padding: 0 40px 0 0;
+}
+
+.about img {
+	border: 5px solid white;
+	max-width:95%;
+}
+
+.about h2 {
+	font-size: 50px;
+	font-weight: 400;
+	text-shadow: 1px 1px 2px #222;
+}
+
+.about h3 {
+	font-size:30px;
+	font-weight:400;
+	text-shadow: 1px 1px 0 #222;
+	margin-bottom:-20px;
+}
 
 
 /* Main page frame stuff */
