@@ -48,7 +48,14 @@
         </div>
       </nav>
 
-
+      <!-- MOBILE NAVBAR -->
+      <section class="mobile-nav">
+        <ul>
+          <li><a href="https://www.facebook.com/events/937712156256114/">EVENT</a></li>
+          <li><a href="#" id="showBlog" >BLOG</a></li>
+          <li><a href="#" id="showAbout" >ABOUT</a></li>
+        </ul>
+      </section>
 
       <main class="container">
         <section class="logo <%= @sidebar_state %>">
@@ -57,7 +64,21 @@
         <section class="content"></section>
       </main>
 
-
+      <!-- MOBILE CONTROL ELEMENTS -->
+      <section class="mobile-player">
+        <div class="mobile-song-info">
+          <span id="mobile-title">THIS IS A TEST TITLE OF A COOL SONG</span> <br>
+          <span id="mobile-artist">TEST ARTIST</span>
+        </div>
+        <div class="player-controls">
+          <a href="#"> <span class="glyphicon glyphicon-backward" id="skip-backward"></span> </a>
+          <a href="#" id="play"> <span class="fay-play-default" id="play-button" data-fay-size="50"></span> </a>
+          <a href="#"><span class="glyphicon glyphicon-forward" id="skip-forward"></span></a>
+        </div>
+        <div class="progress song-progress" style="width:200px;">
+          <div class="progress-bar" id="song-progress" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </section>
 
     <!-- Frame for Bottom Slider -->
     <div class="slider">
