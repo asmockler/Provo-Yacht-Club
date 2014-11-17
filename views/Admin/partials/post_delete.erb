@@ -11,10 +11,10 @@
   		e.preventDefault();
   		var table = $("#posts-table");
   		var count = parseInt(table.attr('data-individual'));
- 		$.post('admin/delete/<%= @song.id %>', {_method: "delete"}, function(){
- 			table.attr('data-individual', count-1);
- 			$('#<%= @song.id %>').show().delay(300).fadeOut(800);	
- 		});
+   		$.post('admin/posts/delete/<%= @song.id %>', {_method: "delete"}, function(){
+   			table.attr('data-individual', count-1);
+   			$('#<%= @song.id %>').show().delay(300).fadeOut(800);	
+   		});
    	});
   </script>
 </div>
