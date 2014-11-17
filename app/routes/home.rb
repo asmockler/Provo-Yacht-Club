@@ -34,8 +34,8 @@ end
 get '/load_more_songs/:number' do
   number = params[:number]
   @number = number.to_i
-  @songs = Song.limit(9).skip(@number).find_each(:published => true, :order => :created_at.desc)
-  erb :'Index/partials/song_thumb'
+  @songs = Song.limit(9).skip(@number).find_each(:order => :created_at.desc)
+  erb :'Index/partials/song_thumbs'
 end
 
 get '/api/blog/?:id?' do
