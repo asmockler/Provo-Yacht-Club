@@ -1,7 +1,22 @@
-<div>
+<div class="about">
 	<div class="row">
-		<div class="col-xs-12" style="color:#eee">
+		<div class="col-xs-12">
 			<h1 class="blog-title">About Us</h1>
+			<img src="https://raw.githubusercontent.com/asmockler/Provo-Yacht-Club/master/public/captain.JPG" class="img-responsive">
+			<h2>We like music.</h2>
+			<p>That's how Provo Yacht Club was born - out of a love for music. And we wanted a way to share that music with anyone and everyone willing to listen.</p>
+			<p>Along with that music comes a passion for enjoying it together. Part of the Yacht Club is to enjoy music with other people in the same place. In other words, we like to dance our pants off. Get jiggy with it. Boogie. Jive. Groove. We want to share happiness through music. Happiness is a neat thing.</p>
+			<p>So, welcome. <strong>Welcome!</strong> Please enjoy yourself. Play some music below. Join us for a party sometime. And most importantly, enjoy your life - whether it be with us or without us.</p>
+			<h3> - Provo Yacht Club</h3>
 		</div>
 	</div>
+
+	<script>
+		function setPaddingBottom() {
+	    	height = $('.holds-all-the-guts').height();
+	    	$('.about').css('padding-bottom', height+20 + 'px');
+		}
+		setPaddingBottom();
+		$(window).on("resize", setPaddingBottom);
+	</script>
 </div>

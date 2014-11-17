@@ -186,18 +186,6 @@ body {
 	cursor: pointer;
 }
 
-.soundcloud-badge {
-	display:block;
-	text-align:right;
-	padding: 0 10px 0 0;
-}
-
-.song-info-wrapper {
-	position:relative;
-	z-index:10;
-	white-space: normal;
-}
-
 /* ====== ABOUT ====== */
 .about {
 	color: white;
