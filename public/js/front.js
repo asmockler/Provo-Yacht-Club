@@ -55,7 +55,7 @@ function getAndPlayTrack (track) {
 		function trackTime() {
 			if(Player != undefined){
 				setTimeout(trackTime, 1000);
-				$("#songProgress").width( (Player.getCurrentPosition() / Player.getDuration()) * 200);
+				$("#song-progress").width( (Player.getCurrentPosition() / Player.getDuration()) * 200);
 				
 				if( Player.getState() == 'ended'){
 					Player.stop();
@@ -199,7 +199,7 @@ $playButtons.click(function(e){
 		// Guts for making the progress bar work
 		function trackTime() {
 			setTimeout(trackTime, 1000);
-			$("#songProgress").width( (Player.getCurrentPosition() / Player.getDuration() ) * 200);
+			$("#song-progress").width( (Player.getCurrentPosition() / Player.getDuration() ) * 200);
 			
 			if( Player.getState() == 'ended'){
 				Player.stop();
@@ -233,7 +233,7 @@ $('.song-progress').on('click', function (e) {
 	// Total width of the progress bar is 200
 	var songTime = (totalDuration / 200) * clickPosition
 	Player.seek(songTime);
-	$("#songProgress").width( (songTime / totalDuration) * 200);
+	$("#song-progress").width( (songTime / totalDuration) * 200);
 });
 
 $('#skip-forward').click(function(e){
@@ -282,7 +282,7 @@ function WireUpContent (e) {
 
 	$(e).find('.play-this-song').on('click', function (e){
 		e.preventDefault()
-		controlSongFromSelector
+		controlSongFromSelector()
 	});
 }
 
