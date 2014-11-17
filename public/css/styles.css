@@ -22,8 +22,20 @@ body {
 	background-image: -ms-linear-gradient(left top, #1DC2A1 0%, #ED499B 100%);
 	background-image: linear-gradient(to left top, #1DC2A1 0%, #ED499B 100%);
 	background-repeat: no-repeat;
-	background-attachment: fixed
+	background-attachment: fixed;
+	color: white;
 }
+
+.content .row {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+/* ====== NAVBAR ====== */
 
 .navbar{
 	background:transparent;
@@ -38,24 +50,7 @@ body {
 .navbar .nav > li > a{
 	font-weight:300;
 	text-transform: uppercase;
-}
-
-
-.holds-all-the-guts{
-	position:fixed;
-	bottom:0;
-	width:100%;
-	z-index:5;
-}
-
-.album-player > .row > .col-xs-1{
-	padding:0;
-	margin:0;
-}
-
-.row{
-	margin-right: 0;
-	margin-left: 0;
+	padding:10px;
 }
 
 .progress{
@@ -65,87 +60,15 @@ body {
 	cursor: pointer;
 }
 
-#songProgress{
+#song-progress{
 	background-color: rgba(250,250,250,.8);
 	box-shadow:none;
 	-webkit-box-shadow: none;
 }
 
-.song-thumb{
-	padding:0;
-}
-
-.song-popover{
-	position: absolute;
-	z-index: 10;
-	width: 100%;
-	left:0;
-	bottom:0;
-	height:100%%;
-	background-color: rgba(0,0,0,.75);
-	display: none;
-	color: #ddd;
-}
-
-.song-popover .links .play-this-song{
-	color:#ddd;
-	font-size:40px;
-	display: table-cell;
-	text-align: center;
-	padding-top:25%;
-}
-
-.song-popover .links{
-	display:table;
-	height:100%;
-	width:100%;
-}
-
-.links .info-text {
-	position:absolute;
-	bottom:0;
-	left:0;
-	font-size: 10px;
-	line-height: 10px;
-	text-align: center;
-	margin: 0 auto;
-	width:100%;
-}
-
-.current-song{
-   -moz-box-shadow:    0 -30px 100px -20px #fff;
-   -webkit-box-shadow: 0 -30px 100px -20px #fff;
-   box-shadow:         0 -30px 100px -20px #fff;
-   z-index:11;
-}
-
-.set-changer{
-	background-color:#111;
-	color:#ddd;
-	position:relative;
-	z-index:15;
-}
-
-#view-previous-set{
-	position:relative;
-	left:0;
-	cursor: pointer;
-}
-
-#view-next-set{
-	position:relative;
-	right:0%;
-	cursor: pointer;
-}
-
-.song-selector .row{
-	position:relative;
-	left:0;
-	background-color: #111;
-}
-
-.song-set{
-	background-color:#111;
+ul.nav.navbar-nav{
+	margin-top: 4px;
+	margin-right: 5px;
 }
 
 /* Blog styles */
@@ -243,7 +166,123 @@ body {
 	display:none;
 	width:66%;
 	z-index:10;
+	padding-bottom: 200px;
 }
+
+/* ====== SLIDER ====== */
+
+.slider {
+	position:fixed;
+	bottom: 0;
+	width:100%;
+	z-index:5;
+}
+
+.song-thumb-row{
+	white-space: nowrap;
+	overflow:auto;
+	background: #222;
+	padding: 0;
+	margin: 0;
+	height: 180px;
+}
+
+.song-thumb {
+	display:inline-block;
+	width:175px;
+	margin: 0 -4px -5px 0;
+	border-top: 5px solid transparent;
+}
+
+.song-thumb > img {
+
+}
+
+.song-thumb.active{
+	border-top:5px solid gold;
+}
+
+.load-more {
+	width:175px;
+	display: inline-block;
+	text-transform: uppercase;
+	margin-bottom:-5px;
+}
+
+.load-more h5 {
+	margin:0;
+	font-size: 40px;
+	text-align:right;
+	padding: 0 10px;
+	color: #1DC2A1;
+	font-weight: 500;
+	-webkit-transition: color .25s;
+	transition: color .25s;
+	-webkit-transition-timing-function: ease-in-out;
+	transition-timing-function: ease-in-out;
+}
+
+.load-more h5:hover{
+	text-decoration: none;
+	color: #ED499B;
+}
+
+/* ===== BLOG ===== */
+
+.soundcloud-badge{
+	display:block;
+	text-align:right;
+	padding: 0 10px 0 0;
+}
+
+.song-info-wrapper {
+	position:relative;
+	z-index:10;
+	white-space: normal;
+}
+
+.song-info {
+	position:absolute;
+	margin-top:-175px;
+	width: 175px;
+	height: 175px;
+	background: rgba(0,0,0,0);
+	padding: 0 7px;
+	cursor: pointer;
+	-webkit-transition: background .25s;
+	transition: background .25s;
+}
+
+.song-info:hover {
+	background: rgba(0,0,0,.8);
+}
+
+.song-info .song-title{
+	font-size:25px;
+	font-weight:600;
+	text-align: right;
+	color: #1DC2A1;
+	opacity: 0;
+	cursor: pointer;
+	-webkit-transition: opacity .25s;
+	transition: opacity .25s;
+}
+
+.song-info .song-artist {
+	font-size: 15px;
+	font-weight:200;
+	text-align: right;
+	color: #ED499B;
+	opacity: 0;
+	cursor: pointer;
+	-webkit-transition: opacity .25s;
+	transition: opacity .25s;
+}
+
+.song-info:hover .song-artist, .song-info:hover .song-title {
+	opacity: 1;
+}
+
 
 
 /*!
