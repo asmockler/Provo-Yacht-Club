@@ -1,0 +1,11 @@
+<% @songs.each do |song| %>
+  <div class="song-thumb just-loaded" data-url="<%= song.soundcloud_url %>">
+    <img src="<%= song.album_art %>" class="img-responsive" data-songId="<%= song.id %>" />
+      <div class="song-info-wrapper">
+      <div class="song-info">
+        <h5 class="song-title"><%= song.title %></h5>
+        <h5 class="song-artist"><%= song.artist %></h5>
+      </div>
+      </div>
+  </div>
+<% end %>
