@@ -197,6 +197,7 @@ $(document).ready(function(){
 		var firstSong = $('.song-thumb').first();
 		firstSong.addClass('active first');
 		newTrack(firstSong.attr('data-url'), 'load');
+		$('.just-loaded').removeClass('just-loaded');
 	}
 
 	init();
