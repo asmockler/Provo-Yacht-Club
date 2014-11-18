@@ -283,6 +283,89 @@ ul.nav.navbar-nav{
 	opacity: 1;
 }
 
+.mobile-nav {
+	display:none;
+}
+
+.mobile-player {
+	display:none;
+}
+
+.mobile-nav > ul > li > a {
+	color: white;
+}
+
+.mobile-nav > ul > li > a:hover {
+	color: white;
+}
+
+@media all and (max-width:768px) {
+	.mobile-nav{
+		display:none;
+	}
+	.mobile-player {
+		display:block;
+	}
+	body{
+		padding-top: 10px;
+	}
+	.logo > img {
+		width: 100%;
+	}
+	nav {
+		display:none;
+	}
+	.mobile-nav > ul {
+		list-style-type: none;
+		text-align: center;
+		padding:0 0 20px 0;
+	}
+	.mobile-nav > ul > li {
+		display: inline-block;
+		width:30%;
+		font-size:20px;
+		font-weight:300;
+	}
+
+	.mobile-player{
+		text-align:center;
+		margin-left:10px;
+		margin-right:10px;
+	}
+
+	.mobile-player > .progress {
+		margin:auto;
+		margin-top:15px;
+	}
+
+	.mobile-player > .player-controls > a {
+		color:white;
+		font-size: 30px;
+	}
+
+	.mobile-player .fay-play-default {
+		padding:25px;
+		vertical-align: middle;
+	}
+
+	.mobile-player .glyphicon {
+		vertical-align: middle;
+		margin-bottom: 30px;
+	}
+
+	#mobile-title {
+		font-size: 20px;
+		font-weight: 600;
+	}
+
+	#mobile-artist{
+		font-size:20px;
+	}
+
+	.song-thumb-row {
+		overflow-y: hidden 
+	}
+}
 
 
 /*!
