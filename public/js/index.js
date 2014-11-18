@@ -48,6 +48,9 @@ $(document).ready(function(){
 
 	var stream = function (track, action) {
 		SC.stream('/tracks/' + track.id, function (song) {
+			if ( Song != undefined ) {
+				Song.stop();
+			}
 			Song = song;
 			if (action === 'play') { 
 				Song.play();
@@ -151,6 +154,7 @@ $(document).ready(function(){
 		})
 
 		$('.song-thumb').on('click', function(e){
+			Song.stop();
 			e.preventDefault();
 			var url = $(this).attr('data-url');
 			newTrack(url, 'play');
