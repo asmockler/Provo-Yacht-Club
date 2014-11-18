@@ -365,6 +365,10 @@ ul.nav.navbar-nav{
 	.song-thumb-row {
 		overflow-y: hidden 
 	}
+
+	path {
+		fill: white !important;
+	}
 }
 
 
