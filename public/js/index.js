@@ -39,7 +39,9 @@ $(document).ready(function(){
 		SC.get('/resolve', { url: url }, function(track) {
 			Track = track;
 			stream(Track, action);
-			$('#title').html(Track.title);
+			$('#title').html( $('.active').attr('data-artist') + ' - ' + $('.active').attr('data-title'));
+			$('#mobile-title').html( $('.active').attr('data-title') );
+			$('#mobile-artist').html( $('.active').attr('data-artist') );
 			$('#soundcloudLink').attr('href', url);
 		});
 	}
@@ -49,8 +51,11 @@ $(document).ready(function(){
 			Song = song;
 			if (action === 'play') { 
 				Song.play();
-				if ( $('.fay-play-default').attr('data-fay-play') == "true"){
-					$('.fay-play-default').triggerHandler('click'); 
+				if ( $('#play-button').attr('data-fay-play') == "true"){
+					$('#play-button').triggerHandler('click'); 
+				}
+				if ( $('#mobile-play-button').attr('data-fay-play') == "true" ) {
+					$('#mobile-play-button').triggerHandler('click');
 				}
 			}
 		});
@@ -126,6 +131,15 @@ $(document).ready(function(){
 			}
 		});
 
+		$('#mobile-play-button').on('click', function (e) {
+			e.preventDefault();
+			if ( Song.getState() === 'playing' ) {
+				Song.pause();
+			} else if ( Song.getState() === 'paused' || Song.getState() === 'idle' ) {
+				Song.play();
+			}
+		});
+
 		$('.song-progress').on('click', function (e) {
 			e.preventDefault();
 			var clickPosition = e.pageX - this.offsetLeft;
@@ -154,6 +168,16 @@ $(document).ready(function(){
 			previousSong();
 		});
 
+		$('#mobile-skip-forward').on('click', function(e){
+			e.preventDefault();
+			nextSong();
+		});
+
+		$('#mobile-skip-backward').on('click', function(e){
+			e.preventDefault();
+			previousSong();
+		});
+
 		$('.load-more').on('click', function(e){
 			e.preventDefault();
 			loadMoreSongs();
@@ -178,6 +202,6 @@ $(document).ready(function(){
 	init();
 
 	// TODO
-	// WIRE UP CLICK EVENTS FOR LOADED SONGS
+	// wire up click events for navbar
 
 });

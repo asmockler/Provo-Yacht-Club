@@ -287,8 +287,23 @@ ul.nav.navbar-nav{
 	display:none;
 }
 
+.mobile-player {
+	display:none;
+}
+
+.mobile-nav > ul > li > a {
+	color: white;
+}
+
+.mobile-nav > ul > li > a:hover {
+	color: white;
+}
+
 @media all and (max-width:768px) {
 	.mobile-nav{
+		display:none;
+	}
+	.mobile-player {
 		display:block;
 	}
 	body{
@@ -310,14 +325,6 @@ ul.nav.navbar-nav{
 		width:30%;
 		font-size:20px;
 		font-weight:300;
-	}
-
-	.mobile-nav > ul > li > a {
-		color: white;
-	}
-
-	.mobile-nav > ul > li > a:hover {
-		color: white;
 	}
 
 	.mobile-player{
@@ -353,6 +360,10 @@ ul.nav.navbar-nav{
 
 	#mobile-artist{
 		font-size:20px;
+	}
+
+	.song-thumb-row {
+		overflow-y: hidden 
 	}
 }
 
