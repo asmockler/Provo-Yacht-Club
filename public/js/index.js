@@ -67,7 +67,6 @@ $(document).ready(function(){
 	var nextSong = function () {
 		if (Song != undefined) {
 			Song.stop();
-			Song = undefined;
 			$('.active').next('.song-thumb').click();
 		}
 	}
@@ -77,7 +76,6 @@ $(document).ready(function(){
 		else {
 			if (Song != undefined) {
 				Song.stop();
-				Song = undefined;
 				$('.active').prev('.song-thumb').click();
 			}
 		}
@@ -106,18 +104,21 @@ $(document).ready(function(){
 		}
 	}
 
-	var loadMoreSongs = function(){
+	var loadMoreSongs = function(button){
 		var numberLoaded = $('.song-thumb').length;
 		$.get('/load_more_songs/' + numberLoaded, function (data){
-			$('.song-thumb').last().after(data);
-			$('.just-loaded').on('click', function(e){
-				e.preventDefault();
-				var url = $(this).attr('data-url');
-				newTrack(url, 'play');
-				$('.song-thumb-row').find('.active').removeClass('active');
-				$(this).addClass('active');
+			$(button).fadeOut(150, function (){
+				$('.song-thumb').last().after(data);
+				$('.just-loaded').on('click', function(e){
+					e.preventDefault();
+					var url = $(this).attr('data-url');
+					newTrack(url, 'play');
+					$('.song-thumb-row').find('.active').removeClass('active');
+					$(this).addClass('active');
+				});
+				$('.just-loaded').removeClass('just-loaded');
+				$(button).fadeIn(150);
 			});
-			$('.just-loaded').removeClass('just-loaded');
 		});
 	}
 
@@ -184,7 +185,7 @@ $(document).ready(function(){
 
 		$('.load-more').on('click', function(e){
 			e.preventDefault();
-			loadMoreSongs();
+			loadMoreSongs($(this));
 		})
 	}
 
