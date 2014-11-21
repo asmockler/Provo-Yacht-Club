@@ -192,6 +192,8 @@ ul.nav.navbar-nav{
 	width:175px;
 	margin: 0 -4px -5px 0;
 	border-top: 5px solid transparent;
+	-webkit-transition: border .25s;
+	transition: border .25s;
 }
 
 .song-thumb > img {
