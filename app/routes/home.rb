@@ -4,47 +4,6 @@
   end
 end
 
-get '/update/database/slugs' do 
-  @songs = Song.all
-
-  @songs.each do |song|
-    # Generate the base slug
-    @genereated_slug = sluggify(song.title)
-    $n = 0
-
-    def check_for_duplicate ( slug )
-      duplicate = Song.first(:slug => slug)
-
-      if duplicate
-        $n = $n + 1
-        new_slug = @genereated_slug + "-" + $n.to_s
-        check_for_duplicate(new_slug)
-      else
-        @genereated_slug = slug
-      end
-    end
-
-    check_for_duplicate(@genereated_slug)
-    song.slug = @genereated_slug
-    song.save
-  end
-
-  "Values updated"
-end
-
-get '/update/database/number' do
-  @songs = Song.find_each(:order => :created_at.asc)
-  @n = 1
-
-  @songs.each do |song|
-    song.number = @n
-    song.save
-    @n = @n + 1
-  end
-
-  "Updated"
-end
-
 get '/' do
   @total_songs = Song.count
   @songs = Song.limit(20).find_each(:published => true, :order => :created_at.desc)
