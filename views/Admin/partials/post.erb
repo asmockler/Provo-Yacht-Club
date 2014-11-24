@@ -11,7 +11,7 @@
   <td class="hidden-sm hidden-xs"><%= song.artist.truncate(25, separator: ' ') %></td>
   <td class="hidden-sm hidden-xs"><%= song.album.truncate(25, separator: ' ') %></td>
   <td class="hidden-sm hidden-xs"><%= song.created_at %></td>
-  <td class="hidden-sm hidden-xs"><%= song.author %></td>
+  <td class="hidden-sm hidden-xs"><%= song.number %>: <%= song.slug %></td>
   <td class="text-center">
     <% if song.published == true %>
       <span class="glyphicon glyphicon-ok text-success"></span>

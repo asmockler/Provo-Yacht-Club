@@ -138,14 +138,14 @@ ul.nav.navbar-nav{
 	border-top:5px solid gold;
 }
 
-.load-more {
+.load-more, .load-previous {
 	width:175px;
 	display: inline-block;
 	text-transform: uppercase;
 	margin-bottom:-5px;
 }
 
-.load-more h5 {
+.load-more h5, .load-previous h5 {
 	margin:0;
 	font-size: 40px;
 	text-align:right;
@@ -158,10 +158,15 @@ ul.nav.navbar-nav{
 	transition-timing-function: ease-in-out;
 }
 
-.load-more h5:hover{
+.load-more h5:hover, .load-previous h5:hover{
 	text-decoration: none;
 	color: #ED499B;
 }
+
+.load-more h5:focus, .load-previous h5:focus{
+	text-decoration: none;
+}
+
 
 /* ====== BLOG ====== */
 .blog-post-container{
@@ -245,6 +250,7 @@ ul.nav.navbar-nav{
 	cursor: pointer;
 	-webkit-transition: background .25s;
 	transition: background .25s;
+	overflow:hidden;
 }
 
 .song-info:hover {

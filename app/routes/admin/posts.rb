@@ -11,6 +11,9 @@ end
 
 post '/admin/posts/new/save' do
   params[:published] = false
+  params[:slug] = generate_slug( params[:title], 0, sluggify(params[:title]) )
+  params[:number] = (Song.first(:order => :created_at.desc).number + 1)
+
   song = Song.new(params)
   song.save
   @song = Song.limit(1).find_each(:order => :created_at.desc)
@@ -19,6 +22,9 @@ end
 
 post '/admin/posts/new/publish' do
   params[:published] = true
+  params[:slug] = generate_slug( params[:title], 0, sluggify(params[:title]) )
+  params[:number] = (Song.first(:order => :created_at.desc).number + 1)
+
   song = Song.new(params)
   song.save
   @song = Song.limit(1).find_each(:order => :created_at.desc)

@@ -72,7 +72,7 @@ $(document).ready(function(){
 	}
 
 	var previousSong = function () {
-		if ( $('.active').hasClass('first') ) {	}
+		if ( $('.active').attr('data-number') === $('body').attr('data-total-songs') ) {	}
 		else {
 			if (Song != undefined) {
 				Song.stop();
@@ -117,8 +117,56 @@ $(document).ready(function(){
 					$(this).addClass('active');
 				});
 				$('.just-loaded').removeClass('just-loaded');
-				$(button).fadeIn(150);
+				if ( !$('.song-thumb').last().attr('data-number') === 1 ) {
+					$(button).fadeIn(150);
+				}
 			});
+		});
+	}
+
+	var loadPreviousSongs = function(button){
+		var firstLoaded = $('.song-thumb').first().attr('data-number')
+		$.get('/load_previous_songs/' + firstLoaded, function (data){
+			$('.load-previous').after(data);
+			$('.song-thumb-row').scrollLeft( (176 * ( $('.just-loaded').length - 2 ) ) + 100)
+			$('.just-loaded').on('click', function(e){
+				e.preventDefault();
+				var url = $(this).attr('data-url');
+				newTrack(url, 'play');
+				$('.song-thumb-row').find('.active').removeClass('active');
+				$(this).addClass('active');
+			});
+			$('.just-loaded').removeClass('just-loaded');
+			if ( !$('.song-thumb').first().attr('data-number') < $('body').attr('data-total-songs') ) {
+				$('.load-previous').hide();
+			}
+		});
+	}
+
+	//////////////////////////////
+	//  BROWSER HISTORY EVENTS  //
+	//////////////////////////////
+	var setUpHistoryEvents = function () {
+
+		window.addEventListener("popstate", function (e){
+			if ( (window.location.pathname).match(/\/track\/.+/) ) {
+				// Find Track in Slider from URL Slug
+				var urlElements = window.location.pathname.split('/');
+				var songTitle = urlElements[2]
+				$this = $('*[data-slug="' + songTitle + '"]');
+
+				// Switch Active Class
+				$('.song-thumb-row').find('.active').removeClass('active');
+				$this.addClass('active');
+
+				// Move Slider
+				// var relativePosition = $('.song-thumb').first().attr('data-number') - $this.attr('data-number');
+				// $('.song-thumb-row').scrollLeft(176*(relativePosition + 1) + 1 );
+
+				// Play track
+				var url = $this.attr('data-url');
+				newTrack(url, 'play');
+			}
 		});
 	}
 
@@ -132,6 +180,10 @@ $(document).ready(function(){
 				Song.pause();
 			} else if ( Song.getState() === 'paused' || Song.getState() === 'idle' ) {
 				Song.play();
+			}
+
+			if ( window.location.pathname === '/' || window.location.pathname === '' ) {
+				window.history.pushState({}, "", '/track/' + $('.active').attr('data-slug'));
 			}
 		});
 
@@ -161,6 +213,7 @@ $(document).ready(function(){
 			newTrack(url, 'play');
 			$('.song-thumb-row').find('.active').removeClass('active');
 			$(this).addClass('active');
+			window.history.pushState({}, "", '/track/' + $('.active').attr('data-slug'));
 		});
 
 		$('#skip-forward').on('click', function(e){
@@ -186,7 +239,12 @@ $(document).ready(function(){
 		$('.load-more').on('click', function(e){
 			e.preventDefault();
 			loadMoreSongs($(this));
-		})
+		});
+
+		$('.load-previous').on('click', function(e){
+			e.preventDefault();
+			loadPreviousSongs($(this));
+		});
 	}
 
 	//////////////////////////////
@@ -199,15 +257,28 @@ $(document).ready(function(){
 		setTimeout(trackTime, 1000);
 		setTimeout(setUpAutoAdvance, 1000);
 
-		var firstSong = $('.song-thumb').first();
-		firstSong.addClass('active first');
+		if ( $('.song-thumb').first().attr('data-number') < $('body').attr('data-total-songs') ) {
+			var firstSong = $('.song-thumb:nth-of-type(4)');
+			$('.load-previous').css({'display' : 'inline-block'});
+			$('.song-thumb-row').scrollLeft(176*3 + 1)
+		} else {
+			var firstSong = $('.song-thumb').first();
+			$('.load-previous').hide();
+		}
+		firstSong.addClass('active');
 		newTrack(firstSong.attr('data-url'), 'load');
 		$('.just-loaded').removeClass('just-loaded');
+		setUpHistoryEvents();
 	}
 
 	init();
 
 	// TODO
-	// wire up click events for navbar
+	// purchase link
+	// share link
+
+	// HISOTRY TODO
+	// move the slider by finding absolute x page position
+	// prevent action if the url is the same as the one from the back button
 
 });

@@ -14,6 +14,8 @@ class Song
     key :blog_title, String
     key :blog_post, String
     key :published, Boolean
+    key :slug, String
+    key :number, Integer
 
     timestamps!
 end

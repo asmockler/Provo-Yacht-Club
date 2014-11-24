@@ -3,6 +3,7 @@ require 'active_support/core_ext'
 
 Bundler.require
 
+require_relative 'app/helpers'
 require_relative 'app/routes'
 require_relative 'app/models'
 

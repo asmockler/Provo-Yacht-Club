@@ -1,7 +1,10 @@
 $().ready(function () {
 
-// ========== Guts of the new post modal ============
-  // Show and hide the autocomplete button
+  ////////////////////
+  // NEW POST MODAL //
+  ////////////////////
+
+  // Autocomplete
   $('#soundcloud_url, #soundcloud_urlEdit').keyup(function(){
     if( $(this).val().length != 0 ){
       $('#autocomplete, #autocompleteEdit').fadeIn(200);
@@ -11,7 +14,6 @@ $().ready(function () {
     }
   });
 
-  // Autocomplete!
   $("#autocomplete, #autocompleteEdit").click(function(){
 
     SC.initialize({
@@ -22,7 +24,7 @@ $().ready(function () {
 
     SC.get('/resolve', { url: track_url }, function(track) {
       $("#title, #titleEdit").val(track.title);
-      $('#artist, #artistEdit').val(track.user);
+      $('#artist, #artistEdit').val(track.user.username);
       var artwork = track.artwork_url.replace("large", "t300x300")
       $('#albumArt, #albumArtEdit').val(artwork);
     });
@@ -34,11 +36,14 @@ $().ready(function () {
     $('.blog-guts').slideToggle();
   });
 
-  //------ Manager Main Nav Controls -----------------
+  //////////////////////
+  // ADMIN NAVIGATION //
+  //////////////////////
 
   // Hiding the Frame and Showing the Greeting on Brand Click
   $('#BrandLink').click(function(e){
     e.preventDefault();
+    window.history.pushState({}, "", '/admin');
     $('#frame').fadeOut(300, function(){
       $('#greeting').fadeIn(300);
       $('#forRemove').remove();
@@ -50,6 +55,7 @@ $().ready(function () {
   // Bringing in the Post Manager Page
   $('#GoToPostManager, #PostFromGreeting').click(function(e) {
     e.preventDefault();
+    window.history.pushState({}, "", '/admin/posts');
     $('#greeting').fadeOut(300, function(){
       var div = $('#PostManager');
       $.get('/admin/posts', function(data) {
@@ -63,6 +69,7 @@ $().ready(function () {
   // Bringing in the User Manager Page
   $('#GoToUserManager').click(function(e) {
     e.preventDefault();
+    window.history.pushState({}, "", '/admin/users')
     $('#greeting').fadeOut(300, function(){
       var div = $('#UserManager');
       $.get('/admin/users', function(data) {
@@ -76,6 +83,7 @@ $().ready(function () {
   // To User Manager from Post Manager
   $('#userFromPost').click(function(e){
     e.preventDefault();
+    window.history.pushState({}, "", '/admin/users');
     $('#forRemove').fadeOut(300, function(){
       $(this).remove();
       var div = $('#UserManager');
@@ -90,6 +98,7 @@ $().ready(function () {
   // To Post Manager from User Manager
   $('#PostFromUser').click(function(e){
     e.preventDefault();
+    window.history.pushState({}, "", '/admin/posts');
     $('#forRemove').fadeOut(300, function(){
       $(this).remove();
       var div = $('#PostManager');
@@ -101,7 +110,9 @@ $().ready(function () {
     });
   });
 
-//=================  POST MANAGER ZONE  ====================================
+///////////////////////
+// POST MANAGER ZONE //
+///////////////////////
 
   // AJAX to load more posts
   $('#PostManager').on('click', '#loadMore', function(event) {
