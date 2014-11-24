@@ -117,7 +117,7 @@ $(document).ready(function(){
 					$(this).addClass('active');
 				});
 				$('.just-loaded').removeClass('just-loaded');
-				if ( !$('.song-thumb').last().attr('data-number') === 1 ) {
+				if ( $('.song-thumb').last().attr('data-number') != 1 ) {
 					$(button).fadeIn(150);
 				}
 			});
