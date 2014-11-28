@@ -72,11 +72,11 @@
 
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      <button type="submit" formaction="admin/edit/save/<%= @song.id %>" class="btn btn-warning">Save</button>
+      <button type="submit" formaction="posts/edit/save/<%= @song.id %>" class="btn btn-warning">Save</button>
       <% if @song.published == false %>
-        <button type="submit" formaction="admin/edit/publish/<%= @song.id %>" class="btn btn-success">Publish</button>
+        <button type="submit" formaction="posts/edit/publish/<%= @song.id %>" class="btn btn-success">Publish</button>
       <% else %>
-        <button type="submit" formaction="admin/edit/unpublish/<%= @song.id %>" class="btn btn-danger">Unpublish</button>
+        <button type="submit" formaction="posts/edit/unpublish/<%= @song.id %>" class="btn btn-danger">Unpublish</button>
       <% end %>
     </div>
 

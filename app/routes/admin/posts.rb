@@ -37,9 +37,9 @@ get "/admin/posts/delete/:id" do
   erb :'/Admin/partials/post_delete'
 end
 
-delete '/admin/posts/delete/:id' do
-  id = BSON::ObjectId.from_string(params[:id])
-  Song.destroy(id)
+post '/admin/posts/delete/:id' do
+  Song.destroy(params[:id])
+  200
 end
 
 get '/admin/posts/edit/:id' do
@@ -52,6 +52,7 @@ post '/admin/posts/edit/:action/:id' do
   action = params.delete("action")
 
   song = Song.find(params[:id])
+  song_id = song.id
 
   if action == "publish"
     params[:published] = true
@@ -64,6 +65,6 @@ post '/admin/posts/edit/:action/:id' do
   song.update_attributes(params)
 
   song.reload
-  @song = song
-  erb :'/Admin/partials/posts'
+  @song = Song.find_each(:id => song_id)
+  erb :'/Admin/partials/post'
 end
