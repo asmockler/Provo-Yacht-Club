@@ -123,6 +123,7 @@ ul.nav.navbar-nav{
 	padding: 0;
 	margin: 0;
 	height: 180px;
+	overflow-y:hidden;
 }
 
 .song-thumb {
