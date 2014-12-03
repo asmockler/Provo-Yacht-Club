@@ -257,7 +257,9 @@ $(document).ready(function(){
 		setTimeout(trackTime, 1000);
 		setTimeout(setUpAutoAdvance, 1000);
 
-		if ( $('.song-thumb').first().attr('data-number') < $('body').attr('data-total-songs') ) {
+		var firstSongNumber = $('.song-thumb').first().attr('data-number');
+		var totalSongs = $('body').attr('data-total-songs');
+		if ( firstSongNumber < totalSongs ) {
 			var firstSong = $('.song-thumb:nth-of-type(4)');
 			$('.load-previous').css({'display' : 'inline-block'});
 			$('.song-thumb-row').scrollLeft(176*3 + 1)
