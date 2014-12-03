@@ -28,6 +28,16 @@ get '/track/:slug' do
   erb :'Index/index'
 end
 
+get '/random' do
+  @total_songs = Song.count
+  random_number = rand(@total_songs)
+  random_number += 10 if random_number < 10
+  @songs = Song.limit(15).skip(random_number).find_each(:published => true, :order => :created_at.desc)
+  @sidebar_state = false
+
+  erb :'Index/index'
+end
+
 get '/blog/?:id?/?:slug?' do
   @sidebar_state = "sidebar"
   @total_songs = Song.count

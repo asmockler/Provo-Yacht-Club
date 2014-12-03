@@ -123,6 +123,7 @@ ul.nav.navbar-nav{
 	padding: 0;
 	margin: 0;
 	height: 180px;
+	clear:both;
 }
 
 .song-thumb {
@@ -232,6 +233,9 @@ ul.nav.navbar-nav{
 	display:block;
 	text-align:right;
 	padding: 0 10px 0 0;
+	width: 150px;
+	float:right;
+	clear:both;
 }
 
 .song-info-wrapper {
@@ -369,6 +373,22 @@ ul.nav.navbar-nav{
 	path {
 		fill: white !important;
 	}
+}
+
+#random-link {
+	margin: 5px 0 -40px 2px;
+	display: block;
+	color: white;
+	font-size: 20px;
+	font-weight: 500;
+	text-transform: uppercase;
+	opacity: .6;
+	-webkit-transition: opacity .25s;
+	transition: opacity .25s;
+}
+
+#random-link:hover {
+	opacity:1;
 }
 
 
