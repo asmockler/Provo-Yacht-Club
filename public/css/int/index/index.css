@@ -124,6 +124,7 @@ ul.nav.navbar-nav{
 	margin: 0;
 	height: 180px;
 	clear:both;
+	overflow-y:hidden;
 }
 
 .song-thumb {
