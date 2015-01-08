@@ -140,8 +140,9 @@ $().ready(function () {
   var newPostModal = $("#NewPost");
   newPostModal.on('click', "#publishNew", function() {
     $.post('/admin/posts/new/publish',
-      newPostModal.find('form').serialize(), 
-      AddNewPost);
+        newPostModal.find('form').serialize(), 
+        AddNewPost
+      );
       $(this).closest('form').find("input[type=text], textarea").val("");
   });
 
