@@ -89,3 +89,7 @@ end
 get '/api/about' do
   erb :'Index/about/about'
 end
+
+get 'events' do
+  redirect 'https://www.facebook.com/events/1391500977819394/'
+end
