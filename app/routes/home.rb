@@ -16,15 +16,16 @@ get '/track/:slug' do
   unless song
     redirect '/error/404'
   end
-  @total_songs = Song.count
-  @unpublished_songs = Song.where(:number.gt => song.number, :published => false).count
+  @total_songs = Song.last.number
+  @unpublished_songs = Song.where(:number.gt => song.number.to_i, :published => false).count
   if (@total_songs - (song.number + @unpublished_songs) - 2) > 0
-    @num_to_skip = @total_songs - (song.number + @unpublished_songs) - 2
+    @num_to_skip = @total_songs.to_i - (song.number.to_i + @unpublished_songs.to_i) - 2
   else
     @num_to_skip = 0
   end
   @songs = Song.limit(20).skip(@num_to_skip).find_each(:published => true, :order => :created_at.desc)
   @sidebar_state = false
+
   erb :'Index/index'
 end
 
@@ -57,15 +58,21 @@ get '/about' do
 end
 
 get '/load_more_songs/:number' do
-  number = params[:number]
-  @number = number.to_i
-  @songs = Song.limit(10).skip(@number).find_each(:published => true, :order => :created_at.desc)
+  @total_songs = Song.last.number
+  @number = params[:number].to_i
+  @songs = Song.limit(10).skip(@total_songs - @number + 1).find_each(:published => true, :order => :created_at.desc)
   erb :'Index/partials/song_thumb'
 end
 
 get '/load_previous_songs/:number' do
-  number = params[:number].to_i
-  @songs = Song.limit(10).find_each(:number.gt => number, :published => true, :order => :created_at.desc)
+  @total_songs = Song.last.number
+  @number = params[:number].to_i
+  if (@total_songs - @number - 10) > 0
+    @num_to_skip = @total_songs - @number - 10
+  else
+    @num_to_skip = 0
+  end
+  @songs = Song.limit(10).skip(@num_to_skip).find_each(:published => true, :order => :created_at.desc)
   erb :'Index/partials/song_thumb'
 end
 
