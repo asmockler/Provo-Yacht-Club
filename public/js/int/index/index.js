@@ -196,6 +196,23 @@ $(document).ready(function(){
 			}
 		});
 
+		$(window).keypress(function (e){
+			if (e.keyCode == 0 || e.keyCode == 32) {
+				e.preventDefault();
+				if ( Song.getState() === 'playing' ) {
+					Song.pause();
+				} else if ( Song.getState() === 'paused' || Song.getState() === 'idle' ) {
+					Song.play();
+				}
+
+				$('#play-button').triggerHandler('click');
+
+				if ( window.location.pathname === '/' || window.location.pathname === '' ) {
+					window.history.pushState({}, "", '/track/' + $('.active').attr('data-slug'));
+				}
+			}
+		});
+
 		$('#mobile-play-button').on('click', function (e) {
 			e.preventDefault();
 			if ( Song.getState() === 'playing' ) {
