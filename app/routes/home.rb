@@ -7,7 +7,10 @@ end
 get '/' do
   @total_songs = Song.count
   @songs = Song.limit(20).find_each(:published => true, :order => :created_at.desc)
+  
   @sidebar_state = false
+  @facebook_image = "/assets/provo_yacht_club.png"
+
   erb :'Index/index'
 end
 
@@ -24,7 +27,9 @@ get '/track/:slug' do
     @num_to_skip = 0
   end
   @songs = Song.limit(20).skip(@num_to_skip).find_each(:published => true, :order => :created_at.desc)
+  
   @sidebar_state = false
+  @facebook_image = @songs.clone.to_a.at(2).album_art
 
   erb :'Index/index'
 end
@@ -59,6 +64,8 @@ end
 
 get '/melk' do
   @sidebar_state = "sidebar"
+  @facebook_image = "/assets/house-of-melk.jpeg"
+
   @total_songs = Song.count
   @number = 0
   @songs = Song.limit(20).find_each(:published => true, :order => :created_at.desc)
