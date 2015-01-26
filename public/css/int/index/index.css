@@ -373,8 +373,11 @@ a:focus {
 	.logo > a > img {
 		width: 100%;
 	}
-	.jan-30 {
-		display: none;
+	.jan-30 a{
+		color: white;
+		opacity: 1;
+		line-height: 30px;
+		font-weight: 200;
 	}
 	.sidebar {
 		display: none;
