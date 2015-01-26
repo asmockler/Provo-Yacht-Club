@@ -23,13 +23,15 @@ get '/track/:slug' do
   @unpublished_songs = Song.where(:number.gt => song.number.to_i, :published => false).count
   if (@total_songs - (song.number + @unpublished_songs) - 2) > 0
     @num_to_skip = @total_songs.to_i - (song.number.to_i + @unpublished_songs.to_i) - 2
-    @facebook_image = @songs.clone.to_a.at(2).album_art
+    @facebook_image_number = 2
   else
     @num_to_skip = 0
-    @facebook_image = @songs.clone.to_a.at(0).album_art
+    @facebook_image_number = 0
   end
   @songs = Song.limit(20).skip(@num_to_skip).find_each(:published => true, :order => :created_at.desc)
   
+  @facebook_image = @songs.clone.to_a.at(@facebook_image_number).album_art
+
   @sidebar_state = false
 
   erb :'Index/index'
