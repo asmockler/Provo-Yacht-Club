@@ -45,6 +45,14 @@ $(document).ready(function(){
 		});
 	}
 
+	var loadMelk = function(delay, fade) {
+		$('#goHome').show();
+		$.get('/api/melk', function (data){
+			$('.content').delay(delay).html(data).fadeIn(fade);
+			keyEvents();
+		});
+	}
+
 	var loadHome = function() {
 		$('#goHome').fadeOut(500);
 		$('.content').fadeOut(500, function(){
@@ -62,6 +70,9 @@ $(document).ready(function(){
 			break;
 		case '/blog':
 			loadBlog(0,0);
+			break;
+		case '/melk':
+			loadMelk(0,0);
 			break;
 	}
 
@@ -82,6 +93,10 @@ $(document).ready(function(){
 	    		$('.logo').addClass('sidebar');
 	    		loadBlog(500, 500);
 	    		break;
+    		case '/melk':
+    			$('.logo').addClass('sidebar');
+    			loadMelk(500,500);
+    			break;
 	    }
 	});
 });

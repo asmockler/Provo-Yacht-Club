@@ -63,6 +63,26 @@ $('#showAbout').on('click', function(e){
 	}
 });
 
+$('#showMelk').on('click', function (e){
+	e.preventDefault();
+	window.history.pushState({}, "", '/melk');
+	if ( $('.logo').hasClass('sidebar') ) {
+		$('.content').fadeOut(500, function(){
+			$.get('/api/melk', function (data){
+				$('.content').html(data).fadeIn(500);
+				keyEvents();
+			});
+		});
+	} else {
+		$('#goHome').fadeIn(1000);
+		$('.logo').addClass('sidebar');
+		$.get('/api/melk', function (data){
+			$('.content').html(data).delay(1000).fadeIn(1000);
+			keyEvents();
+		});
+	}
+})
+
 $('#goHome').on('click', function (e) {
 	e.preventDefault();
 	window.history.pushState({}, "", '/')

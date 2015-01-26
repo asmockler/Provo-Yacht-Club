@@ -73,7 +73,7 @@ ul.nav.navbar-nav{
 
 /* ====== CONTENT ====== */
 
-.logo, .logo > img{
+.logo, .logo > a > img{
 	-webkit-transition: margin 1s, width 1s, height 1s, top 1s, bottom 1s, left 1s, right 1s;
 	transition: margin 1s, width 1s, height 1s, top 1s, bottom 1s, left 1s, right 1s;
 	-webkit-transition-timing-function:ease-in-out;
@@ -86,8 +86,8 @@ ul.nav.navbar-nav{
 	float:right;
 }
 
-.logo > img {
-	width: 60%;
+.logo > a > img {
+	width: 45%;
 	margin:auto;
 }
 
@@ -96,8 +96,63 @@ ul.nav.navbar-nav{
 	float:right;
 }
 
-.sidebar > img {
+.sidebar > a > img {
 	width: 100%;
+}
+
+.jan-30, .jan-30 > a {
+	opacity: .75;
+	font-weight: 100;
+	letter-spacing: 1px;
+	font-size: 30px;
+	line-height: 20px;
+	color:white;
+	transition: opacity .25s;
+}
+
+.jan-30 > a:hover {
+	opacity: 1;
+}
+
+.sidebar .jan-30 a {
+	display: block;
+	line-height: 35px;
+}
+
+.sidebar .jan-30 span {
+	display:none;
+}
+
+.melk-title {
+	font-weight:100;
+	text-shadow: 3px 3px 2px rgba(0,0,0,.5);
+	font-size:55px;
+}
+
+.melk .lead {
+	font-weight: 200;
+	text-shadow: 1px 1px 2px rgba(0,0,0,.5);
+}
+
+.melk .question {
+	font-weight: 200;
+	text-shadow: 1px 1px 2px rgba(0,0,0,.5);
+	font-size:20px;
+	width:75%;
+	margin-top: 55px;
+}
+
+.melk .answer {
+	font-weight: 200;
+	text-shadow: 1px 1px 2px rgba(0,0,0,.5);
+	font-size:20px;
+	width:85%;
+	text-align: right;
+	margin-left: 10%;
+}
+
+a:focus {
+	text-decoration: none;
 }
 
 .content { 
@@ -213,6 +268,7 @@ ul.nav.navbar-nav{
 .about img {
 	border: 5px solid white;
 	max-width:95%;
+	margin: auto;
 }
 
 .about h2 {
@@ -314,8 +370,31 @@ ul.nav.navbar-nav{
 	body{
 		padding-top: 10px;
 	}
-	.logo > img {
+	.logo > a > img {
 		width: 100%;
+	}
+	.jan-30 {
+		display: none;
+	}
+	.sidebar {
+		display: none;
+	}
+	a.hidden-md, a.hidden-md:hover, a.hidden-md:focus {
+		color: white;
+		float: right;
+		text-transform: uppercase;
+	}
+	.content {
+		width: 100%;
+		padding: 0;
+	}
+	#captain-signature {
+		margin-bottom: 50px;
+		width:100%;
+		max-width: 100%
+	}
+	.about {
+		padding: 0;
 	}
 	nav {
 		display:none;

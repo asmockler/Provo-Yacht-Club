@@ -57,6 +57,15 @@ get '/about' do
   erb :'Index/index'
 end
 
+get '/melk' do
+  @sidebar_state = "sidebar"
+  @total_songs = Song.count
+  @number = 0
+  @songs = Song.limit(20).find_each(:published => true, :order => :created_at.desc)
+
+  erb :'Index/index'
+end
+
 get '/load_more_songs/:number' do
   @total_songs = Song.last.number
   @number = params[:number].to_i
@@ -99,4 +108,8 @@ end
 
 get '/event' do
   redirect 'https://www.facebook.com/events/1391500977819394/'
+end
+
+get '/api/melk' do
+  erb :'special/melk'
 end
