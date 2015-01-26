@@ -369,19 +369,20 @@ a:focus {
 	}
 	body{
 		padding-top: 10px;
-		padding-bottom: 100px;
+		padding-bottom: 250px;
 	}
 	.logo > a > img {
 		width: 100%;
 	}
 	.jan-30 {
 		font-size: 14px;
+		font-weight:400;
 	}
 	.jan-30 a{
 		color: white;
 		opacity: 1;
 		line-height: 20px;
-		font-weight: 200;
+		font-weight: 400;
 		font-size: 14px;
 	}
 	.sidebar {
