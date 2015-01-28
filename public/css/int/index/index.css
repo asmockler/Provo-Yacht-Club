@@ -226,6 +226,10 @@ a:focus {
 
 
 /* ====== BLOG ====== */
+.ad {
+	margin-top: 100px;
+}
+
 .blog-post-container{
 	padding-right:40px;
 }

@@ -86,6 +86,7 @@ $(document).ready(function(){
 				e.preventDefault();
 				$('.content').fadeOut(500, function() {
 					loadBlog(500, 500);
+					window.history.pushState({}, "", '/blog');
 				});
 			});
 		});
