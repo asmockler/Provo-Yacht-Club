@@ -5,7 +5,7 @@
 end
 
 get '/' do
-  @total_songs = Song.count
+  @total_songs = Song.last.number
   @songs = Song.limit(20).find_each(:published => true, :order => :created_at.desc)
   
   @sidebar_state = false
@@ -47,13 +47,30 @@ get '/random' do
   erb :'Index/index'
 end
 
-get '/blog/?:id?/?:slug?' do
+get '/blog/?:slug?' do
   @sidebar_state = "sidebar"
-  @total_songs = Song.count
-  @number = 0
-  @songs = Song.limit(20).find_each(:published => true, :order => :created_at.desc)
-
-  erb :'Index/index'
+  @total_songs = Song.last.number
+  if params[:slug] 
+    song = Song.first(:slug => params[:slug], :order => :created_at.desc)
+    unless song
+      redirect '/error/404'
+    end
+    @unpublished_songs = Song.where(:number.gt => song.number.to_i, :published => false).count
+    if (@total_songs - (song.number + @unpublished_songs) - 2) > 0
+      @num_to_skip = @total_songs.to_i - (song.number.to_i + @unpublished_songs.to_i) - 2
+      @facebook_image_number = 2
+    else
+      @num_to_skip = 0
+      @facebook_image_number = 0
+    end
+    @songs = Song.limit(20).skip(@num_to_skip).find_each(:published => true, :order => :created_at.desc)
+    @facebook_image = @songs.clone.to_a.at(@facebook_image_number).album_art
+    @single_blog_post = true
+    erb :'Index/index'
+  else
+    @songs = Song.limit(20).find_each(:published => true, :order => :created_at.desc)
+    erb :'Index/index'
+  end
 end
 
 get '/about' do
@@ -95,9 +112,9 @@ get '/load_previous_songs/:number' do
   erb :'Index/partials/song_thumb'
 end
 
-get '/api/blog/?:id?' do
-  if params[:id]
-    @posts = Song.FIND_BY_ID
+get '/api/blog/?:slug?' do
+  if params[:slug]
+    @posts = Song.limit(1).find_each(:slug => params[:slug], :order => :created_at.desc)
   else
     @posts = Song.limit(10).find_each(:has_blog_post => true, :order => :created_at.desc)
   end

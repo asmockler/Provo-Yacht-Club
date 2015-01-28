@@ -76,8 +76,19 @@ $(document).ready(function(){
 			break;
 	}
 
-	if ( (window.location.pathname).match(/\/blog\/.+\/.+/) ) {
-		console.log('matched')
+	if ( (window.location.pathname).match(/\/blog\/.+/) ) {
+		var slug = (window.location.pathname).substr(6); // 6 is the number of characters to get what comes after "/blog/"
+		$('#goHome').show();
+		$.get('/api/blog/' + slug, function (data) {
+			$('.content').html(data).show();
+			keyEvents();
+			$('.load-more-posts').html('Return to Blog').on('click', function (e) {
+				e.preventDefault();
+				$('.content').fadeOut(500, function() {
+					loadBlog(500, 500);
+				});
+			});
+		});
 	}
 
 	window.addEventListener("popstate", function(e) {
