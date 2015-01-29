@@ -140,3 +140,8 @@ end
 get '/api/melk' do
   erb :'special/melk'
 end
+
+get '/api/iphone' do
+  @songs = Song.limit(10).find_each(:published => true, :order => :created_at.desc)
+  @songs.to_json
+end
