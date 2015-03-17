@@ -33,7 +33,7 @@ h1 {
 	text-transform: uppercase;
 	letter-spacing: 8px;
 	font-size: 50px;
-	margin: 12% 0 0 0;
+	margin: 8% 0 0 0;
 }
 h2 {
 	font-weight: 300;
@@ -103,4 +103,10 @@ input.form-control {
 }
 p.error {
 	font-weight: 600;
+}
+p.small {
+	text-transform: uppercase;
+	font-size:10px;
+	letter-spacing:3px;
+	margin-top: 5px;
 }

@@ -5,8 +5,8 @@
 end
 
 get "/thelist" do
-	count = List.count
-	if count > 150
+	@count = List.count
+	if @count > 150
 		@full = true
 	else
 		@full = false
@@ -18,8 +18,6 @@ post "/thelist/:email/:name" do
 	unless List.count < 152
 		return 403
 	end
-
-	puts List.count
 
 	@list = List.new(:name => params["name"], :email => params["email"])
 
