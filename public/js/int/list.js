@@ -19,7 +19,7 @@ $('#submit').on('click', function (e){
 
 	$.ajax({
 		type: 'POST',
-		url: '/list/'+email+'/'+name,
+		url: '/thelist/'+email+'/'+name,
 		success: function (data) {
 			$('#myModal').modal('show');
 		},
