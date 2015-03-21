@@ -18,6 +18,9 @@ GEM
     builder (3.2.2)
     i18n (0.7.0)
     json (1.8.1)
+    mail (2.6.3)
+      mime-types (>= 1.16, < 3)
+    mime-types (2.4.3)
     minitest (5.5.0)
     mongo (1.10.1)
       bson (~> 1.10.1)
@@ -28,6 +31,8 @@ GEM
       plucky (~> 0.6.5)
     plucky (0.6.6)
       mongo (~> 1.5)
+    pony (1.11)
+      mail (>= 2.0)
     rack (1.6.0)
     rack-protection (1.5.3)
       rack
@@ -51,5 +56,6 @@ DEPENDENCIES
   bson_ext (= 1.10.1)
   mongo (= 1.10.1)
   mongo_mapper (= 0.13.0)
+  pony
   sinatra (= 1.4.5)
   sinatra-flash (= 0.3.0)
