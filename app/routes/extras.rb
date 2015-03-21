@@ -6,7 +6,7 @@ end
 
 get "/thelist" do
 	@count = List.count
-	if @count > 150
+	if @count > 149
 		@full = true
 	else
 		@full = false
