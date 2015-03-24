@@ -1,0 +1,4 @@
+<% @partiers.each do |p| %>
+	<b><p><%= p.name.split.map(&:capitalize).join(' ') %></b> <br>
+	<%= p.email.downcase %></p>
+<% end %>
