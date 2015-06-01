@@ -285,15 +285,14 @@ $(document).ready(function(){
 
 		var firstSongNumber = $('.song-thumb').first().attr('data-number');
 		var totalSongs = $('body').attr('data-total-songs');
-		if ( parseInt(firstSongNumber, 10) < parseInt(totalSongs, 10) ) {
-			if ( window.location.pathname.split('/')[2] == $('.song-thumb').eq(1).attr('data-slug') ) {
-				var firstSong = $('.song-thumb:nth-of-type(3)');
-				$('.song-thumb-row').scrollLeft(176 + 1)
-			} else {			
-				var firstSong = $('.song-thumb:nth-of-type(4)');
-				$('.load-previous').css({'display' : 'inline-block'});
-				$('.song-thumb-row').scrollLeft(176*3 + 1)
-			}
+		if ( window.location.pathname.split('/')[2] == $('.song-thumb').eq(1).attr('data-slug') ) {
+			var firstSong = $('.song-thumb:nth-of-type(3)');
+			$('.load-previous').hide();
+			$('.song-thumb-row').scrollLeft(176 + 1)
+		} else if ( parseInt(firstSongNumber, 10) < parseInt(totalSongs, 10) ) {
+			var firstSong = $('.song-thumb:nth-of-type(4)');
+			$('.load-previous').css({'display' : 'inline-block'});
+			$('.song-thumb-row').scrollLeft(176*3 + 1)
 		} else {
 			var firstSong = $('.song-thumb').first();
 			$('.load-previous').hide();
