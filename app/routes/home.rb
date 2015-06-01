@@ -21,9 +21,12 @@ get '/track/:slug' do
   end
   @total_songs = Song.last.number
   @unpublished_songs = Song.where(:number.gt => song.number.to_i, :published => false).count
-  if (@total_songs - (song.number + @unpublished_songs) - 2) > 0
+  if (@total_songs - (song.number + @unpublished_songs) - 2) == 2
     @num_to_skip = @total_songs.to_i - (song.number.to_i + @unpublished_songs.to_i) - 2
     @facebook_image_number = 2
+  elsif (@total_songs - (song.number + @unpublished_songs) - 2) == 1
+  	@num_to_skip = @total_songs.to_i - (song.number.to_i + @unpublished_songs.to_i) - 2
+  	@facebook_image_number = 1
   else
     @num_to_skip = 0
     @facebook_image_number = 0
