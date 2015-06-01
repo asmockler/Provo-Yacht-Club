@@ -16,16 +16,18 @@ end
 
 get '/track/:slug' do
   song = Song.first(:slug => params[:slug], :order => :created_at.desc)
+
   unless song
     redirect '/error/404'
   end
+
   @total_songs = Song.last.number
   @unpublished_songs = Song.where(:number.gt => song.number.to_i, :published => false).count
-  if (@total_songs - (song.number + @unpublished_songs) - 2) == 2
+  if (@total_songs - (song.number + @unpublished_songs) - 2) > 1
     @num_to_skip = @total_songs.to_i - (song.number.to_i + @unpublished_songs.to_i) - 2
     @facebook_image_number = 2
-  elsif (@total_songs - (song.number + @unpublished_songs) - 2) == 1
-  	@num_to_skip = @total_songs.to_i - (song.number.to_i + @unpublished_songs.to_i) - 2
+  elsif (@total_songs - (song.number + @unpublished_songs)) == 1
+  	@num_to_skip = 1
   	@facebook_image_number = 1
   else
     @num_to_skip = 0
