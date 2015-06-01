@@ -28,7 +28,7 @@ get '/track/:slug' do
     @facebook_image_number = 2
   elsif (@total_songs - (song.number + @unpublished_songs)) == 1
   	@num_to_skip = 0
-  	@facebook_image_number = 0
+  	@facebook_image_number = 1
   else
     @num_to_skip = 0
     @facebook_image_number = 0
